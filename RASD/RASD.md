@@ -1,6 +1,7 @@
 # RASD TO DO LIST
 
 1. Identify Goals, Domain and Requirements
+2. Traceability matrix
 2. Identify Actors
 3. Identify Scenarios
 4. UML: 
