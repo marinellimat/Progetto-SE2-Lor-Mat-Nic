@@ -28,6 +28,7 @@ one sig RESERVED extends CarState {}
 one sig IN_USE extends CarState {}
 one sig UNAVAILABLE extends CarState {}
 
+
 sig Car {
 	batteryLevel: Int,
 	peopleInside: Int,
@@ -102,7 +103,7 @@ fact PaymentPendingUser {
 fact ValidInvoices {
 	no disjoint r1, r2: Ride | r1.invoice = r2.invoice
 	no disjoint r1, r2: Reservation | r1.invoice = r2.invoice
-	all i: Invoice | i != none implies one r: Reservation | r.invoice = i or one rr: Ride | rr.invoice = i 
+	all i: Invoice | i != none implies (one r: Reservation | r.invoice = i) or (one rr: Ride | rr.invoice = i)
  
 }
 
@@ -114,7 +115,7 @@ fact carLicenseUnique {
 
 fact carPositionUnique {
 	all c1, c2: Car | (c1 != c2) => c1.position != c2.position
-	}
+}
 
 fact carLockedWhenNoOneInside {
 	all c: Car | c.peopleInside = 0 implies c.locked = True
@@ -139,7 +140,7 @@ fact carAvailableState {
 }
 
 fact carReservedState {
-	all c: Car | c.state = RESERVED implies one r: Reservation | r.selectedCar = c && r.expired = False && r.cancelled = False
+	all c: Car | c.state = RESERVED implies one r: Reservation | r.selectedCar = c 
 	all c: Car | c.state = RESERVED implies no r: Ride | r.selectedCar = c 
 	all c: Car | c.state = RESERVED implies c.malfunctioning = False
 	all c: Car | c.state = RESERVED implies c.motorIgnited = False
@@ -150,7 +151,6 @@ fact carReservedState {
 fact carInUseState {
 	all c: Car | c.state = IN_USE <=> one r: Ride | r.selectedCar = c
 	all c: Car | c.state = IN_USE implies one r: Reservation | r.selectedCar = c && r.expired = False && r.cancelled = False
-	all c: Car | c.state = IN_USE implies one r: Ride | r.selectedCar = c
 	all c: Car | c.state = IN_USE implies c.peopleInside > 0
 }
 
@@ -167,8 +167,13 @@ fact carUnavailable {
 fact oneReservationPerUser{
 	no disjoint r1, r2: Reservation | r1.user = r2.user
 }
+
 fact oneReservationPerCar {
 	no disjoint r1, r2: Reservation | r1.selectedCar = r2.selectedCar
+}
+
+fact ReservationNotCompletedAndExpired {
+	no r: Reservation | r.expired = True && r.cancelled = True 
 }
 
 // RIDE 
@@ -235,10 +240,37 @@ fact fines {
 	all r: Ride | r.completed = True && r.selectedCar.state = IN_USE && r.selectedCar.batteryLevel <= 20 implies r.invoice.fine = 20
 }
 
-// ASSERT 
+/*
+assert noRideForUserWithDebts {
+	all r: Ride | r.completed = False and r.user.pendingPayment = False
+}
+check noRideForUserWithDebts
+
+assert allCompletedRidesHaveInvoice {
+	all r: Ride | r.completed = True and r.invoice != none
+}
+check allCompletedRidesHaveInvoice
+
+assert allRunningCarsHaveActiveRide {
+	no c: Car | c.state = IN_USE and (no r: Ride | r.selectedCar = c and r.selectedCar.state = IN_USE) }
+check allRunningCarsHaveActiveRide
+
+assert noUserWithMoreThanOneReservation {
+	no disjoint r1, r2: Reservation | r1.user = r2.user }
+check noUserWithMoreThanOneReservation
+
+assert noCarReservedMoreThanOnce {
+	no disjoint r1, r2: Reservation | r1.selectedCar = r2.selectedCar }
+check noCarReservedMoreThanOnce
+
+assert noUnreservedCarInReservation {
+	all r: Reservation | r.selectedCar.state = RESERVED }
+check noUnreservedCarInReservation
+
+*/
 
 pred show () {
-	some c:Car | c.state = IN_USE
+	some c1, c2: Car | c1.state = RESERVED and c2.state = IN_USE
 }
 
 run show for 2 but 8 Int
