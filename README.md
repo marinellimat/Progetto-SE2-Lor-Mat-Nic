@@ -12,8 +12,8 @@ Repository Progetto di Software Engineering 2 Gruppo: Lorenzo Saule, Matteo Mari
 
 ## DEADLINES:
 
-- **RASD submission deadline 13/11/2016**
-- DD submission deadline 11/12/2016
+- RASD submission deadline 13/11/2016
+- **DD submission deadline 11/12/2016**
 - Testing document submission deadline 15/01/2017
 - Project management deadline 22/01/2017
 - Code inspection deadline 05/02/2017
