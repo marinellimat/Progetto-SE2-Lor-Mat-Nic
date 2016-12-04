@@ -1,0 +1,487 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Power EnJoy 
+\begin_inset Newline newline
+\end_inset
+
+Design Document 
+\end_layout
+
+\begin_layout Author
+Niccolo' Raspa, Matteo Marinelli
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename images/polimi.png
+	scale 60
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+Software Engineering 2 Course Project
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Introduction
+\end_layout
+
+\begin_layout Subsection
+Purpose
+\end_layout
+
+\begin_layout Standard
+This is the Design Document for the Power Enjoy Service.
+ It's aim is to provide a functional description of the main architectural
+ components, their interfaces and their interactions, together with the
+ algorithms to implement and the User Interface Design.
+ Using UML standards, this document will show the structure of the system
+ and the relationships between the modules.
+ This document is written for project managers, developers, testers and
+ Quality Assurance.
+ It can be used for a structural overview to help maintenance and further
+ development.
+\end_layout
+
+\begin_layout Subsection
+Scope
+\end_layout
+
+\begin_layout Standard
+PowerEnjoy is a digital management system for a car-sharing service that
+ exclusively employs electric cars.
+ It allows registered clients (Power Users) to use a vehicle paying only
+ on the basis of the actual use during each individual rental.
+ For a more detail description of the domain and the requirements please
+ refer to the Requirement and Specification Document.
+ 
+\end_layout
+
+\begin_layout Standard
+The software system is divided into four layers, which will be presented
+ in the document.
+ The architecture has to be easily extensible and maintainable in order
+ to provide new functionalities.
+ Every component must be conveniently thin and must encapsulate a single
+ functionality (high cohesion).
+ The dependency between components has to be unidirectional and coupling
+ must be avoided in order to increase the reusability of the modules.
+\end_layout
+
+\begin_layout Standard
+Futhermore, to increase cohesion and decoupling as much individual components
+ must not include too many unrelated functionalities and reduce interdependencie
+s.
+\end_layout
+
+\begin_layout Subsection
+Definitions, Acronyms, Abbreviation
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+RASD: Requirements Analysis and Specification Document.
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+DD: Design Document.
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+DBMS: Relational Data Base Management System.
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+DB: Database layer,
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+UI: User Interface.
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+Backend: Term used to identify the Application server.
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+Frontend: The components which use the application server services (web
+ front-end and the mobile applications).
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+SOA: Service Oriented Architecture.
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+JDBC: Java DataBase Connectivity.
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+JPA: Java Persistence API.
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+EJB: Enterprise JavaBean.
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+ACID: Atomicity, Consistency, Integrity and Durability.
+\end_layout
+
+\begin_layout Subsection
+Reference Documents
+\end_layout
+
+\begin_layout Standard
+This document refers to the following documents:
+\end_layout
+
+\begin_layout Itemize
+Project rules of the Software Engineering 2 project 
+\end_layout
+
+\begin_layout Itemize
+Requirement Analysis and Specification Document (from the previous delivery)
+\end_layout
+
+\begin_layout Subsection
+Document Structure
+\end_layout
+
+\begin_layout Standard
+This document is structured in five parts: 
+\end_layout
+
+\begin_layout Description
+Chapter
+\begin_inset space \space{}
+\end_inset
+
+1:
+\begin_inset space \space{}
+\end_inset
+
+Introduction.
+ This section provides general information about the DD document and the
+ system to be developed.
+ 
+\end_layout
+
+\begin_layout Description
+Chapter
+\begin_inset space \space{}
+\end_inset
+
+2:
+\begin_inset space \space{}
+\end_inset
+
+Architectural
+\begin_inset space \space{}
+\end_inset
+
+Design.
+ This section shows the main components of the systems with their subcomponents
+ and their relationships, along with their static and dynamic design.
+ This section will also focus on design choices, styles, patterns and paradigms.
+\end_layout
+
+\begin_layout Description
+Chapter
+\begin_inset space \space{}
+\end_inset
+
+3:
+\begin_inset space \space{}
+\end_inset
+
+Algorithm
+\begin_inset space \space{}
+\end_inset
+
+Design.
+ This section will present and discuss the main algorithms for the core
+ functions of the system, independently from their concrete implementation.
+\end_layout
+
+\begin_layout Description
+Chapter
+\begin_inset space \space{}
+\end_inset
+
+4:
+\begin_inset space \space{}
+\end_inset
+
+User
+\begin_inset space \space{}
+\end_inset
+
+Interface
+\begin_inset space \space{}
+\end_inset
+
+Design.
+ This section shows how the user interface will look like and behave, by
+ means of concept graphics and UX modeling.
+\end_layout
+
+\begin_layout Description
+Chapter
+\begin_inset space \space{}
+\end_inset
+
+5:
+\begin_inset space \space{}
+\end_inset
+
+Requirements
+\begin_inset space \space{}
+\end_inset
+
+Traceability This section shows how the requirements in the RASD are satisfied
+ by the design choices, and which compontents will implement them.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Architectural Design
+\end_layout
+
+\begin_layout Subsection
+Overview
+\end_layout
+
+\begin_layout Standard
+This chapter provides a comprehensive view over the system components, both
+ at a physical and at a logical level.
+ This description will follow a top-down approach, starting with the description
+ of high-level components and their relations and interactions.
+ We will then reason and describe the single components and the functionalities
+ they must implement.
+ We will especially focus on the components that implement the core logic
+ of our application and using sequence diagrams we will describe the runtime
+ behaviour of the system.
+ 
+\end_layout
+
+\begin_layout Standard
+We will also include deployment diagrams to show the physical implementation
+ of the system.
+\end_layout
+
+\begin_layout Subsection
+High Level Components 
+\end_layout
+
+\begin_layout Subsection
+Component View
+\end_layout
+
+\begin_layout Subsection
+Deployment View
+\end_layout
+
+\begin_layout Subsection
+Runtime View
+\end_layout
+
+\begin_layout Standard
+Sequence diagrams to descrive the way componenets interact to accomplish
+ specific tasks typically related to your use cases
+\end_layout
+
+\begin_layout Subsection
+Component Interfaces
+\end_layout
+
+\begin_layout Subsection
+Selected Architectural Styles and Pattern
+\end_layout
+
+\begin_layout Standard
+Explain styles/patterns used and why/how
+\end_layout
+
+\begin_layout Subsection
+Other Design Decision
+\end_layout
+
+\begin_layout Section
+Algorithm Design
+\end_layout
+
+\begin_layout Standard
+Focus of the most relevant algorithmic part
+\end_layout
+
+\begin_layout Section
+UI Design
+\end_layout
+
+\begin_layout Standard
+Overview of how the user interace of your system will look like
+\end_layout
+
+\begin_layout Section
+Requirements Traceability
+\end_layout
+
+\begin_layout Standard
+Explain how requirements defined in the RASD map to the design elements
+ that you have definited in this document
+\end_layout
+
+\begin_layout Section
+Effort Spent
+\end_layout
+
+\end_body
+\end_document
