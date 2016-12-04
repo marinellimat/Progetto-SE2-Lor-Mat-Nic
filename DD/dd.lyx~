@@ -544,49 +544,43 @@ System: Every Power Enjoy vehicle comes with a pre-installed on board system
 \end_layout
 
 \begin_layout Standard
-In the figure below we rapresent all the components listed above in a layered
- fashion, highlighting the relations among the different parts: 
+THIS IMAGE: 
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
 \end_layout
 
-\begin_layout Standard
-\align center
+\begin_layout Plain Layout
 \begin_inset Graphics
 	filename images/highlevel.png
-	lyxscale 20
-	scale 35
+	lyxscale 25
+	scale 30
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+High Level
+\end_layout
 
 \end_inset
 
 
 \end_layout
 
-\begin_layout Standard
-\align center
-Figure 1: High Level Components 
+\begin_layout Plain Layout
+
 \end_layout
 
-\begin_layout Standard
-From this diagrams it's important to point out: 
-\end_layout
+\end_inset
 
-\begin_layout Itemize
-Separate Application Server and the Web Server improves scalability, since
- there may be many web servers talking to a single application server.
- Further implementations may include the use of caching at the web server
- level.
- distinct physical tiers that can individually be optimized to perform their
- respective task.
- 
-\end_layout
 
-\begin_layout Itemize
-This layered rapresentation already suggest a four tier architecture,
-\end_layout
-
-\begin_layout Itemize
-The Application Server is the bottleneck of our system.
- Every other components is in relation with it, therefore it's performance
- is stricly related to the performance of our system.
 \end_layout
 
 \begin_layout Subsection
@@ -594,10 +588,8 @@ Component View
 \end_layout
 
 \begin_layout Standard
-In this section the individual components will be discussed in terms of
- the needed high level sub-parts and their functioning, as well as how those
- sub- elements interface with one another within the overlaying component
- and which of them is in charge of interfacing with other components.
+lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum
+ lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum
  
 \end_layout
 

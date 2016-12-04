@@ -1,13 +1,5 @@
 # Progetto-SE2-Lor-Mat-Nic
-Repository Progetto di Software Engineering 2 Gruppo: Lorenzo Saule, Matteo Marinelli, Niccolò Raspa
-
-
-**ORE DI LAVORO**
-- https://docs.google.com/spreadsheets/d/1R1MrHNCfyH1ZykWIsZHVFCOGxPV7qBZq4mNBhrI23Ow/edit#gid=0
-
-**TOOLS**:
-- Star UML: http://staruml.io/
-- DRAW: https://www.draw.io/
+Repository Progetto di Software Engineering 2 Gruppo: Matteo Marinelli, Niccolò Raspa
 
 
 ## DEADLINES:
