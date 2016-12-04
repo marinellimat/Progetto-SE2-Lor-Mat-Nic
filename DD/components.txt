@@ -1,0 +1,44 @@
++3h
+
+Componenti dell'appicaion server:
+
+Ti scrivo le componenti che ho immaginato io per l'application server. Ho provato a immaginare un ulteriore livello di profondità ma credo che sotto l'high level si riesca a scendere solo a questo livello perchè le funzionalità diventano veramente piccole e spesso banali. Intanto ti mando questo e poi vedo se ha senso introdurre un altro livello, magari mettendo le funzionalità utilizzabili da più componenti.
+
+1)Registration System
+Verifica le credenziali per la registrazione e permette di registrarsi e modificare i propri dati personali.
+
+2)Login System
+Verifica le credenziali di accesso e permette di accedere.
+
+3)Car MNG
+Gestisce lo scambio di messaggi con la macchina, in particolare si occupa di modificare lo stato della macchina (unlock in particolare). Viene interpellato quando servono dati della macchina.
+
+4)Reservation System
+Verifica se un user può riservare una macchina (payment pending), gestisce in toto la reservation, interagendo soprattutto con Car MNG e Payment MNG (1h senza accendere).
+
+5)Drive MNG
+Dà inizio alla Drive e la gestisce completamente, interagisce infatti pesantemente con Car MNG per aggiornare ogni cambiamento di status. Calcola sia la fee e, dopo aver ricevuto la cifra scontata, la invia a Payment MNG
+
+6)Payment MNG
+Riceve quanto deve essere pagato e invia il pagamento al payment system. Riceve anche il risultato del pagamento e se necessario imposta i payment pending.
+
+7)Notification System
+Comunica con Payment MNG, car MNG, reservation system e drive MNG. Gestisce tutte le notifiche che vengono inviate (non i messaggi fra attori ma porprio messaggi tipo "pagamento andato a buon fine"). Fra le notifiche c'è anche la notifica all'assistenza per prendersi cura di una macchina.
+
+10)Locator MNG
+Colloca gli attori (user/car/plugs) secondo delle coordinate e eventualmente calcola le distanze.
+
+9)Interfaces
+sezione che si occupa di creare le interfacce in base alla sezione con cui comunica e al destinatario (app/web).
+
+10)Persistence Unit
+Aggiorna il database, comunica con praticamente tutte le sezioni.
+
+11)User MNG
+Gestisce le informazioni dell'utente, in particolare rileva tutte le informazione necessarie in tempo reale (posizione).
+
+12)Discounts MNG
+calcola gli sconti sulla fee ricevuta e compie tutte le operazioni necessarie. Restituisce la fee scontata.
+
+Ti mando una foto col grafico a livelli
+Vedi se combacia o è compatibile col lavoro che hai fatto tu, nel caso dimmi come posso sistemare.
