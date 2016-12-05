@@ -510,7 +510,9 @@ Assistance
 \end_inset
 
 Service: Power Enjoy is in charge of the management of the car-sharing system.
- All the secondary functionalities are handled by an assistance service.
+ All the secondary functionalities (recharging vehicles onsite, bringing
+ cars back from unsafe areas and fixing malfunctions) are handled by an
+ assistance service.
  This components provides an API to handle all the assistance request.
 \end_layout
 
@@ -544,43 +546,49 @@ System: Every Power Enjoy vehicle comes with a pre-installed on board system
 \end_layout
 
 \begin_layout Standard
-THIS IMAGE: 
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-
+In the figure below we rapresent all the components listed above in a layered
+ fashion, highlighting the relations among the different parts: 
 \end_layout
 
-\begin_layout Plain Layout
+\begin_layout Standard
+\align center
 \begin_inset Graphics
 	filename images/highlevel.png
-	lyxscale 25
-	scale 30
-
-\end_inset
-
-
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-High Level
-\end_layout
+	lyxscale 20
+	scale 35
 
 \end_inset
 
 
 \end_layout
 
-\begin_layout Plain Layout
-
+\begin_layout Standard
+\align center
+Figure 1: High Level Components 
 \end_layout
 
-\end_inset
+\begin_layout Standard
+From this diagrams it's important to point out: 
+\end_layout
 
+\begin_layout Itemize
+This layered rapresentation suggests a four tier architecture
+\end_layout
 
+\begin_layout Itemize
+Separating Application Server and the Web Server improves scalability.
+ We expect Power Enjoy usage to grow in differents cities and in this way
+ we're able to seperate the tasks and optimize each layer individually to
+ support increasing loads.
+\end_layout
+
+\begin_layout Itemize
+The Application Server is the bottleneck of our system.
+ Every other components is in relation with it, therefore it's performance
+ is stricly related to the performance of our system.
+ But since every components expects different functionalities from the Applicati
+on Server we can parallelize using threads and split the work load among
+ different modules.
 \end_layout
 
 \begin_layout Subsection
@@ -588,9 +596,67 @@ Component View
 \end_layout
 
 \begin_layout Standard
-lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum
- lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum
- 
+In this subsection we will look inside every single component and describe
+ all the internal subcomponents.
+ It's important to identify the relevant modules without increasing granularity
+ to much.
+ This will allow to have an efficient load balance in the present and it
+ will be easy to integrate new functionalities in the future.
+\end_layout
+
+\begin_layout Subsubsection
+Application Server
+\end_layout
+
+\begin_layout Standard
+This component implements the whole logic of the Power Enjoy Application.
+ In this subsection we'll explore the subcomponents needed to implement
+ all the functionalities specified in the RASD.
+ The next figure shows how single functions are logically group in subcomponents.
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename images/application-server.jpg
+	lyxscale 30
+	scale 30
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Discorsi vari sui perche usare JAVA EE blabla...
+\end_layout
+
+\begin_layout Standard
+DIAGRAMMA delle componenti con roba di java in mezzo
+\end_layout
+
+\begin_layout Subsubsection
+Database
+\end_layout
+
+\begin_layout Standard
+ER DIAGRAM from these tables:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename images/sql_tables.jpg
+	lyxscale 20
+	scale 30
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Discorsi Vari e poi spiegazione della scelta di MySQL con Java Persistence
+ API e diagramma con Entity Beans (Parte alta del class diagram)
 \end_layout
 
 \begin_layout Subsection
@@ -598,10 +664,8 @@ Deployment View
 \end_layout
 
 \begin_layout Standard
-lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum
- lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum
- lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum
- lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum
+In this subsection we'll move on the physical side of our application, describin
+g his deployment with the support of UML diagrams.
  
 \end_layout
 
@@ -657,6 +721,10 @@ Explain how requirements defined in the RASD map to the design elements
 
 \begin_layout Section
 Effort Spent
+\end_layout
+
+\begin_layout Standard
+Niccolo' 6 Ore 
 \end_layout
 
 \end_body

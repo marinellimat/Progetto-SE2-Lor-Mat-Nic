@@ -510,7 +510,9 @@ Assistance
 \end_inset
 
 Service: Power Enjoy is in charge of the management of the car-sharing system.
- All the secondary functionalities are handled by an assistance service.
+ All the secondary functionalities (recharging vehicles onsite, bringing
+ cars back from unsafe areas and fixing malfunctions) are handled by an
+ assistance service.
  This components provides an API to handle all the assistance request.
 \end_layout
 
@@ -570,23 +572,23 @@ From this diagrams it's important to point out:
 \end_layout
 
 \begin_layout Itemize
-Separate Application Server and the Web Server improves scalability, since
- there may be many web servers talking to a single application server.
- Further implementations may include the use of caching at the web server
- level.
- distinct physical tiers that can individually be optimized to perform their
- respective task.
- 
+This layered rapresentation suggests a four tier architecture
 \end_layout
 
 \begin_layout Itemize
-This layered rapresentation already suggest a four tier architecture,
+Separating Application Server and the Web Server improves scalability.
+ We expect Power Enjoy usage to grow in differents cities and in this way
+ we're able to seperate the tasks and optimize each layer individually to
+ support increasing loads.
 \end_layout
 
 \begin_layout Itemize
 The Application Server is the bottleneck of our system.
  Every other components is in relation with it, therefore it's performance
  is stricly related to the performance of our system.
+ But since every components expects different functionalities from the Applicati
+on Server we can parallelize using threads and split the work load among
+ different modules.
 \end_layout
 
 \begin_layout Subsection
@@ -594,11 +596,92 @@ Component View
 \end_layout
 
 \begin_layout Standard
-In this section the individual components will be discussed in terms of
- the needed high level sub-parts and their functioning, as well as how those
- sub- elements interface with one another within the overlaying component
- and which of them is in charge of interfacing with other components.
+In this subsection we will look inside every single component and describe
+ all the internal subcomponents.
+ It's important to identify the relevant modules without increasing granularity
+ to much.
+ This will allow to have an efficient load balance in the present and it
+ will be easy to integrate new functionalities in the future.
+\end_layout
+
+\begin_layout Subsubsection
+Application Server
+\end_layout
+
+\begin_layout Standard
+This component implements the whole logic of the Power Enjoy Application.
+ In this subsection we'll explore the subcomponents needed to implement
+ all the functionalities specified in the RASD.
+ The next figure shows how single functions are logically group in subcomponents.
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename images/application-server.jpg
+	lyxscale 30
+	scale 30
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Discorsi vari sui perche usare JAVA EE blabla...
+\end_layout
+
+\begin_layout Standard
+DIAGRAMMA delle componenti con roba di java in mezzo
+\end_layout
+
+\begin_layout Subsubsection
+Database
+\end_layout
+
+\begin_layout Standard
+ER DIAGRAM from these tables:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename images/sql_tables.jpg
+	lyxscale 20
+	scale 30
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Discorsi Vari e poi spiegazione della scelta di MySQL con Java Persistence
+ API e diagramma con Entity Beans (Parte alta del class diagram)
+\end_layout
+
+\begin_layout Subsubsection
+External Services 
+\end_layout
+
+\begin_layout Standard
+Qualche parola sugli external services 
+\end_layout
+
+\begin_layout Subsubsection
+Client
+\end_layout
+
+\begin_layout Itemize
+Spiegazione del perche' mobile-first.
  
+\end_layout
+
+\begin_layout Itemize
+Spiegazione del perche' aggiungere un webserver 
+\end_layout
+
+\begin_layout Itemize
+Diagramma della mobile app (con gps ecc...)
 \end_layout
 
 \begin_layout Subsection
@@ -606,10 +689,8 @@ Deployment View
 \end_layout
 
 \begin_layout Standard
-lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum
- lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum
- lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum
- lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum
+In this subsection we'll move on the physical side of our application, describin
+g his deployment with the support of UML diagrams.
  
 \end_layout
 
@@ -619,7 +700,7 @@ Runtime View
 
 \begin_layout Standard
 Sequence diagrams to descrive the way componenets interact to accomplish
- specific tasks typically related to your use cases
+ specific tasks typically related to your use cases.
 \end_layout
 
 \begin_layout Subsection
@@ -665,6 +746,10 @@ Explain how requirements defined in the RASD map to the design elements
 
 \begin_layout Section
 Effort Spent
+\end_layout
+
+\begin_layout Standard
+Niccolo' 10 Ore 
 \end_layout
 
 \end_body
