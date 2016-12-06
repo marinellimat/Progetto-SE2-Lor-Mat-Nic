@@ -747,7 +747,7 @@ Implementation Choice
 
 \begin_layout Standard
 This component will be implemented using Jave Enterprise Edition 7 (JEE7)
- using Enterprise JavaBeans (EJB) to implement the modules described above.
+ using Enterprise JavaBeans (EJB) to implement the module described above.
  The platform incorporates a design based largely on modular components
  running on an application server (GlassFish Server in this case) which
  is a natural consequence from the description above.
@@ -789,7 +789,7 @@ For the sake of clarity some information have been hidden from the diagram
  below but can be found in the next sections.
  In Section 2.5 we will provide more details on the interfaces of each module
  and in Section 2.6 using UML Sequence Diagrams we highlight the relationship
- between each component during a runtime analysis of our system.
+ between each 
 \end_layout
 
 \begin_layout Subsubsection

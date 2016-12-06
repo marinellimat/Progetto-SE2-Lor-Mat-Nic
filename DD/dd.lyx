@@ -604,23 +604,33 @@ In this subsection we will look inside every single component and describe
  will be easy to integrate new functionalities in the future.
 \end_layout
 
+\begin_layout Standard
+In a divide-and-conquer fashion for every component we will specify the
+ implementation chosen and at the end we will how to connect the single
+ components.
+\end_layout
+
 \begin_layout Subsubsection
 Application Server
 \end_layout
 
 \begin_layout Standard
-This component implements the whole logic of the Power Enjoy Application.
- In this subsection we'll explore the subcomponents needed to implement
- all the functionalities specified in the RASD.
- The next figure shows how single functions are logically group in subcomponents.
+This components implements the logic of the Power Enjoy Application, it's
+ the core of our business and in this part of the document we'll explore
+ the subcomponents inside.
+ To provide a natural continuation from the RASD, we will start from the
+ Class Diagram, and we will focus on the control object.
+ We will look at the singles control functions, logically group them in
+ cohesive groups and map them in modules of our system.
+ 
 \end_layout
 
 \begin_layout Standard
 \align center
 \begin_inset Graphics
-	filename images/application-server.jpg
-	lyxscale 30
-	scale 30
+	filename images/ControlComponents.png
+	lyxscale 60
+	scale 35
 
 \end_inset
 
@@ -628,11 +638,162 @@ This component implements the whole logic of the Power Enjoy Application.
 \end_layout
 
 \begin_layout Standard
-Discorsi vari sui perche usare JAVA EE blabla...
+\align center
+Figure 2: Mapping of control function to subcomponents of our system
 \end_layout
 
 \begin_layout Standard
-DIAGRAMMA delle componenti con roba di java in mezzo
+A brief desription of the functionalities expected from each module:
+\end_layout
+
+\begin_layout Description
+User
+\begin_inset space \space{}
+\end_inset
+
+Component This module provides the logic for a User and a Power User regarding
+ all the user management features, namely: user login, user registration,
+ user deletion, user profile editing.
+ It will perform all the validation of the credentials received before inserting
+ them into the system.
+\end_layout
+
+\begin_layout Description
+Location
+\begin_inset space \space{}
+\end_inset
+
+Component This module handles the position of each car and user of the system.
+ It's used to show cars on the map and to perform proximity checks to unlock
+ vehicles.
+\end_layout
+
+\begin_layout Description
+Reservation
+\begin_inset space \space{}
+\end_inset
+
+Component This module is responsible to manage all the current reservation
+ and to accept new reservations from Power Users.
+ It will be responsible for timing features (expiration of the reservation)
+ and for avoiding undesiderable behaviours (reservation of an unavailable
+ car, double-booking and multiple reservations).
+ It's strongly connected to the Car Event Component.
+\end_layout
+
+\begin_layout Description
+Ride
+\begin_inset space \space{}
+\end_inset
+
+Component This module creates and manages new rides from active reservations.
+ It will manages all the relevant informations (unsafe park timing, battery
+ level, sharedRideLenght) that receives from the Car Event Component.
+ When a Ride ends it will communicate it to the Reservation Component.
+\end_layout
+
+\begin_layout Description
+Car
+\begin_inset space \space{}
+\end_inset
+
+Event
+\begin_inset space \space{}
+\end_inset
+
+Component This modules interfaces with the API of the car on board system.
+ It's a 
+\begin_inset Quotes eld
+\end_inset
+
+low level
+\begin_inset Quotes erd
+\end_inset
+
+ component that collects all the car data for other components to use and
+ can be used to remotly control the vehicle.
+ It will signal to the interested component all the events of the car (car
+ locking/unlocking, motor ignition, malfunctioning).
+\end_layout
+
+\begin_layout Description
+Payment
+\begin_inset space \space{}
+\end_inset
+
+Component This modules interfaces with the API of the Payment Service to
+ request payments and receive confirmations.
+ It will not perform the fee calculation but it will receive the final price
+ and check for price variations via other components It will also flag/unflag
+ users as banned in case of Pending Payment.
+\end_layout
+
+\begin_layout Description
+Assistance
+\begin_inset space \space{}
+\end_inset
+
+Component This modules interfaces with the API of the Assistance Service
+ to request assistance (recharge on site, fix malfunctions, bring car back
+ from unsafe to safe areas) and receive confirmations once the assistance
+ is provided.
+ Once a car is fixed it will update the car informations (e.g.
+ new position, new battery level).
+\end_layout
+
+\begin_layout Subsubsection*
+Implementation Choice
+\end_layout
+
+\begin_layout Standard
+This component will be implemented using Jave Enterprise Edition 7 (JEE7)
+ using Enterprise JavaBeans (EJB) to implement the modules described above.
+ The platform incorporates a design based largely on modular components
+ running on an application server (GlassFish Server in this case) which
+ is a natural consequence from the description above.
+ It also provides support for large-scale, multi-tiered, scalable, reliable,
+ and secure network applications.
+ This modularity helps to handle such complex system and it make easy to
+ insert the functionalities (as new beans) in the future.
+\end_layout
+
+\begin_layout Standard
+The next figure will show the Application Component implemented as session
+ beans logically grouped in EJBContainers.
+ 
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename images/bean.png
+	lyxscale 60
+	scale 35
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+Figure 3: Application as Java Entity Beans
+\end_layout
+
+\begin_layout Standard
+For the sake of clarity some information have been hidden from the diagram
+ below but can be found in the next sections.
+ 
+\end_layout
+
+\begin_layout Standard
+In Section 2.5 we will provide more details on the interfaces of each module.
+ 
+\end_layout
+
+\begin_layout Standard
+In Section 2.6 using UML Sequence Diagrams we highlight the relationship
+ between each component during a runtime analysis of our system.
 \end_layout
 
 \begin_layout Subsubsection
@@ -657,6 +818,34 @@ ER DIAGRAM from these tables:
 \begin_layout Standard
 Discorsi Vari e poi spiegazione della scelta di MySQL con Java Persistence
  API e diagramma con Entity Beans (Parte alta del class diagram)
+\end_layout
+
+\begin_layout Itemize
+JDBC/JPA JDBC (Java Database Connectivity) was chosen as connector between
+ Database and the application server.
+ Java database con- nectivity interface (JDBC), incfact, is a software component
+ that allows Java applications to interact with databases.
+ To enhance the connection, JDBC re- quires drivers for each database.
+ These drivers connect to the database and implement the protocol to transfer
+ query and respective results between the client and database.
+ JDBC was chosen because it is available for any DBMS also thanks to the
+ ODBC bridge.
+ ODBC infact allows programmers to make SQL requests that will access data
+ from DB distinct without having to know the proprietary interfaces of each
+ DB.
+ In this way it is easier to change the database without altering the applicatio
+n layer.
+ The Java Persistence API (JPA) is a Java application programming interface
+ specification that describes the management of relational data in applications
+ using Java Platform, Standard Edition and Java Platform, Enterprise Edition.
+\end_layout
+
+\begin_layout Itemize
+The access to the DBMS is not implemented with direct SQL queries: instead,
+ it is completely wrapped by the Java Persistence API (JPA).
+ The object-relation mapping is done by entity beans.
+ The Entity Beans representing the database entities (Figure 2.5) are strictly
+ related to the entities of the ER diagram (Figure 2.4).
 \end_layout
 
 \begin_layout Subsubsection
@@ -684,6 +873,16 @@ Spiegazione del perche' aggiungere un webserver
 Diagramma della mobile app (con gps ecc...)
 \end_layout
 
+\begin_layout Itemize
+JAX-RS to implement proper RESTful APIs to interface with clients and the
+ Web Server;
+\end_layout
+
+\begin_layout Itemize
+• To interface with external systems, existing RESTful APIs defined by the
+ partner (payment handlers, maintenance system) will be used.
+\end_layout
+
 \begin_layout Subsection
 Deployment View
 \end_layout
@@ -692,6 +891,14 @@ Deployment View
 In this subsection we'll move on the physical side of our application, describin
 g his deployment with the support of UML diagrams.
  
+\end_layout
+
+\begin_layout Subsection
+Component Interfaces 
+\end_layout
+
+\begin_layout Standard
+Interfacce dei beans della sezione precedente 
 \end_layout
 
 \begin_layout Subsection
@@ -704,19 +911,11 @@ Sequence diagrams to descrive the way componenets interact to accomplish
 \end_layout
 
 \begin_layout Subsection
-Component Interfaces
-\end_layout
-
-\begin_layout Subsection
 Selected Architectural Styles and Pattern
 \end_layout
 
 \begin_layout Standard
 Explain styles/patterns used and why/how
-\end_layout
-
-\begin_layout Subsection
-Other Design Decision
 \end_layout
 
 \begin_layout Section
@@ -735,13 +934,17 @@ UI Design
 Overview of how the user interace of your system will look like
 \end_layout
 
+\begin_layout Standard
+Solo mockups niente UX Diagram
+\end_layout
+
 \begin_layout Section
 Requirements Traceability
 \end_layout
 
 \begin_layout Standard
 Explain how requirements defined in the RASD map to the design elements
- that you have definited in this document
+ that you have definited in this document.
 \end_layout
 
 \begin_layout Section
