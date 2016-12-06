@@ -1,0 +1,21 @@
+DATABASE
+
+To design the DBMS is auspicable to start from the Class Diagram proposed in the RASD. The upper section of the diagram, Power Enjoy excluded, describe the information the system need to process to guarantee a correct and efficient service. Is clear that this set of informations must be  persistent. The fact that a great number of data is usefull for a lot of functions in the system is a good proof that a database is needed, it also could make the work and the functioning very cleen and easy to handle for programmers, designer, devices and also users.
+
+(img class diag)
+
+The DBMS must guarantee the correct functioning of concurrent transactions and the ACID properties; a relational DBMS is sufficient to handle the data storage required by the application.
+The database structure will be here described by a ER Diagram.
+Class Diagram suggests eight main entities: User, Invoice, Vehicle, ElectricCar, Safe Area, Charging Station, Reservation, Ride.
+The division between Vehicle and ElectricCar was born to give the possibility to think, in the future, on differentiating the service adding different tipes of Vehicles to the fleet. We would try to make this possibility alive in the database as well. So we keep the entities Vehicle and ElectricCar and add the entity Discounts, the extraction from Ride of the discount policies. This helps the design because add persistence to the discount policies and allows generalization of them, this will be necessary in case of more vehicle types because obviously the discounts will be different between types.
+Another aspect is possible to detect by the Class Diagram is the importance of positioning: we have position of Users, Vehicles and Safe Areas. Could be usefull, to avoid redundances or at least to reduce the Database size, have an entity entirely devolved to positioning, related with User, Vehicle, Ride and Safe Area.According to this reasoning, we add the entity Position.
+
+(img ER diag)
+
+ER Diagram is perfectly readable and understandable but some parts need a more accurate description
+User and Vehicle have a (0,1) relation with Position. This data is collected and refreshed constantly by GPS system, the 0 means a malfunctioning deny a correct data, so it will set to NULL. An alternative could be a relation (1,1) who takes in the database the last notified position.
+ElectricCar, intuitively, is a specification of Vehicle. It has the attributes "BatteryLevel" and "IsCharging" that are characteristics proper of electric cars.
+Invoice has a relation (0,1) with Reservation and Ride. This doesn't mean an invoice could be not related to any reservation or fee, but that an invoice is surely relate to one of them but not both.
+
+The DMBS will be written in MySQL. MySQL, as the most common language for query ad relations, can perfectly handle the simple structure of the database.
+The connection between BDMS and the upper layer (application server) will be managed with Java Persistence API, choice made to maintain the same language used for the application server (Java)
