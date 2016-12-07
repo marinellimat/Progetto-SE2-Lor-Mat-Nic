@@ -746,15 +746,28 @@ Implementation Choice
 \end_layout
 
 \begin_layout Standard
-This component will be implemented using Jave Enterprise Edition 7 (JEE7)
- using Enterprise JavaBeans (EJB) to implement the modules described above.
- The platform incorporates a design based largely on modular components
- running on an application server (GlassFish Server in this case) which
- is a natural consequence from the description above.
+This component will be implemented using:
+\end_layout
+
+\begin_layout Itemize
+Jave Enterprise Edition 7 (JEE7) - the platform incorporates a design based
+ largely on modular components running on an application server which is
+ a natural consequence from the description above.
  It also provides support for large-scale, multi-tiered, scalable, reliable,
  and secure network applications.
  This modularity helps to handle such complex system and it make easy to
- insert the functionalities (as new beans) in the future.
+ insert the functionalities in the future.
+\end_layout
+
+\begin_layout Itemize
+Enterprise JavaBeans (EJB) to encapsulate all the business logic of the
+ modules described above.
+\end_layout
+
+\begin_layout Itemize
+GlassFish as the Application Server - the server provides services such
+ as security, transaction support, load balancing and supports the JEE7
+ platform.
 \end_layout
 
 \begin_layout Standard
@@ -782,7 +795,7 @@ Figure 3: Application as Java Entity Beans
 
 \begin_layout Standard
 For the sake of clarity some information have been hidden from the diagram
- below but can be found in the next sections.
+ aboce but can be found in the next sections.
  
 \end_layout
 
@@ -856,6 +869,30 @@ External Services
 Qualche parola sugli external services 
 \end_layout
 
+\begin_layout Subsubsection*
+Car On Board System
+\end_layout
+
+\begin_layout Standard
+aaaaaaa
+\end_layout
+
+\begin_layout Subsubsection*
+Payment System
+\end_layout
+
+\begin_layout Standard
+aaaaaaa
+\end_layout
+
+\begin_layout Subsubsection*
+Assistance System
+\end_layout
+
+\begin_layout Standard
+bbbbbbb
+\end_layout
+
 \begin_layout Subsubsection
 Client
 \end_layout
@@ -897,8 +934,36 @@ g his deployment with the support of UML diagrams.
 Component Interfaces 
 \end_layout
 
+\begin_layout Subsubsection*
+Application Server to Database
+\end_layout
+
 \begin_layout Standard
-Interfacce dei beans della sezione precedente 
+JPI - DOA volendo
+\end_layout
+
+\begin_layout Subsubsection*
+Application Server to Front-Ends
+\end_layout
+
+\begin_layout Standard
+REST-API
+\end_layout
+
+\begin_layout Subsubsection*
+Application Server 
+\end_layout
+
+\begin_layout Standard
+Dei bean
+\end_layout
+
+\begin_layout Subsubsection*
+Application Server to External-System
+\end_layout
+
+\begin_layout Standard
+REST-API
 \end_layout
 
 \begin_layout Subsection
@@ -952,7 +1017,7 @@ Effort Spent
 \end_layout
 
 \begin_layout Standard
-Niccolo' 10 Ore 
+Niccolo' 13 Ore 
 \end_layout
 
 \end_body
