@@ -1,0 +1,12 @@
+High Level Introduction
+
+(Mantenere il primo paragrafo da Before a System, è generale e ha senso proseguire da quello)
+
+(Class Diagram image)
+
+The starting point to detect the main components is the Class Diagram described in the RASD. The structure of the Diagram Suggests at least a three tiers architecture client-server based.
+The lower part of the Class Diagram shows the actors who are client of the PowerEnjoy section in the middle, the server in this case. Clients will be diveded in proper Clients that are User and Power User, and NavigatorSystemCar, Assistaance Service and Payment Service as External Services.
+The central section, PowerEnjoy, is the core of the Power Enjoy services and, as just sad, is the server for Client layer and External Services Layer and Client of the last layer, the persistence layer. PowerEnjoy's layer will be the Application server.
+Charging Station, Safe Areas, Vehicle, Electric Car, Reservation, Ride, Invoice and User (the one on the right) are all in the persistence layer and obviously stored in a database. This layer is the server of the application server, who is the client this time.
+
+(riportare tale e quale il resto del capitolo partendo subito con l'elenco delle main components. eliminare le parti riguardanti il web server, tutto ciò che lo riguarda verrà spostato nel capitolo client dove l'architettura diventerà un quattro tier)
