@@ -10,5 +10,3 @@ The persistence tier is filled with the DBMS, designed to exploit microservices 
 An other tier, assimilable with the client tier, is the layer of the External Services, the one with the Car, Assistance and Payment Service. It has a relation Client-Server with the Application server as client and collect all Services different from the users who require just an exchange of messages with the application server.
 
 (High level 4 tier img)
-
-(aggiungere volendo i linguaggi usati, personalmente non vorrei scrivere stronzate perchè non me ne intendo quindi se vuoi puoi aggiungere tu ciò che vuoi)

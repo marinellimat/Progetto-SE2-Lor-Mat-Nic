@@ -7,7 +7,7 @@ To design the DBMS is auspicable to start from the Class Diagram proposed in the
 The DBMS must guarantee the correct functioning of concurrent transactions and the ACID properties; a relational DBMS is sufficient to handle the data storage required by the application.
 The database structure will be here described by a ER Diagram.
 Class Diagram suggests eight main entities: User, Invoice, Vehicle, ElectricCar, Safe Area, Charging Station, Reservation, Ride.
-The division between Vehicle and ElectricCar was born to give the possibility to think, in the future, on differentiating the service adding different tipes of Vehicles to the fleet. We would try to make this possibility alive in the database as well. So we keep the entities Vehicle and ElectricCar and add the entity Discounts, the extraction from Ride of the discount policies. This helps the design because add persistence to the discount policies and allows generalization of them, this will be necessary in case of more vehicle types because obviously the discounts will be different between types.
+The division between Vehicle and ElectricCar was born to give the possibility to think, in the future, on differentiating the service adding different tipes of Vehicles to the fleet. We would try to make this possibility alive in the database as well.
 Another aspect is possible to detect by the Class Diagram is the importance of positioning: we have position of Users, Vehicles and Safe Areas. Could be usefull, to avoid redundances or at least to reduce the Database size, have an entity entirely devolved to positioning, related with User, Vehicle, Ride and Safe Area.According to this reasoning, we add the entity Position.
 
 (img ER diag)
@@ -19,7 +19,9 @@ Invoice has a relation (0,1) with Reservation and Ride. This doesn't mean an inv
 
 DBMS will be realized to exploit a microservices architecture. The database will be divided into sections, each of them will interacts with a spicific bin defined in the application server.
 In particular User Component will interact with the database who contain informations about the user, based on the User entity in the ER diagram.
-Location Component will manage the database produced by the Position entity togeter with Safe Area and Plug Station entities, Payment Component rely to the Invoice entity and the respective database, Car Event Component and Assistance Component are linked to the Vehicle database, made by the Vehicle entity and its specification. Reservation Component will cover in the logic both reservation and ride, so the one unique database will contain the Reservation, Ride and Discount entities. Obviously all DBMS will be connected as in the ER schema.
+Location Component will manage the database produced by the Position entity togeter with Safe Area and Plug Station entities, Payment Component rely to the Invoice entity and the respective database, Car Event Component is linked to the Vehicle database, made by the Vehicle entity and its specifications. Reservation Component will cover in the logic both reservation and ride, so the one unique database will contain the Reservation and Ride entities.
+Assistnce component rely to an external DBMS managed by the assistance service.
+Obviously all DBMS will be connected as in the ER schema.
 A microservices structure will enhance performaces of DBMS, focusing the interaction just between the involved components and not questioning every time the entire database.
 
 (img microservices)
