@@ -19,7 +19,7 @@ Invoice has a relation (0,1) with Reservation and Ride. This doesn't mean an inv
 
 DBMS will be realized to exploit a microservices architecture. The database will be divided into sections, each of them will interacts with a spicific bin defined in the application server.
 In particular User Component will interact with the database who contain informations about the user, based on the User entity in the ER diagram.
-Location Component will manage the database produced by the Position entity togeter with Safe Area and Plug Station entities, Payment Component rely to the Invoice entity and the respective database, Car Event Component and Assistance Component are linked to the Vehicle database, made by the Vehicle entity and its specification. Reservation Component will cover in the logic both reservation and ride, so the one unique database will contain the Reservation and Ride entities. Obviously all DBMS will be connected as in the ER schema.
+Location Component will manage the database produced by the Position entity togeter with Safe Area and Plug Station entities, Payment Component rely to the Invoice entity and the respective database, Car Event Component and Assistance Component are linked to the Vehicle database, made by the Vehicle entity and its specification. Reservation Component will cover in the logic both reservation and ride, so the one unique database will contain the Reservation, Ride and Discount entities. Obviously all DBMS will be connected as in the ER schema.
 A microservices structure will enhance performaces of DBMS, focusing the interaction just between the involved components and not questioning every time the entire database.
 
 (img microservices)
