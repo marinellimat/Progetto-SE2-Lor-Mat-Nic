@@ -860,6 +860,100 @@ In Section 2.6 using UML Sequence Diagrams we highlight the relationship
 Database
 \end_layout
 
+\begin_layout Standard
+To design the Database Component is auspicable to start from the Class Diagram
+ proposed in the RASD.
+ The upper section of the diagram, Power Enjoy excluded, describe the informatio
+n the system need to process to guarantee a correct and efficient service.
+ Is clear that this set of informations must be persistent.
+ The fact that a great number of data is usefull for a lot of functions
+ in the system is a good proof that a database is needed, it also could
+ make the work and the functioning very cleen and easy to handle for programmers
+, designer, devices and also users.
+\end_layout
+
+\begin_layout Standard
+(img class diag)
+\end_layout
+
+\begin_layout Standard
+The DBMS must guarantee the correct functioning of concurrent transactions
+ and the ACID properties; a relational DBMS is sufficient to handle the
+ data storage required by the application.
+ The database structure will be here described by a ER Diagram.
+ Class Diagram suggests eight main entities: User, Invoice, Vehicle, ElectricCar
+, Safe Area, Charging Station, Reservation, Ride.
+ The division between Vehicle and ElectricCar was born to give the possibility
+ to think, in the future, on differentiating the service adding different
+ tipes of Vehicles to the fleet.
+ We would try to make this possibility alive in the database as well.
+ In the Application server emerges that a division of reservation and ride
+ is useless.
+ One component can handle the entire job, so the same reasoning will be
+ translated into the DBMS.
+ Another aspect is possible to detect by the Class Diagram is the importance
+ of positioning: we have position of Users, Vehicles and Safe Areas.
+ Could be usefull, to avoid redundancies or at least to reduce the Database
+ size, have an entity entirely devolved to positioning, related with User,
+ Vehicle, Ride and Safe Area.According to this reasoning, we add the entity
+ Position.
+\end_layout
+
+\begin_layout Standard
+(img ER diag)
+\end_layout
+
+\begin_layout Standard
+ER Diagram is perfectly readable and understandable but some parts need
+ a more accurate description User and Vehicle have a (0,1) relation with
+ Position.
+ This data is collected and refreshed constantly by GPS system, the 0 means
+ a malfunctioning deny a correct data, so it will set to NULL.
+ An alternative could be a relation (1,1) who takes in the database the
+ last notified position.
+ ElectricCar, intuitively, is a specification of Vehicle.
+ It has the attributes "BatteryLevel" and "IsCharging" that are characteristics
+ proper of electric cars.
+\end_layout
+
+\begin_layout Standard
+DBMS will be realized to exploit a microservices architecture.
+ The database will be divided into sections, each of them will interacts
+ with a spicific bin defined in the application server.
+ In particular User Component will interact with the database who contain
+ informations about the user, based on the User entity in the ER diagram.
+ Location Component will manage the database produced by the Position entity
+ togeter with Safe Area and Plug Station entities, Payment Component rely
+ to the Invoice entity and the respective database, Car Event Component
+ is linked to the Vehicle database, made by the Vehicle entity and its specifica
+tions.
+ Reservation Component has a respective DBMS described by the Reservation
+ entity.
+ Assistnce component rely to an external DBMS managed by the assistance
+ service.
+ Obviously all DBMS will be connected as in the ER schema.
+ A microservices structure will enhance performaces of DBMS, focusing the
+ interaction just between the involved components and not questioning every
+ time the entire database.
+\end_layout
+
+\begin_layout Standard
+(img microservices)
+\end_layout
+
+\begin_layout Standard
+The DMBS will be written in MySQL.
+ MySQL, as the most common language for query ad relations, can perfectly
+ handle the simple structure of the database.
+ The connection between BDMS and the upper layer (application server) will
+ be managed with Java Persistence API, choice made to maintain the same
+ language used for the application server (Java)
+\end_layout
+
+\begin_layout Subsection*
+(parte vecchia)
+\end_layout
+
 \begin_layout Itemize
 JDBC/JPA JDBC (Java Database Connectivity) was chosen as connector between
  Database and the application server.
@@ -893,7 +987,38 @@ External Services
 \end_layout
 
 \begin_layout Standard
-Qualche parola sugli external services 
+Are considered External Services all systems that interact with the applicaton
+ server, not developed in this project.
+ The car board computer, the Assistance Service and the Payment System.
+ Car Board computer must work as a connection between the car and the applicatio
+n server and between the car and users.
+ The functionalities Of the board computer must be at least: 1) Showing
+ message directed to the user from the application server (ongoing fee).
+ 2) Must calculate the shared ride time.
+ 3) Sending information via messages about the car (battery level, status,
+ position, passengers, shared ride,...) to the application server.
+ Assistance Service is the Server/Application/Program used by an assistance
+ office to interact with the application server.
+ The interaction between Application Server and Assistance Service will
+ be bidirectional: the application server must send the information about
+ a malfunctioning car togheter with the problem and the Assistance system
+ must notify the application server the mafunctioning car is redy for power
+ enjoy service again.
+ Payment System is the system the server access to lets happen a payment.
+ Paypal could be an example.
+ Systems of this kind alredy exists so the application server will rely
+ to them, the interaction is standard: Application Server send the fee and
+ the Payment System, after executing the transaction, respond with the outcome,
+ positive or negative.
+\end_layout
+
+\begin_layout Standard
+About the languages of implementation, nothing can be suggested for the
+ Payment Systems because they aredy exists, about board computer and Assistance
+ Service the choice of the language is free, the only suggestion is to consider
+ the language of the application server to guarantee an efficent communication.
+ Conveniently, the communication wwith Application server will be implemente
+ via RESTful APIs defined by the partners (external services).
 \end_layout
 
 \begin_layout Subsubsection*
@@ -922,6 +1047,57 @@ bbbbbbb
 
 \begin_layout Subsubsection
 Client
+\end_layout
+
+\begin_layout Standard
+The main and surely most important section of the client layer is the Mobile
+ Application.
+ The Power Enjoy service require an high mobility fo the user, so focusing
+ the interaction with the users in an application for a mobile device optimize
+ the functionality of the service.
+ Obviously a GPS manager is required to detect constantly all users location
+ variations.
+\end_layout
+
+\begin_layout Standard
+(img clientdiag)
+\end_layout
+
+\begin_layout Standard
+Mobile application can handle all the functionalities required by the applicatio
+n server alone.
+ But to have a more efficient service, is smart to focus the attention on
+ the reservation function.
+ The main service is to reserve and ride cars offered by power enjoy, so
+ the other side functions are surely relevant but obviously obscured by
+ the reservation option.
+ Having this assumption, rises the problem of managing personal datas and
+ collecting information about Power Enjoy service on a not-optimized app.
+ Adding a Web Page seems to be an optimal strategy to solve the problem.
+ A Web Page is unconfortable to reserve a car, because an app can be faster
+ than internet, so the reservation option can be erased from the page.
+ Without the Reservation, the web page become an optimized platform to manage
+ all side functionalities, in particular the profile informations management.
+ A Web Page require a modification of the architecture: Web Server: This
+ component does not contain any application logic, it's used to provide
+ a web interface to the user.
+ It helps to separate presentation from logic.
+ Web Browser: Using a web browser the user is able to communicate with the
+ Web server to obtain the required web pages.
+ A tier is added to the original architecture, so now the system is described
+ by a four tier client-server architecture, with a Web Server Layer who
+ is a bridge between Web Page and Application Server.
+ Separating Application Server and Web Server improves scalability.
+ We expect Power Enjoy usage to grow in differents entities and in this
+ way we are able to separate tass and optimize each layer individually to
+ suport increasing loads.
+ JAX-RS to implement proper RESTful APIs are the suggested languages to
+ realize the communication of the application server with the client layer
+ and the Web server.
+\end_layout
+
+\begin_layout Subsection*
+(parte vecchia)
 \end_layout
 
 \begin_layout Itemize
@@ -982,7 +1158,7 @@ Application Server
 \end_layout
 
 \begin_layout Standard
-Dei bean
+QUESTA DA FARE ASSOLUTAMENTE, LE ALTRE FORSE NON SERVONO
 \end_layout
 
 \begin_layout Subsubsection*
@@ -1342,7 +1518,37 @@ Selected Architectural Styles and Pattern
 \end_layout
 
 \begin_layout Standard
-Explain styles/patterns used and why/how
+Starting from the class Diagram, at the beginning of the design process
+ we had a three tiers client-server based architecture, but the end result
+ is a four tiers client based-server architecture.
+ Since the modification is quite relevant, is usefull to summarize again
+ the high level components, in order to give a clear vision of the system.
+ The first tier as usual is the Client tier: Client tier contain all sections
+ who interact with the user.
+ In this section there are Mobile Application and Web Page.
+ The server tier is splitted in two: Web Server and Application server.
+ Web server is an efficient solution to connect the Web Page to the application
+ server.
+ I has a relation of client-Server with application server, where Web server
+ is the client.
+ Applicatio Server manage all the Power Enjoy logic.
+ Is the core of the System and is able to communicate with all components
+ as server or client (except for the Web page).
+ The persistence tier is filled with the DBMS, designed to exploit microservices
+ so the entities will be reasonable divided in more than one storage.
+ An other tier, assimilable with the client tier, is the layer of the External
+ Services, the one with the Car, Assistance and Payment Service.
+ It has a relation Client-Server with the Application server as client and
+ collect all Services different from the users who require just an exchange
+ of messages with the application server.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
@@ -1351,6 +1557,13 @@ Algorithm Design
 
 \begin_layout Standard
 Focus of the most relevant algorithmic part: FIND ZONE()
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
@@ -1572,6 +1785,13 @@ The web page should be written in XML or JSON, to allows quick and efficient
  data transfer through textual data files over HTTPS.
 \end_layout
 
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
+\end_layout
+
 \begin_layout Section
 Requirements Traceability
 \end_layout
@@ -1579,6 +1799,13 @@ Requirements Traceability
 \begin_layout Standard
 Explain how requirements defined in the RASD map to the design elements
  that you have definited in this document.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section

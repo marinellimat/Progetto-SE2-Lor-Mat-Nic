@@ -712,6 +712,7 @@ Location
 Component This module handles the position of each car and user of the system.
  It's used to show cars on the map and to perform proximity checks to unlock
  vehicles.
+ It also stores location of Safe Areas and Charging Stations.
 \end_layout
 
 \begin_layout Description
@@ -724,7 +725,7 @@ Component This module is responsible to manage all the current reservation
  and for avoiding undesiderable behaviours (reservation of an unavailable
  car, double-booking and multiple reservations).
  It's strongly connected to the Car Event Component.
- This module creates and manages new rides.
+ This module keeps track of all the ride informations.
  
 \end_layout
 
@@ -784,6 +785,7 @@ Time
 
 Component This is an utility component, it will be responsible for timing
  features such as expiration of the reservation and unsafe park timing.
+ This helps to avoid the necessity of introducing stateful components.
 \end_layout
 
 \begin_layout Subsubsection*
@@ -824,7 +826,7 @@ The next figure will show the Application Component implemented as session
 \begin_layout Standard
 \align center
 \begin_inset Graphics
-	filename images/bean.png
+	filename images/Beans.png
 	lyxscale 60
 	scale 35
 
@@ -858,30 +860,10 @@ In Section 2.6 using UML Sequence Diagrams we highlight the relationship
 Database
 \end_layout
 
-\begin_layout Standard
-ER DIAGRAM from these tables:
-\end_layout
-
-\begin_layout Standard
-\begin_inset Graphics
-	filename images/sql_tables.jpg
-	lyxscale 20
-	scale 30
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Discorsi Vari e poi spiegazione della scelta di MySQL con Java Persistence
- API e diagramma con Entity Beans (Parte alta del class diagram)
-\end_layout
-
 \begin_layout Itemize
 JDBC/JPA JDBC (Java Database Connectivity) was chosen as connector between
  Database and the application server.
- Java database con- nectivity interface (JDBC), incfact, is a software component
+ Java database connectivity interface (JDBC), incfact, is a software component
  that allows Java applications to interact with databases.
  To enhance the connection, JDBC re- quires drivers for each database.
  These drivers connect to the database and implement the protocol to transfer
@@ -1368,7 +1350,7 @@ Algorithm Design
 \end_layout
 
 \begin_layout Standard
-Focus of the most relevant algorithmic part
+Focus of the most relevant algorithmic part: FIND ZONE()
 \end_layout
 
 \begin_layout Section
