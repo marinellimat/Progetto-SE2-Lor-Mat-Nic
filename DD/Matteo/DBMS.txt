@@ -1,6 +1,6 @@
 DATABASE
 
-To design the Database Component is auspicable to start from the Class Diagram proposed in the RASD. The upper section of the diagram, Power Enjoy excluded, describe the information the system need to process to guarantee a correct and efficient service. Is clear that this set of informations must be  persistent. The fact that a great number of data is usefull for a lot of functions in the system is a good proof that a database is needed, it also could make the work and the functioning very cleen and easy to handle for programmers, designer, devices and also users.
+To design the DBMS is auspicable to start from the Class Diagram proposed in the RASD. The upper section of the diagram, Power Enjoy excluded, describe the information the system need to process to guarantee a correct and efficient service. Is clear that this set of informations must be  persistent.
 
 (img class diag)
 
@@ -9,18 +9,16 @@ The database structure will be here described by a ER Diagram.
 Class Diagram suggests eight main entities: User, Invoice, Vehicle, ElectricCar, Safe Area, Charging Station, Reservation, Ride.
 The division between Vehicle and ElectricCar was born to give the possibility to think, in the future, on differentiating the service adding different tipes of Vehicles to the fleet. We would try to make this possibility alive in the database as well.
 In the Application server emerges that a division of reservation and ride is useless. One component can handle the entire job, so the same reasoning will be translated into the DBMS.
-Another aspect is possible to detect by the Class Diagram is the importance of positioning: we have position of Users, Vehicles and Safe Areas. Could be usefull, to avoid redundancies or at least to reduce the Database size, have an entity entirely devolved to positioning, related with User, Vehicle, Ride and Safe Area.According to this reasoning, we add the entity Position.
+We have position of Users, Vehicles and Safe Areas. Could be usefull, to avoid redundances or at least to reduce the Database size, have an entity entirely devolved to positioning, related with User, Vehicle, Ride and Safe Area.According to this reasoning, we add the entity Position.
 
 (img ER diag)
 
-ER Diagram is perfectly readable and understandable but some parts need a more accurate description
-User and Vehicle have a (0,1) relation with Position. This data is collected and refreshed constantly by GPS system, the 0 means a malfunctioning deny a correct data, so it will set to NULL. An alternative could be a relation (1,1) who takes in the database the last notified position.
+ER Diagram is perfectly readable and understandable but some parts need a more accurate description.
+User and Vehicle have a (0,1) relation with Position. This data is collected and refreshed constantly by GPS system, the 0 means a malfunctioning deny a correct data, so it will set to NULL.
 ElectricCar, intuitively, is a specification of Vehicle. It has the attributes "BatteryLevel" and "IsCharging" that are characteristics proper of electric cars.
 
-DBMS will be realized to exploit a microservices architecture. The database will be divided into sections, each of them will interacts with a spicific bin defined in the application server.
-In particular User Component will interact with the database who contain informations about the user, based on the User entity in the ER diagram.
-Location Component will manage the database produced by the Position entity togeter with Safe Area and Plug Station entities, Payment Component rely to the Invoice entity and the respective database, Car Event Component is linked to the Vehicle database, made by the Vehicle entity and its specifications. Reservation Component has a respective DBMS described by the Reservation entity.
-Assistnce component rely to an external DBMS managed by the assistance service.
+DBMS will be realized to exploit a microservices architecture. The database will be divided into sections, each of them will interacts with a specific bin defined in the application server. There is a corrispondence between bin and DBMS, each bin interact at most with one DBMS
+Assistnce component rely to an external DBMS managed by the assistance service so in the architecture will not appear the Assistance DBMS.
 Obviously all DBMS will be connected as in the ER schema.
 A microservices structure will enhance performaces of DBMS, focusing the interaction just between the involved components and not questioning every time the entire database.
 
