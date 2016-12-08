@@ -1,0 +1,14 @@
+Conclusions
+
+Starting from the class Diagram, at the beginning of the design process we had a three tiers client-server based architecture, but the end result is a four tiers client based-server architecture.
+Since the modification is quite relevant, is usefull to summarize again the high level components, in order to give a clear vision of the system. 
+The first tier as usual is the Client tier: Client tier contain all sections who interact with the user. In this section there are Mobile Application and Web Page.
+The server tier is splitted in two: Web Server and Application server.
+Web server is an efficient solution to connect the Web Page to the application server. I has a relation of client-Server with application server, where Web server is the client.
+Applicatio Server manage all the Power Enjoy logic. Is the core of the System and is able to communicate with all components as server or client (except for the Web page).
+The persistence tier is filled with the DBMS, designed to exploit microservices so the entities will be reasonable divided in more than one storage.
+An other tier, assimilable with the client tier, is the layer of the External Services, the one with the Car, Assistance and Payment Service. It has a relation Client-Server with the Application server as client and collect all Services different from the users who require just an exchange of messages with the application server.
+
+(High level 4 tier img)
+
+(aggiungere volendo i linguaggi usati, personalmente non vorrei scrivere stronzate perchè non me ne intendo quindi se vuoi puoi aggiungere tu ciò che vuoi)
