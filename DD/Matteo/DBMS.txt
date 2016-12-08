@@ -1,6 +1,6 @@
 DATABASE
 
-To design the DBMS is auspicable to start from the Class Diagram proposed in the RASD. The upper section of the diagram, Power Enjoy excluded, describe the information the system need to process to guarantee a correct and efficient service. Is clear that this set of informations must be  persistent. The fact that a great number of data is usefull for a lot of functions in the system is a good proof that a database is needed, it also could make the work and the functioning very cleen and easy to handle for programmers, designer, devices and also users.
+To design the Database Component is auspicable to start from the Class Diagram proposed in the RASD. The upper section of the diagram, Power Enjoy excluded, describe the information the system need to process to guarantee a correct and efficient service. Is clear that this set of informations must be  persistent. The fact that a great number of data is usefull for a lot of functions in the system is a good proof that a database is needed, it also could make the work and the functioning very cleen and easy to handle for programmers, designer, devices and also users.
 
 (img class diag)
 
@@ -9,7 +9,7 @@ The database structure will be here described by a ER Diagram.
 Class Diagram suggests eight main entities: User, Invoice, Vehicle, ElectricCar, Safe Area, Charging Station, Reservation, Ride.
 The division between Vehicle and ElectricCar was born to give the possibility to think, in the future, on differentiating the service adding different tipes of Vehicles to the fleet. We would try to make this possibility alive in the database as well.
 In the Application server emerges that a division of reservation and ride is useless. One component can handle the entire job, so the same reasoning will be translated into the DBMS.
-Another aspect is possible to detect by the Class Diagram is the importance of positioning: we have position of Users, Vehicles and Safe Areas. Could be usefull, to avoid redundances or at least to reduce the Database size, have an entity entirely devolved to positioning, related with User, Vehicle, Ride and Safe Area.According to this reasoning, we add the entity Position.
+Another aspect is possible to detect by the Class Diagram is the importance of positioning: we have position of Users, Vehicles and Safe Areas. Could be usefull, to avoid redundancies or at least to reduce the Database size, have an entity entirely devolved to positioning, related with User, Vehicle, Ride and Safe Area.According to this reasoning, we add the entity Position.
 
 (img ER diag)
 

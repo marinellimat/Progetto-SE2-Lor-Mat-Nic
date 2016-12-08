@@ -439,6 +439,48 @@ Before describing the actual system architecture we introduce the high level
 \end_layout
 
 \begin_layout Standard
+The starting point to detect the main components is the Class Diagram described
+ in the RASD.
+ 
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename images/ClassDiagram.png
+	lyxscale 20
+	scale 35
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+Figure 1: Class Diagram 
+\end_layout
+
+\begin_layout Standard
+The structure of the Diagram Suggests at least a three tiers architecture
+ client-server based.
+ The lower part of the Class Diagram shows the actors who are client of
+ the PowerEnjoy section in the middle, the server in this case.
+ Clients will be diveded in proper Clients that are User and Power User,
+ and NavigatorSystemCar, Assistaance Service and Payment Service as External
+ Services.
+ The central section, PowerEnjoy, is the core of the Power Enjoy services
+ and, as just sad, is the server for Client layer and External Services
+ Layer and Client of the last layer, the persistence layer.
+ PowerEnjoy's layer will be the Application server.
+ Charging Station, Safe Areas, Vehicle, Electric Car, Reservation, Ride,
+ Invoice and User (the one on the right) are all in the persistence layer
+ and obviously stored in a database.
+ This layer is the server of the application server, who is the client this
+ time.
+\end_layout
+
+\begin_layout Standard
 The main high level components of the system are the following:
 \end_layout
 
@@ -679,21 +721,11 @@ Reservation
 
 Component This module is responsible to manage all the current reservation
  and to accept new reservations from Power Users.
- It will be responsible for timing features (expiration of the reservation)
  and for avoiding undesiderable behaviours (reservation of an unavailable
  car, double-booking and multiple reservations).
  It's strongly connected to the Car Event Component.
-\end_layout
-
-\begin_layout Description
-Ride
-\begin_inset space \space{}
-\end_inset
-
-Component This module creates and manages new rides from active reservations.
- It will manages all the relevant informations (unsafe park timing, battery
- level, sharedRideLenght) that receives from the Car Event Component.
- When a Ride ends it will communicate it to the Reservation Component.
+ This module creates and manages new rides.
+ 
 \end_layout
 
 \begin_layout Description
@@ -743,6 +775,15 @@ Component This modules interfaces with the API of the Assistance Service
  is provided.
  Once a car is fixed it will update the car informations (e.g.
  new position, new battery level).
+\end_layout
+
+\begin_layout Description
+Time
+\begin_inset space \space{}
+\end_inset
+
+Component This is an utility component, it will be responsible for timing
+ features such as expiration of the reservation and unsafe park timing.
 \end_layout
 
 \begin_layout Subsubsection*
@@ -1334,12 +1375,219 @@ Focus of the most relevant algorithmic part
 UI Design
 \end_layout
 
-\begin_layout Standard
-Overview of how the user interace of your system will look like
+\begin_layout Subsection
+Mobile Application
 \end_layout
 
 \begin_layout Standard
-Solo mockups niente UX Diagram
+The mobile application, as usual, will have a recognizable icon that can
+ be added on the desktop.
+ When the application is opened, the display will show the login screen.
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename images/mockups/mobile1.png
+	lyxscale 20
+	scale 35
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+Figure 1: Mockup
+\end_layout
+
+\begin_layout Standard
+E-mail and Password are required for the login.
+ Insert wrong credential cause the refresh of the page with a notification
+ explaining the problem, without giving information about the wrong field.
+ In this screen is possible to register new Users by the button "REGISTER".
+ Clicking leads to the registration screen, it is a form who must be filled
+ entirely and correctly to have a successfull regstration.
+ The fields must be at least "name", "Surname", "Driving Licence", "E-Mail"
+ and "Payment System", add other fields could be halpfull but not strictly
+ necessary.
+ If some datas are not acceptable, a notification will be displayed and
+ the form will be reuploaded.
+ After the login, the display show the Main Screen.
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename images/mockups/mobile2.png
+	lyxscale 20
+	scale 35
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+Figure 1: Mockup
+\end_layout
+
+\begin_layout Standard
+On the screen is possible to see the map of the city, if is available the
+ center will be the user position, if it is not available the center will
+ be the center of the city.
+ In the upper side there is a men˘ with the sections "Main Men˘", "Select
+ Car" and "Payments".
+ Main Men˘ open a list of fields.
+ It contains the field "Modify Profile" that lead to a screen equal to the
+ Registration Screen previously described.
+ In the Main Men˘ list is auspicable to put all functionalities not strictly
+ related to the reservation and the payment, this will make more clean and
+ simple the application.
+ Payments allows to pay the unpayed fee, if there is.
+ If there are no unpayed fee will be shown a message like "You payed the
+ last fee, there is nothing to pay more".
+ If there is a payment pending the massage will be "There is a pending payment.
+ You have to pay 5Ä (example)." and a button will start the payment procedure.
+ Select car is the basic screen of the application.
+ In this section is possible to set the center point of research and the
+ research range, user should be guided to choose his position as center
+ even if is possible to put any position as center of the research.
+ When center and range are available for the server, it starts to search
+ cars.
+ Cars will be shown on the map and user can click on them to see the car
+ informations.
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename images/mockups/mobile3.png
+	lyxscale 20
+	scale 35
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+Figure 1: Mockup
+\end_layout
+
+\begin_layout Standard
+Informations must be about the battery and the location, could be usefull
+ add other information as model and number of sets.
+ A button "Reserve Now" will start the reservation.
+ When the reservation starts the display will show a one hour countdown,
+ the timer indicates the time to the expiration of the reservation.
+ An unlock button and a cancel button will be in the screen as well.
+ If the unlock button is pushed not near enough, will be dislayed a message
+ that notify the problem.
+ When the car is ignited the countdown stops and the application go in standby,
+ in the logic the application switch from reservation to ride.
+ Only the application is in standby, not the entire phone.
+ Application will wake up when the car is turned off.
+ If the car is in an unsafe area, "You left car in an unsafe area" will
+ be displayed togheter wit an unlock button and a one hour countdown.
+ At the end of the countdown the ride will end If the car is in a safe area
+ the ride will end.
+ When a reservation or a ride ends, a payment notification is shown.
+ It should be like "Your reservation has ended.
+ Your fee is 8Ä.
+ Thanks for using Power Enjoy Service".
+ A confirmation button allows to go back to the Main Scree.
+ The payment message is not shown if the reservation is canceled.
+ Is important to underline that on the payment notificatio will NEVER appear
+ the word "ride": ride is usefull for the logic but its existence is useless
+ for the user, so is usefull to avoid the use of two terms.
+ Every time is not specified, the "go back" button of every mobile system
+ will accomplish the "go back" function.
+\end_layout
+
+\begin_layout Standard
+The application must be as simple as possible, the main idea is to make
+ every marginal utilities, like the main men˘ options, obscured by the main
+ functionality.
+ This reasoning increase usability thanks to the focus on the reservation.
+\end_layout
+
+\begin_layout Standard
+The language to write the application obviously will change from a operating
+ system to another.
+ The application must run on Android and iOS.
+ For Android the language will be Java and for iOS the language will be
+ Swift.
+\end_layout
+
+\begin_layout Subsection
+Web Page
+\end_layout
+
+\begin_layout Standard
+Web Page is a support of the application.
+ The presence of a dowload link should be as constant as possible.
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename images/mockups/web1.png
+	lyxscale 20
+	scale 35
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+Figure 1: Mockup
+\end_layout
+
+\begin_layout Standard
+The main purpose of the web page is to give the possibility to the user
+ to have a more efficient way to manage side functions.
+ The app will focus on the reservations, and the web page allow to have
+ a better interface for the options of the main men˘ list.
+ The main page is very similar to the access screen of the application and
+ the consequences of the buttons are the very same.
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename images/mockups/web2.png
+	lyxscale 20
+	scale 35
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+Figure 1: Mockup
+\end_layout
+
+\begin_layout Standard
+On the main page the is a list on the left.
+ From the lists fields is easy to manage the profile, from the personal
+ information to the history of payments.
+ On the main page is also possible to see Power Enjoy Cars distribuited
+ on the map.
+ This possybility doesn't allow to reserve a car, this is possible only
+ via application
+\end_layout
+
+\begin_layout Standard
+The web page should be written in XML or JSON, to allows quick and efficient
+ data transfer through textual data files over HTTPS.
 \end_layout
 
 \begin_layout Section
