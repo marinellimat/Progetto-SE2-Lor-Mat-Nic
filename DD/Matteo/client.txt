@@ -1,0 +1,14 @@
+Client
+
+The main and surely most important section of the client layer is the Mobile Application. The Power Enjoy service require an high mobility fo the user, so focusing the interaction with the users in an application for a mobile device optimize the functionality of the service. Obviously a GPS manager is required to detect constantly all users location variations.
+
+(img clientdiag)
+
+Mobile application can handle all the functionalities required by the application server alone. But to have a more efficient service, is smart to focus the attention on the reservation function. The main service is to reserve and ride cars offered by power enjoy, so the other side functions are surely relevant but obviously obscured by the reservation option.
+Having this assumption, rises the problem of managing personal datas and collecting information about Power Enjoy service on a not-optimized app. Adding a Web Page seems to be an optimal strategy to solve the problem. A Web Page is unconfortable to reserve a car, because an app can be faster than internet, so the reservation option can be erased from the page. Without the Reservation, the web page become an optimized platform to manage all side functionalities, in particular the profile informations management.
+A Web Page require a modification of the architecture:
+Web Server: This component does not contain any application logic, it's used to provide a web interface to the user. It helps to separate presentation from logic.
+Web Browser: Using a web browser the user is able to communicate with the Web server to obtain the required web pages.
+A tier is added to the original architecture, so now the system is described by a four tier client-server architecture, with a Web Server Layer who is a bridge between Web Page and Application Server.
+Separating Application Server and Web Server improves scalability. We expect Power Enjoy usage to grow in differents entities and in this way we are able to separate tass and optimize each layer individually to suport increasing loads.
+JAX-RS to implement proper RESTful APIs are the suggested languages to realize the communication of the application server with the client layer and the Web server.
