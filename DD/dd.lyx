@@ -431,7 +431,7 @@ Before describing the actual system architecture we introduce the high level
  Following the requirements and the specification listed on the RASD, we
  identify what components are needed in order to implement them and only
  after we have detected them, we will focus on the architecture and explain
- our architectural decision and the technlogies chosen.
+ our architectural decision and the technologies chosen.
  It's important to follow this process to generalize our design as much
  as possibile and abstract from implementation details, in this way we are
  able to describe only the essence of our system.
@@ -462,39 +462,25 @@ Figure 1: Class Diagram
 \end_layout
 
 \begin_layout Standard
-The structure of the Diagram Suggests at least a three tiers architecture
- client-server based.
- The lower part of the Class Diagram shows the actors who are client of
- the PowerEnjoy section in the middle, the server in this case.
- Clients will be diveded in proper Clients that are User and Power User,
- and NavigatorSystemCar, Assistaance Service and Payment Service as External
- Services.
- The central section, PowerEnjoy, is the core of the Power Enjoy services
- and, as just sad, is the server for Client layer and External Services
- Layer and Client of the last layer, the persistence layer.
- PowerEnjoy's layer will be the Application server.
- Charging Station, Safe Areas, Vehicle, Electric Car, Reservation, Ride,
- Invoice and User (the one on the right) are all in the persistence layer
- and obviously stored in a database.
- This layer is the server of the application server, who is the client this
- time.
-\end_layout
-
-\begin_layout Standard
-The main high level components of the system are the following:
+From the diagram we can identify the following high level components:
 \end_layout
 
 \begin_layout Description
-Mobile
+Client
 \begin_inset space \space{}
 \end_inset
 
-Application: Power Enjoy is a car sharing service therefore it must be implement
-ed with mobility in mind.
- Since the majority of the mobile devices have a GPS module and we need
- to have access to the user position for our application, it makes sense
- to require that the main user has our mobile application installed.
- 
+and
+\begin_inset space \space{}
+\end_inset
+
+External
+\begin_inset space \space{}
+\end_inset
+
+Services The boundaries of the Class Diagram shows the normal users of the
+ application (User and Power User) and the External Services who interacts
+ with the control object to provide additional functionalities.
 \end_layout
 
 \begin_layout Description
@@ -502,35 +488,16 @@ Application
 \begin_inset space \space{}
 \end_inset
 
-Server: This component contains all the logic for the system application.
+Server: The control object is implemented in this component.
+ It contains all the logic for the system application.
  It will implement all the required functionalities and communicate both
- with the mobile application and the external services.
+ with the clients and the external services.
  
 \end_layout
 
 \begin_layout Description
-Web
-\begin_inset space \space{}
-\end_inset
-
-Server: This component does not contain any application logic, it's used
- to provide a web interface interface to the user.
- It helps to separate presentation from logic.
-\end_layout
-
-\begin_layout Description
-Web
-\begin_inset space \space{}
-\end_inset
-
-Browser: Using a web browser the user is able to communicate with the Web
- Server to obtain the required web pages.
- 
-\end_layout
-
-\begin_layout Description
-Database: This components is responsible for data storage and retrieval
- which is crucial for our application.
+Database: This component is responsible for data storage and retrieval of
+ all the entities rapresented in the top part of the diagram.
  It will not implement any logic but it stores all the information needed
  for the correct functioning of our service.
  It must guarantee ACID properties and be accessible from the Application
@@ -541,54 +508,7 @@ Database: This components is responsible for data storage and retrieval
 \begin_inset VSpace smallskip
 \end_inset
 
-To give a complete overview of the system, we list also the external services
- which are not part of our system but with which the system depends to implement
- some functionalities (please refer to the RASD for a more detailed description).
-\end_layout
 
-\begin_layout Standard
-High level components which are not part of our system:
-\end_layout
-
-\begin_layout Description
-Assistance
-\begin_inset space \space{}
-\end_inset
-
-Service: Power Enjoy is in charge of the management of the car-sharing system.
- All the secondary functionalities (recharging vehicles onsite, bringing
- cars back from unsafe areas and fixing malfunctions) are handled by an
- assistance service.
- This components provides an API to handle all the assistance request.
-\end_layout
-
-\begin_layout Description
-Payment
-\begin_inset space \space{}
-\end_inset
-
-Service: Every Power Enjoy user, in order to use our service, is required
- to have an account registered to a third party payment service, with a
- valid payment method.
- This components provides an API to handle all the payments functionalities.
-\end_layout
-
-\begin_layout Description
-Car
-\begin_inset space \space{}
-\end_inset
-
-On
-\begin_inset space \space{}
-\end_inset
-
-Board
-\begin_inset space \space{}
-\end_inset
-
-System: Every Power Enjoy vehicle comes with a pre-installed on board system
- which registers and notifies all the car activity.
- This components provides an API to monitor and remotly control every vehicle.
 \end_layout
 
 \begin_layout Standard
@@ -611,30 +531,6 @@ In the figure below we rapresent all the components listed above in a layered
 \begin_layout Standard
 \align center
 Figure 1: High Level Components 
-\end_layout
-
-\begin_layout Standard
-From this diagrams it's important to point out: 
-\end_layout
-
-\begin_layout Itemize
-This layered rapresentation suggests a four tier architecture
-\end_layout
-
-\begin_layout Itemize
-Separating Application Server and the Web Server improves scalability.
- We expect Power Enjoy usage to grow in differents cities and in this way
- we're able to seperate the tasks and optimize each layer individually to
- support increasing loads.
-\end_layout
-
-\begin_layout Itemize
-The Application Server is the bottleneck of our system.
- Every other components is in relation with it, therefore it's performance
- is stricly related to the performance of our system.
- But since every components expects different functionalities from the Applicati
-on Server we can parallelize using threads and split the work load among
- different modules.
 \end_layout
 
 \begin_layout Subsection
@@ -852,8 +748,8 @@ In Section 2.5 we will provide more details on the interfaces of each module.
 \end_layout
 
 \begin_layout Standard
-In Section 2.6 using UML Sequence Diagrams we highlight the relationship
- between each component during a runtime analysis of our system.
+In Section 2.7 using UML Sequence Diagrams we highlight the relationship
+ between each component showing the runtime behaviour of our system.
 \end_layout
 
 \begin_layout Subsubsection
@@ -861,19 +757,28 @@ Database
 \end_layout
 
 \begin_layout Standard
-To design the Database Component is auspicable to start from the Class Diagram
- proposed in the RASD.
+To design the DBMS is auspicable to start from the Class Diagram proposed
+ in the RASD.
  The upper section of the diagram, Power Enjoy excluded, describe the informatio
 n the system need to process to guarantee a correct and efficient service.
  Is clear that this set of informations must be persistent.
- The fact that a great number of data is usefull for a lot of functions
- in the system is a good proof that a database is needed, it also could
- make the work and the functioning very cleen and easy to handle for programmers
-, designer, devices and also users.
 \end_layout
 
 \begin_layout Standard
-(img class diag)
+\align center
+\begin_inset Graphics
+	filename images/Entities.png
+	lyxscale 20
+	scale 45
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+Figure X: Entities in the class Diagram
 \end_layout
 
 \begin_layout Standard
@@ -881,105 +786,64 @@ The DBMS must guarantee the correct functioning of concurrent transactions
  and the ACID properties; a relational DBMS is sufficient to handle the
  data storage required by the application.
  The database structure will be here described by a ER Diagram.
- Class Diagram suggests eight main entities: User, Invoice, Vehicle, ElectricCar
-, Safe Area, Charging Station, Reservation, Ride.
- The division between Vehicle and ElectricCar was born to give the possibility
- to think, in the future, on differentiating the service adding different
- tipes of Vehicles to the fleet.
- We would try to make this possibility alive in the database as well.
- In the Application server emerges that a division of reservation and ride
- is useless.
- One component can handle the entire job, so the same reasoning will be
- translated into the DBMS.
- Another aspect is possible to detect by the Class Diagram is the importance
- of positioning: we have position of Users, Vehicles and Safe Areas.
- Could be usefull, to avoid redundancies or at least to reduce the Database
- size, have an entity entirely devolved to positioning, related with User,
- Vehicle, Ride and Safe Area.According to this reasoning, we add the entity
- Position.
+ 
 \end_layout
 
 \begin_layout Standard
-(img ER diag)
+\align center
+\begin_inset Graphics
+	filename images/ER.png
+	lyxscale 20
+	scale 45
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
-ER Diagram is perfectly readable and understandable but some parts need
- a more accurate description User and Vehicle have a (0,1) relation with
- Position.
- This data is collected and refreshed constantly by GPS system, the 0 means
- a malfunctioning deny a correct data, so it will set to NULL.
- An alternative could be a relation (1,1) who takes in the database the
- last notified position.
- ElectricCar, intuitively, is a specification of Vehicle.
- It has the attributes "BatteryLevel" and "IsCharging" that are characteristics
- proper of electric cars.
+\align center
+Figure X: Entities in the class Diagram
 \end_layout
 
 \begin_layout Standard
-DBMS will be realized to exploit a microservices architecture.
- The database will be divided into sections, each of them will interacts
- with a spicific bin defined in the application server.
- In particular User Component will interact with the database who contain
- informations about the user, based on the User entity in the ER diagram.
- Location Component will manage the database produced by the Position entity
- togeter with Safe Area and Plug Station entities, Payment Component rely
- to the Invoice entity and the respective database, Car Event Component
- is linked to the Vehicle database, made by the Vehicle entity and its specifica
-tions.
- Reservation Component has a respective DBMS described by the Reservation
- entity.
- Assistnce component rely to an external DBMS managed by the assistance
- service.
- Obviously all DBMS will be connected as in the ER schema.
- A microservices structure will enhance performaces of DBMS, focusing the
- interaction just between the involved components and not questioning every
- time the entire database.
+Class Diagram suggests eight main entities: User, Invoice, Vehicle, ElectricCar,
+ Safe Area, Charging Station, Reservation, Ride.
+ The division between Vehicle and ElectricCar was added to give the possibility
+ to add, in the future, different types of Vehicles.
+ As for the Application Server, the division of reservation and ride is
+ redundant and only one entity will be created.
+ 
 \end_layout
 
 \begin_layout Standard
-(img microservices)
+In addition to the class Diagram we've added the entity Position which stores
+ the position of Users, Vehicles and Safe Areas.
+\end_layout
+
+\begin_layout Subsubsection*
+Implementation Choice
 \end_layout
 
 \begin_layout Standard
-The DMBS will be written in MySQL.
- MySQL, as the most common language for query ad relations, can perfectly
- handle the simple structure of the database.
- The connection between BDMS and the upper layer (application server) will
- be managed with Java Persistence API, choice made to maintain the same
- language used for the application server (Java)
-\end_layout
-
-\begin_layout Subsection*
-(parte vecchia)
+This component will be implemented using:
 \end_layout
 
 \begin_layout Itemize
-JDBC/JPA JDBC (Java Database Connectivity) was chosen as connector between
- Database and the application server.
- Java database connectivity interface (JDBC), incfact, is a software component
- that allows Java applications to interact with databases.
- To enhance the connection, JDBC re- quires drivers for each database.
- These drivers connect to the database and implement the protocol to transfer
- query and respective results between the client and database.
- JDBC was chosen because it is available for any DBMS also thanks to the
- ODBC bridge.
- ODBC infact allows programmers to make SQL requests that will access data
- from DB distinct without having to know the proprietary interfaces of each
- DB.
- In this way it is easier to change the database without altering the applicatio
-n layer.
- The Java Persistence API (JPA) is a Java application programming interface
- specification that describes the management of relational data in applications
- using Java Platform, Standard Edition and Java Platform, Enterprise Edition.
+MySQL as the relational DBMS.
+ It was chosen for its Scalability, Flexibility, High Performance and High
+ Availability.
 \end_layout
 
 \begin_layout Itemize
-The access to the DBMS is not implemented with direct SQL queries: instead,
- it is completely wrapped by the Java Persistence API (JPA).
- The object-relation mapping is done by entity beans.
- The Entity Beans representing the database entities (Figure 2.5) are strictly
- related to the entities of the ER diagram (Figure 2.4).
+MySQL also provides connectors and drivers (JDBC) that allow all forms of
+ applications to make use of MySQL as a preferred data management server.
+\end_layout
+
+\begin_layout Itemize
+The Java Persistence API (JPA) will be used inside the Application Server
+ as an interface with the database to perform object-relation mapping and
+ Database access.
 \end_layout
 
 \begin_layout Subsubsection
@@ -987,62 +851,116 @@ External Services
 \end_layout
 
 \begin_layout Standard
-Are considered External Services all systems that interact with the applicaton
- server, not developed in this project.
- The car board computer, the Assistance Service and the Payment System.
- Car Board computer must work as a connection between the car and the applicatio
-n server and between the car and users.
- The functionalities Of the board computer must be at least: 1) Showing
- message directed to the user from the application server (ongoing fee).
- 2) Must calculate the shared ride time.
- 3) Sending information via messages about the car (battery level, status,
- position, passengers, shared ride,...) to the application server.
- Assistance Service is the Server/Application/Program used by an assistance
- office to interact with the application server.
- The interaction between Application Server and Assistance Service will
- be bidirectional: the application server must send the information about
- a malfunctioning car togheter with the problem and the Assistance system
- must notify the application server the mafunctioning car is redy for power
- enjoy service again.
- Payment System is the system the server access to lets happen a payment.
- Paypal could be an example.
- Systems of this kind alredy exists so the application server will rely
- to them, the interaction is standard: Application Server send the fee and
- the Payment System, after executing the transaction, respond with the outcome,
- positive or negative.
-\end_layout
-
-\begin_layout Standard
-About the languages of implementation, nothing can be suggested for the
- Payment Systems because they aredy exists, about board computer and Assistance
- Service the choice of the language is free, the only suggestion is to consider
- the language of the application server to guarantee an efficent communication.
- Conveniently, the communication wwith Application server will be implemente
- via RESTful APIs defined by the partners (external services).
+In this section we focus on the components which are not part of our system
+ but with which the system depends to implement some functionalities (please
+ refer to the RASD for a more detailed description).
 \end_layout
 
 \begin_layout Subsubsection*
-Car On Board System
+Car
+\begin_inset space \space{}
+\end_inset
+
+On
+\begin_inset space \space{}
+\end_inset
+
+Board
+\begin_inset space \space{}
+\end_inset
+
+System 
 \end_layout
 
 \begin_layout Standard
-aaaaaaa
+Every Power Enjoy vehicle comes with a pre-installed embedded system which
+ registers and notifies all the car activity.
+ This components provides an API to monitor and remotly control every vehicle.
+ This component implements some logic and it's connected over GSM to the
+ Car Bean of the Application Server.
+ The main functionalities that provides are the following:
+\end_layout
+
+\begin_layout Enumerate
+Provides an interface to access every relevant information of the car (e.g.
+ battery level, position)
+\end_layout
+
+\begin_layout Enumerate
+Automatically signals relevant events to the Car Bean (e.g.
+ engine ignition, parking, malfunctioning).
+\end_layout
+
+\begin_layout Enumerate
+Automatically shows/updates the price on the screen.
+\end_layout
+
+\begin_layout Enumerate
+Automatically locks the car when the car is parked with no people inside.
+\end_layout
+
+\begin_layout Enumerate
+Calculates the lenght of every ride (from ignition to parking).
+\end_layout
+
+\begin_layout Enumerate
+For every ride it calculates the lenght of a shared ride.
+ Everytime at least 3 weight sensors in the car seats are on, the car increases
+ this time counter
+\end_layout
+
+\begin_layout Standard
+The communication will be implemented via RESTful APIs.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsubsection*
-Payment System
+Assistance Service 
 \end_layout
 
 \begin_layout Standard
-aaaaaaa
+Power Enjoy is in charge of the management of the car-sharing system.
+ All the secondary functionalities (recharging vehicles onsite, bringing
+ cars back from unsafe areas and fixing malfunctions) are handled by an
+ assistance service.
+ This components provides an API to handle all the assistance request.
+\end_layout
+
+\begin_layout Standard
+The interaction between Application Server and Assistance Service will be
+ bidirectional: the application server sends the information about a malfunction
+ing car and the type of assistance required and the Assistance service must
+ notify the application server when the assistance is provided.
+\end_layout
+
+\begin_layout Standard
+The communication will be implemented via RESTful APIs.
 \end_layout
 
 \begin_layout Subsubsection*
-Assistance System
+Payment Service
 \end_layout
 
 \begin_layout Standard
-bbbbbbb
+Every Power Enjoy user, in order to use our service, is required to have
+ an account registered to a third party payment service, with a valid payment
+ method.
+ This components provides an API to handle all the payments functionalities.
+ The interaction with such system is standard: the Payment Bean requests
+ a payment specifying the fee and the user account, the Payment System will
+ manage the payment process (including debt collection in case of negligent
+ users) and will notify the Payment Bean when the payment was executed.
+ A user with a pending payment will be prevented to reserve another vehicle.
+\end_layout
+
+\begin_layout Standard
+The communication will be implemented via RESTful APIs.
 \end_layout
 
 \begin_layout Subsubsection
@@ -1050,107 +968,110 @@ Client
 \end_layout
 
 \begin_layout Standard
-The main and surely most important section of the client layer is the Mobile
- Application.
- The Power Enjoy service require an high mobility fo the user, so focusing
- the interaction with the users in an application for a mobile device optimize
- the functionality of the service.
- Obviously a GPS manager is required to detect constantly all users location
- variations.
-\end_layout
-
-\begin_layout Standard
-(img clientdiag)
+In this subsection we'll focus the client component.
+ Power Enjoy is a car sharing service therefore it must be implemented with
+ mobility in mind.
+ Since the majority of the mobile devices have a GPS module and we need
+ to have access to the user position for our application, it makes sense
+ to require that the main user has our mobile application installed.
+ 
 \end_layout
 
 \begin_layout Standard
 Mobile application can handle all the functionalities required by the applicatio
-n server alone.
- But to have a more efficient service, is smart to focus the attention on
- the reservation function.
- The main service is to reserve and ride cars offered by power enjoy, so
- the other side functions are surely relevant but obviously obscured by
- the reservation option.
- Having this assumption, rises the problem of managing personal datas and
- collecting information about Power Enjoy service on a not-optimized app.
- Adding a Web Page seems to be an optimal strategy to solve the problem.
- A Web Page is unconfortable to reserve a car, because an app can be faster
- than internet, so the reservation option can be erased from the page.
- Without the Reservation, the web page become an optimized platform to manage
- all side functionalities, in particular the profile informations management.
- A Web Page require a modification of the architecture: Web Server: This
- component does not contain any application logic, it's used to provide
- a web interface to the user.
- It helps to separate presentation from logic.
- Web Browser: Using a web browser the user is able to communicate with the
- Web server to obtain the required web pages.
- A tier is added to the original architecture, so now the system is described
- by a four tier client-server architecture, with a Web Server Layer who
- is a bridge between Web Page and Application Server.
- Separating Application Server and Web Server improves scalability.
- We expect Power Enjoy usage to grow in differents entities and in this
- way we are able to separate tass and optimize each layer individually to
- suport increasing loads.
- JAX-RS to implement proper RESTful APIs are the suggested languages to
- realize the communication of the application server with the client layer
- and the Web server.
-\end_layout
-
-\begin_layout Subsection*
-(parte vecchia)
-\end_layout
-
-\begin_layout Itemize
-Spiegazione del perche' mobile-first.
+n server alone but to have a more efficient service, adding a Web Page seems
+ to be an optimal strategy to provide more visibility and accessability.
+ The Web Page become an optimized platform to manage all the side functionalitie
+s, in particular the profile informations management and all the payment
+ informations.
  
-\end_layout
-
-\begin_layout Itemize
-Spiegazione del perche' aggiungere un webserver 
-\end_layout
-
-\begin_layout Itemize
-Diagramma della mobile app (con gps ecc...)
-\end_layout
-
-\begin_layout Itemize
-JAX-RS to implement proper RESTful APIs to interface with clients and the
- Web Server;
-\end_layout
-
-\begin_layout Itemize
-• To interface with external systems, existing RESTful APIs defined by the
- partner (payment handlers, maintenance system) will be used.
-\end_layout
-
-\begin_layout Subsection
-Deployment View
 \end_layout
 
 \begin_layout Standard
-In this subsection we'll move on the physical side of our application, describin
-g his deployment with the support of UML diagrams.
+This suggests a modification of the architecture, introducing a new tier
+ with a Web Server Layer who is a bridge between Web Page and Application
+ Server.
+ Separating Application Server and Web Server improves scalability as we
+ expect Power Enjoy usage to grow in differents regions and in this way
+ we are able to separate task and optimize each layer individually to support
+ increasing loads.
  
+\end_layout
+
+\begin_layout Standard
+In conclusion, the subcomponents are the following:
+\end_layout
+
+\begin_layout Description
+Web
+\begin_inset space \space{}
+\end_inset
+
+Browser: Using a web browser the user is able to communicate with the Web
+ Server to obtain the required web pages.
+ 
+\end_layout
+
+\begin_layout Description
+Web
+\begin_inset space \space{}
+\end_inset
+
+Server: This component does not contain any application logic, it's used
+ to provide a web interface interface to the user.
+ It helps to separate presentation from logic.
+ 
+\end_layout
+
+\begin_layout Description
+Mobile
+\begin_inset space \space{}
+\end_inset
+
+Application: This component is used by a Power User to use all the functionaliti
+es of the Power Enjoy Service.
+ It's a really thin client that interacts with the Application Servier.
+\end_layout
+
+\begin_layout Subsubsection*
+Implementation Choice Web Server
+\end_layout
+
+\begin_layout Itemize
+WebServer runs on Glassfish with JavaServer Pages (JSP), this was done to
+ provide consistency with the Application Component.
+\end_layout
+
+\begin_layout Itemize
+The communication to the Application Server will be done using JAX-RS (in
+ the Application side) to implement proper RESTful APIs.
+\end_layout
+
+\begin_layout Subsubsection*
+Implementation Choice Mobile App
+\end_layout
+
+\begin_layout Itemize
+The mobile app will be written with Cordova which is a mobile application
+ development framework which is free, open source and it allows to target
+ multiple platforms with one code base (with access to Access native device
+ APIs).
+ This will allow to have reusable code across platforms abstracting from
+ different platforms.
+ It's the best cost-effective solution to target nearly every phone or tablet
+ on the market today and publish to their app stores directly.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection
 Component Interfaces 
-\end_layout
-
-\begin_layout Subsubsection*
-Application Server to Database
-\end_layout
-
-\begin_layout Standard
-JPI - DOA volendo
-\end_layout
-
-\begin_layout Subsubsection*
-Application Server to Front-Ends
-\end_layout
-
-\begin_layout Standard
-REST-API
 \end_layout
 
 \begin_layout Subsubsection*
@@ -1161,12 +1082,244 @@ Application Server
 QUESTA DA FARE ASSOLUTAMENTE, LE ALTRE FORSE NON SERVONO
 \end_layout
 
-\begin_layout Subsubsection*
-Application Server to External-System
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Final System Architecture
 \end_layout
 
 \begin_layout Standard
-REST-API
+Starting from the Class Diagram at the beginning of the design process we
+ had a three tiers client-server based architecture, but in the process
+ of defining the single complement we introduce a Web Tier.
+ This process triggered more modification that led to the final architecture
+ that will be presented in this section.
+\end_layout
+
+\begin_layout Subsubsection*
+From a Three Tier to a Four Tier Architecture
+\end_layout
+
+\begin_layout Standard
+In Section 2.3.4 we explain the necessity of introducing a Web Tier to improve
+ scalability and to separete presentation from logic.
+ The architecture will now include the following tiers:
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+Client
+\begin_inset space \space{}
+\end_inset
+
+Tier This layer contains the mobile app and the web browser 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+Web
+\begin_inset space \space{}
+\end_inset
+
+Tier This layer contains contains the Web Server to provide a web interface
+ interface to the user
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+Application
+\begin_inset space \space{}
+\end_inset
+
+Tier This layer contains all the logic for the application
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+Database
+\begin_inset space \space{}
+\end_inset
+
+Tier This layer contains all the persistent data
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename images/4tier.png
+	lyxscale 20
+	scale 35
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+Figure 1: High Level Components 
+\end_layout
+
+\begin_layout Subsubsection*
+Moving to a Service Oriented Approach 
+\end_layout
+
+\begin_layout Standard
+The problem of our architecture is that the Application Server is the bottleneck
+ of our system.
+ Every other components is in relation with it, therefore it's performance
+ is stricly related to the performance of our overall system.
+ But since every components expects different functionalities from the Applicati
+on Server we can parallelize using threads and split the work load among
+ different services.
+ To exploit the benefits of a service-oriented architecture we have to split
+ the database among the different components.
+\end_layout
+
+\begin_layout Standard
+The next figure shows which database table will each component manage.
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename images/microservices.png
+	lyxscale 20
+	scale 35
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+Figure 1: Application Layer with Service Oriented Approach
+\end_layout
+
+\begin_layout Paragraph*
+\begin_inset space \space{}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We believe this is a succesfull architecture for the following reasons:
+\end_layout
+
+\begin_layout Itemize
+It's a more clean architecture.
+ Every component implements a service and provides an interface to all the
+ other services.
+ 
+\end_layout
+
+\begin_layout Itemize
+Changing/optimizing each module will not affect the whole system as long
+ as we mantain the same interface for each component.
+\end_layout
+
+\begin_layout Itemize
+It's very flexibile, it's will be easy in the future to add new functionalities.
+\end_layout
+
+\begin_layout Itemize
+We can divide the databases among different regions (e.g.
+ for the city of Milan we don't need to keep track of the cars in Turin)
+\end_layout
+
+\begin_layout Standard
+The next figure rapresent the whole system architecture:
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename images/CompletedArchitecture.png
+	lyxscale 20
+	scale 35
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+Figure 1: Application Layer with Service Oriented Approach
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Deployment View
+\end_layout
+
+\begin_layout Standard
+In this subsection we'll move on the physical side of our application, showing
+ the deployment diagram for the whole system.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{adjustwidth*}{-4cm}{-4cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename images/Deployment.png
+	lyxscale 20
+	scale 60
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{adjustwidth*}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection
@@ -1513,44 +1666,6 @@ end{adjustwidth*}
 
 \end_layout
 
-\begin_layout Subsection
-Selected Architectural Styles and Pattern
-\end_layout
-
-\begin_layout Standard
-Starting from the class Diagram, at the beginning of the design process
- we had a three tiers client-server based architecture, but the end result
- is a four tiers client based-server architecture.
- Since the modification is quite relevant, is usefull to summarize again
- the high level components, in order to give a clear vision of the system.
- The first tier as usual is the Client tier: Client tier contain all sections
- who interact with the user.
- In this section there are Mobile Application and Web Page.
- The server tier is splitted in two: Web Server and Application server.
- Web server is an efficient solution to connect the Web Page to the application
- server.
- I has a relation of client-Server with application server, where Web server
- is the client.
- Applicatio Server manage all the Power Enjoy logic.
- Is the core of the System and is able to communicate with all components
- as server or client (except for the Web page).
- The persistence tier is filled with the DBMS, designed to exploit microservices
- so the entities will be reasonable divided in more than one storage.
- An other tier, assimilable with the client tier, is the layer of the External
- Services, the one with the Car, Assistance and Payment Service.
- It has a relation Client-Server with the Application server as client and
- collect all Services different from the users who require just an exchange
- of messages with the application server.
- 
-\end_layout
-
-\begin_layout Standard
-\begin_inset Newpage pagebreak
-\end_inset
-
-
-\end_layout
-
 \begin_layout Section
 Algorithm Design
 \end_layout
@@ -1813,7 +1928,7 @@ Effort Spent
 \end_layout
 
 \begin_layout Standard
-Niccolo' 20 Ore 
+Niccolo' 23 Ore 
 \end_layout
 
 \end_body
