@@ -1,0 +1,73 @@
+Component Interfaces
+
+This sections includes further details on the interfaces between different components of the system. Also, last part of the section is devoted to illustrate some relevant details about the interfaces needed to use and interact with each component of the Application Server, accessible both by other Application Server components and by other components of the system.
+
+
+Database - Application Server
+
+The Application Server is the only one that can access the Database directly; this is done through the Java Persistence API mapping between objects and actual relations. Each Bin in fact access to his related DBMS by proper Object Relation Mapping.
+
+
+Application Server - Web Server and Clients
+
+The communication between Application Server and clients, both direct and
+via the Web Server, must happen via RESTful APIs provided by the Application
+Server itself and implemented using JAX-RS.
+
+
+Application Server - External Systems
+The Application Server must connect with three types of external systems:
+	A Maintenance System, to which the Application Server must offer an
+interface API in order to provide access to data needed for maintenance
+interventions;
+	One or more Payment Handlers, that provide the interface APIs to
+which the Application server itself must adapt in order to perform
+payments of any kind.
+	Car's board computers, to which the application server must provide API to allow exchange of informations about the reservation and the car conditions.
+
+
+Internal Interfaces for Application Server Components
+Following functions descriptions ar grouped by the appartenence bin.
+
+
+LOCATION
+
+FINDCARS(pos,r) provide an algorithm to search efficiently cars in a range (r) around a position (pos). It will return a list of cars that satisfy the request. Since it is probabli the most complex, at least conceptually, function of the system, an accurate description and an outline of the code will be part of the Algorithm Design chapter.
+
+UPDATEPOS(object,pos) update the position information of objects. Objects may be Users, Cars and Safe Areas.
+
+MONITORCAR(carID) Reservation Bin calls this function to ask Location Bin to have a constant update of the position of the car (carID). This function starsts a loop of getGPSposition(carID) and UpdatePos(carID,pos) to realize the monitoring.
+
+STOPMONITORINGCAR(carID) stops the loops triggered by monitorCar.
+
+
+RESERVATION
+
+CREATERESERVATION() create a new istance in the relation Reservation and initialize all available field. The execution of this function determine the start of a reservation.
+
+FINDACTIVERES(u) search in the active reservation list if there is a reservation made by the user (u). It return an error if no reservation are available or reservaton id if one reservation is found.
+
+STARTRIDE(carID) is a function called by Car Bin to notify the ignition and the consequent start of the ride.
+
+ENDRIDE(carID,rideinfo) is called by Car Bin to notify the end of the ride and to gather iformations about it. The execution of this function will start the process of the end of a reservation.
+
+STARTUNSAFEPARK(carID,rideinfo) is usefull to differntiate between a proper end of the reservation and an uncorrect one. Parking in an unsafe area is not allowed so the Application Serve must perform a different sequence of operation to handle this. StartUnsafePark trigger the proper sequence when is called by Car Bin.
+
+
+TIME
+
+SETTIME(time,resID) start the countdown when is required. The system contemplate some waiting time and thi function realize this waiting time in the application server. When the time expire a notification is return to the caller bin.
+
+RESETTIME(resID) eliminate the countdown if it is not expired yet.
+
+
+PAYMENT
+
+CREATEINVOICE(user,carID,resID,ride_info) is called by Reservation Bin to pass all informations required by the Payment bin to calculate the final price and create an invoice.
+
+UPDATEINVOICE(carID,CHARGING) is called when a plug is connected with the car. This will provide a discount so the invoice mus be updated. It is necessary because CreateInvoice is called immediately to avoid the possibility of multiple reservation.
+
+
+ASSISTANCE
+
+ASKASSISTANCE(carID,malfunctioning) is caled by car to set up the Assistance Bin to send a proper help message. The second attribute malfunctioning describe the problem to handle.
