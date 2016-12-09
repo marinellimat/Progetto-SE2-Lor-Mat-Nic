@@ -9,6 +9,10 @@
 \usepackage{changepage}
 \end_preamble
 \use_default_options true
+\begin_modules
+logicalmkup
+pdfform
+\end_modules
 \maintain_unincluded_children false
 \language english
 \language_package default
@@ -445,6 +449,22 @@ The starting point to detect the main components is the Class Diagram described
 \end_layout
 
 \begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{adjustwidth*}{-4cm}{-4cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 \align center
 \begin_inset Graphics
 	filename images/ClassDiagram.png
@@ -459,6 +479,22 @@ The starting point to detect the main components is the Class Diagram described
 \begin_layout Standard
 \align center
 Figure 1: Class Diagram 
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{adjustwidth*}
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -765,6 +801,22 @@ n the system need to process to guarantee a correct and efficient service.
 \end_layout
 
 \begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{adjustwidth*}{-4cm}{-4cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 \align center
 \begin_inset Graphics
 	filename images/Entities.png
@@ -782,11 +834,43 @@ Figure X: Entities in the class Diagram
 \end_layout
 
 \begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{adjustwidth*}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 The DBMS must guarantee the correct functioning of concurrent transactions
  and the ACID properties; a relational DBMS is sufficient to handle the
  data storage required by the application.
  The database structure will be here described by a ER Diagram.
  
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{adjustwidth*}{-4cm}{-4cm}
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -804,6 +888,22 @@ The DBMS must guarantee the correct functioning of concurrent transactions
 \begin_layout Standard
 \align center
 Figure X: Entities in the class Diagram
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{adjustwidth*}
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -1239,11 +1339,27 @@ The next figure rapresent the whole system architecture:
 \end_layout
 
 \begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{adjustwidth*}{-2cm}{-2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 \align center
 \begin_inset Graphics
 	filename images/CompletedArchitecture.png
 	lyxscale 20
-	scale 35
+	scale 50
 
 \end_inset
 
@@ -1253,6 +1369,22 @@ The next figure rapresent the whole system architecture:
 \begin_layout Standard
 \align center
 Figure 1: Application Layer with Service Oriented Approach
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{adjustwidth*}
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -1292,7 +1424,7 @@ begin{adjustwidth*}{-4cm}{-4cm}
 \begin_inset Graphics
 	filename images/Deployment.png
 	lyxscale 20
-	scale 60
+	scale 30
 
 \end_inset
 
@@ -1671,7 +1803,299 @@ Algorithm Design
 \end_layout
 
 \begin_layout Standard
-Focus of the most relevant algorithmic part: FIND ZONE()
+In this section we give some guidelines for the programmers for the most
+ crucial part of the application.
+\end_layout
+
+\begin_layout Paragraph*
+Object Relation Mapping and Searches
+\end_layout
+
+\begin_layout Standard
+In the runtime diagrams usually a component is asked to find a specific
+ entity from an identifier, for example the Reservation Component needs
+ to find active Reservation Entity from a User ID or a Car ID.
+ In order to make this process more efficient we could introduce and HashMap
+ to keep track of the active reaservation.
+ This will avoid going back to the database everytime and will result into
+ a faster information retrieval and a overall better system performance.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{adjustwidth*}{-2cm}{-2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename images/algorithms/hashMap.png
+	lyxscale 20
+	scale 60
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+Figure 1: Application Layer with Service Oriented Approach
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{adjustwidth*}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Searching Car on a Map
+\end_layout
+
+\begin_layout Standard
+The location component as a method called 
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+findCars(position, range)
+\end_layout
+
+\end_inset
+
+ which given as inputs a gps position and range returns a list containing
+ all the cars in such area.
+ A naive approach would be to search the entire Location Database and check
+ if a car belongs to such area, but this is very expensive in term of time.
+ 
+\end_layout
+
+\begin_layout Quotation
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+badFindCars(position, range)
+\end_layout
+
+\begin_layout Plain Layout
+
+	FOR-EACH c:cars IN locationDB
+\end_layout
+
+\begin_layout Plain Layout
+
+		<create list L>
+\end_layout
+
+\begin_layout Plain Layout
+
+		p = c.getPosition()
+\end_layout
+
+\begin_layout Plain Layout
+
+		IF p in area(position, range)
+\end_layout
+
+\begin_layout Plain Layout
+
+			<append c to L>
+\end_layout
+
+\begin_layout Plain Layout
+
+	return L
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+A better search requires more logic.
+ We divide the map of the zone of interests in cells forming a grid as shown
+ in the next figure.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{adjustwidth*}{-4cm}{-4cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename images/algorithms/map.png
+	lyxscale 20
+	scale 60
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+Figure 1: Grid View
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{adjustwidth*}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Since the lenght of the cell is fixed, we can limit the search only in zones
+ covered in the area.
+ This requires that the Location DB keeps track of the zone in which the
+ car is currently in.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{adjustwidth*}{-4cm}{-4cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename images/algorithms/map2.png
+	lyxscale 20
+	scale 60
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+Figure 1: Grid Search
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{adjustwidth*}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Quotation
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+FindCars(position, range)
+\end_layout
+
+\begin_layout Plain Layout
+
+	<create list L>
+\end_layout
+
+\begin_layout Plain Layout
+
+	zones = <findZones from position,range>
+\end_layout
+
+\begin_layout Plain Layout
+
+	FOR-EACH c:cars IN zones
+\end_layout
+
+\begin_layout Plain Layout
+
+		p = c.getPosition()
+\end_layout
+
+\begin_layout Plain Layout
+
+		IF p in area(position, range)
+\end_layout
+
+\begin_layout Plain Layout
+
+			<append c to L>
+\end_layout
+
+\begin_layout Plain Layout
+
+	return L
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard

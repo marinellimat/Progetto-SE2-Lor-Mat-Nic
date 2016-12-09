@@ -9,6 +9,10 @@
 \usepackage{changepage}
 \end_preamble
 \use_default_options true
+\begin_modules
+logicalmkup
+pdfform
+\end_modules
 \maintain_unincluded_children false
 \language english
 \language_package default
@@ -445,6 +449,22 @@ The starting point to detect the main components is the Class Diagram described
 \end_layout
 
 \begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{adjustwidth*}{-4cm}{-4cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 \align center
 \begin_inset Graphics
 	filename images/ClassDiagram.png
@@ -459,6 +479,22 @@ The starting point to detect the main components is the Class Diagram described
 \begin_layout Standard
 \align center
 Figure 1: Class Diagram 
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{adjustwidth*}
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -765,6 +801,22 @@ n the system need to process to guarantee a correct and efficient service.
 \end_layout
 
 \begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{adjustwidth*}{-4cm}{-4cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 \align center
 \begin_inset Graphics
 	filename images/Entities.png
@@ -782,11 +834,43 @@ Figure X: Entities in the class Diagram
 \end_layout
 
 \begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{adjustwidth*}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 The DBMS must guarantee the correct functioning of concurrent transactions
  and the ACID properties; a relational DBMS is sufficient to handle the
  data storage required by the application.
  The database structure will be here described by a ER Diagram.
  
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{adjustwidth*}{-4cm}{-4cm}
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -804,6 +888,22 @@ The DBMS must guarantee the correct functioning of concurrent transactions
 \begin_layout Standard
 \align center
 Figure X: Entities in the class Diagram
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{adjustwidth*}
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -1094,72 +1194,197 @@ Final System Architecture
 \end_layout
 
 \begin_layout Standard
-Starting from the class Diagram, at the beginning of the design process
- we had a three tiers client-server based architecture, but the end result
- is a four tiers client based-server architecture.
- Since the modification is quite relevant, is usefull to summarize again
- the high level components, in order to give a clear vision of the system.
- The first tier as usual is the Client tier: Client tier contain all sections
- who interact with the user.
- In this section there are Mobile Application and Web Page.
- The server tier is splitted in two: Web Server and Application server.
- Web server is an efficient solution to connect the Web Page to the application
- server.
- I has a relation of client-Server with application server, where Web server
- is the client.
- Applicatio Server manage all the Power Enjoy logic.
- Is the core of the System and is able to communicate with all components
- as server or client (except for the Web page).
- The persistence tier is filled with the DBMS, designed to exploit microservices
- so the entities will be reasonable divided in more than one storage.
- An other tier, assimilable with the client tier, is the layer of the External
- Services, the one with the Car, Assistance and Payment Service.
- It has a relation Client-Server with the Application server as client and
- collect all Services different from the users who require just an exchange
- of messages with the application server.
+Starting from the Class Diagram at the beginning of the design process we
+ had a three tiers client-server based architecture, but in the process
+ of defining the single complement we introduce a Web Tier.
+ This process triggered more modification that led to the final architecture
+ that will be presented in this section.
+\end_layout
+
+\begin_layout Subsubsection*
+From a Three Tier to a Four Tier Architecture
+\end_layout
+
+\begin_layout Standard
+In Section 2.3.4 we explain the necessity of introducing a Web Tier to improve
+ scalability and to separete presentation from logic.
+ The architecture will now include the following tiers:
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+Client
+\begin_inset space \space{}
+\end_inset
+
+Tier This layer contains the mobile app and the web browser 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+Web
+\begin_inset space \space{}
+\end_inset
+
+Tier This layer contains contains the Web Server to provide a web interface
+ interface to the user
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+Application
+\begin_inset space \space{}
+\end_inset
+
+Tier This layer contains all the logic for the application
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+Database
+\begin_inset space \space{}
+\end_inset
+
+Tier This layer contains all the persistent data
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename images/4tier.png
+	lyxscale 20
+	scale 35
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+Figure 1: High Level Components 
+\end_layout
+
+\begin_layout Subsubsection*
+Moving to a Service Oriented Approach 
+\end_layout
+
+\begin_layout Standard
+The problem of our architecture is that the Application Server is the bottleneck
+ of our system.
+ Every other components is in relation with it, therefore it's performance
+ is stricly related to the performance of our overall system.
+ But since every components expects different functionalities from the Applicati
+on Server we can parallelize using threads and split the work load among
+ different services.
+ To exploit the benefits of a service-oriented architecture we have to split
+ the database among the different components.
+\end_layout
+
+\begin_layout Standard
+The next figure shows which database table will each component manage.
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename images/microservices.png
+	lyxscale 20
+	scale 35
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+Figure 1: Application Layer with Service Oriented Approach
+\end_layout
+
+\begin_layout Paragraph*
+\begin_inset space \space{}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We believe this is a succesfull architecture for the following reasons:
+\end_layout
+
+\begin_layout Itemize
+It's a more clean architecture.
+ Every component implements a service and provides an interface to all the
+ other services.
  
 \end_layout
 
-\begin_layout Subsubsection*
-dATABASE MICROSERVICES 
-\end_layout
-
-\begin_layout Standard
-DBMS will be realized to exploit a microservices architecture.
- The database will be divided into sections, each of them will interacts
- with a specific bin defined in the application server.
- There is a corrispondence between bin and DBMS, each bin interact at most
- with one DBMS Assistnce component rely to an external DBMS managed by the
- assistance service so in the architecture will not appear the Assistance
- DBMS.
- Obviously all DBMS will be connected as in the ER schema.
- A microservices structure will enhance performaces of DBMS, focusing the
- interaction just between the involved components and not questioning every
- time the entire database.
-\end_layout
-
-\begin_layout Standard
-(img microservices)
-\end_layout
-
-\begin_layout Subsubsection*
-dATABASE MICROSERVICES 
+\begin_layout Itemize
+Changing/optimizing each module will not affect the whole system as long
+ as we mantain the same interface for each component.
 \end_layout
 
 \begin_layout Itemize
-Separating Application Server and the Web Server improves scalability.
- We expect Power Enjoy usage to grow in differents cities and in this way
- we're able to seperate the tasks and optimize each layer individually to
- support increasing loads.
+It's very flexibile, it's will be easy in the future to add new functionalities.
 \end_layout
 
 \begin_layout Itemize
-The Application Server is the bottleneck of our system.
- Every other components is in relation with it, therefore it's performance
- is stricly related to the performance of our system.
- But since every components expects different functionalities from the Applicati
-on Server we can parallelize using threads and split the work load among
- different modules.
+We can divide the databases among different regions (e.g.
+ for the city of Milan we don't need to keep track of the cars in Turin)
+\end_layout
+
+\begin_layout Standard
+The next figure rapresent the whole system architecture:
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{adjustwidth*}{-2cm}{-2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename images/CompletedArchitecture.png
+	lyxscale 20
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+Figure 1: Application Layer with Service Oriented Approach
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{adjustwidth*}
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -1199,7 +1424,7 @@ begin{adjustwidth*}{-4cm}{-4cm}
 \begin_inset Graphics
 	filename images/Deployment.png
 	lyxscale 20
-	scale 60
+	scale 30
 
 \end_inset
 
@@ -1578,7 +1803,314 @@ Algorithm Design
 \end_layout
 
 \begin_layout Standard
-Focus of the most relevant algorithmic part: FIND ZONE()
+In this section we give some guidelines for the programmers for the most
+ crucial part of the application.
+\end_layout
+
+\begin_layout Paragraph*
+Object Relation Mapping and Searches
+\end_layout
+
+\begin_layout Standard
+In the runtime diagrams usually a component is asked to find a specific
+ entity from an identifier, for example the Reservation Component needs
+ to find active Reservation Entity from a User ID or a Car ID.
+ In order to make this process more efficient we could introduce and HashMap
+ to keep track of the active reaservation.
+ This will avoid going back to the database everytime and will result into
+ a faster information retrieval and a overall better system performance.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{adjustwidth*}{-2cm}{-2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename images/algorithms/hashMap.png
+	lyxscale 20
+	scale 60
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+Figure 1: Application Layer with Service Oriented Approach
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{adjustwidth*}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Searching Car on a Map
+\end_layout
+
+\begin_layout Standard
+The location component as a method called 
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+findCars(position, range)
+\end_layout
+
+\end_inset
+
+ which given as inputs a gps position and range returns a list containing
+ all the cars in such area.
+ A naive approach would be to search the entire Location Database and check
+ if a car belongs to such area, but this is very expensive in term of time.
+ 
+\end_layout
+
+\begin_layout Quotation
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+badFindCars(position, range)
+\end_layout
+
+\begin_layout Plain Layout
+
+	FOR-EACH c:cars IN locationDB
+\end_layout
+
+\begin_layout Plain Layout
+
+		<create list L>
+\end_layout
+
+\begin_layout Plain Layout
+
+		p = c.getPosition()
+\end_layout
+
+\begin_layout Plain Layout
+
+		IF p in area(position, range)
+\end_layout
+
+\begin_layout Plain Layout
+
+			<append c to L>
+\end_layout
+
+\begin_layout Plain Layout
+
+	return L
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+A better search requires more logic.
+ We divide the map of the zone of interests in cells forming a grid as shown
+ in the next figure.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{adjustwidth*}{-4cm}{-4cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename images/algorithms/map.png
+	lyxscale 20
+	scale 60
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+Figure 1: Grid View
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{adjustwidth*}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Since the lenght of the cell is fixed, we can limit the search only in zones
+ covered in the area.
+ This requires that the Location DB keeps track of the zone in which the
+ car is currently in.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{adjustwidth*}{-4cm}{-4cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename images/algorithms/map2.png
+	lyxscale 20
+	scale 60
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+Figure 1: Grid Search
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{adjustwidth*}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Quotation
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+FindCars(position, range)
+\end_layout
+
+\begin_layout Plain Layout
+
+	<create list L>
+\end_layout
+
+\begin_layout Plain Layout
+
+	zones = <findZones from position,range>
+\end_layout
+
+\begin_layout Plain Layout
+
+	FOR-EACH c:cars IN zones
+\end_layout
+
+\begin_layout Plain Layout
+
+		p = c.getPosition()
+\end_layout
+
+\begin_layout Plain Layout
+
+		IF p in area(position, range)
+\end_layout
+
+\begin_layout Plain Layout
+
+			<append c to L>
+\end_layout
+
+\begin_layout Plain Layout
+
+	return L
+\end_layout
+
+\begin_layout Plain Layout
+
+		
+\end_layout
+
+\begin_layout Plain Layout
+
+		
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
