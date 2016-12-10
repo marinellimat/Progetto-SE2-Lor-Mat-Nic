@@ -1268,7 +1268,7 @@ FINDCARS(pos,r)
  provide an algorithm to search efficiently cars in a range (r) around a
  position (pos).
  It will return a list of cars that satisfy the request.
- Since it is probabli the most complex, at least conceptually, function
+ Since it is probably the most complex, at least conceptually, function
  of the system, an accurate description and an outline of the code will
  be part of the Algorithm Design chapter.
 \end_layout
@@ -1352,6 +1352,23 @@ FINDACTIVERES(u)
 
  search in the active reservation list if there is a reservation made by
  the user (u).
+ It return an error if no reservation are available or reservaton id if
+ one reservation is found.
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+FINDACTIVERES(carID)
+\end_layout
+
+\end_inset
+
+ search in the active reservation list if there is a reservation made of
+ the specified car (carID).
  It return an error if no reservation are available or reservaton id if
  one reservation is found.
 \end_layout
