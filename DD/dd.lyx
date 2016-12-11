@@ -33,6 +33,7 @@ pdfform
 \output_sync 0
 \bibtex_command default
 \index_command default
+\float_placement !tph
 \paperfontsize default
 \spacing single
 \use_hyperref true
@@ -248,14 +249,12 @@ UI: User Interface.
 
 \begin_layout Labeling
 \labelwidthstring 00.00.0000
-Backend: Term used to identify the Application server.
- 
+AS: Assistance Service
 \end_layout
 
 \begin_layout Labeling
 \labelwidthstring 00.00.0000
-Frontend: The components which use the application server services (web
- front-end and the mobile applications).
+PS: Payment Service.
  
 \end_layout
 
@@ -460,6 +459,14 @@ The starting point to detect the main components is the Class Diagram described
 \end_layout
 
 \begin_layout Standard
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
 \begin_inset ERT
 status open
 
@@ -467,32 +474,21 @@ status open
 
 
 \backslash
-begin{adjustwidth*}{-4cm}{-4cm}
+begin{adjustwidth*}{-2cm}{0cm}
 \end_layout
 
 \end_inset
 
 
-\end_layout
-
-\begin_layout Standard
-\align center
 \begin_inset Graphics
 	filename images/ClassDiagram.png
 	lyxscale 20
-	scale 35
+	scale 50
+	rotateOrigin center
 
 \end_inset
 
 
-\end_layout
-
-\begin_layout Standard
-\align center
-Figure 1: Class Diagram 
-\end_layout
-
-\begin_layout Standard
 \begin_inset ERT
 status open
 
@@ -501,6 +497,20 @@ status open
 
 \backslash
 end{adjustwidth*}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Class Diagram presented in RASD
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -549,21 +559,24 @@ Database: This component is responsible for data storage and retrieval of
  for the correct functioning of our service.
  It must guarantee ACID properties and be accessible from the Application
  Server.
-\end_layout
-
-\begin_layout Standard
-\begin_inset VSpace smallskip
+\begin_inset Newpage pagebreak
 \end_inset
 
 
 \end_layout
 
 \begin_layout Standard
-In the figure below we rapresent all the components listed above in a layered
- fashion, highlighting the relations among the different parts: 
+In the figure above we rapresent all the components listed before in a layered
+ fashion, highlighting the relations among the different parts.
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
 \align center
 \begin_inset Graphics
 	filename images/highlevel.png
@@ -575,9 +588,25 @@ In the figure below we rapresent all the components listed above in a layered
 
 \end_layout
 
-\begin_layout Standard
-\align center
-Figure 1: High Level Components 
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+High Level Components 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection
@@ -615,20 +644,39 @@ This components implements the logic of the Power Enjoy Application, it's
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
 \align center
 \begin_inset Graphics
 	filename images/ControlComponents.png
 	lyxscale 60
-	scale 35
+	scale 50
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Mapping of control function to subcomponents of our system
+\end_layout
 
 \end_inset
 
 
 \end_layout
 
-\begin_layout Standard
-\align center
-Figure 2: Mapping of control function to subcomponents of our system
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -767,6 +815,12 @@ The next figure will show the Application Component implemented as session
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
 \align center
 \begin_inset Graphics
 	filename images/Beans.png
@@ -776,11 +830,20 @@ The next figure will show the Application Component implemented as session
 \end_inset
 
 
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Application Component as Java Entity Beans
 \end_layout
 
-\begin_layout Standard
-\align center
-Figure 3: Application as Java Entity Beans
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -799,6 +862,13 @@ In Section 2.7 using UML Sequence Diagrams we highlight the relationship
  between each component showing the runtime behaviour of our system.
 \end_layout
 
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
+\end_layout
+
 \begin_layout Subsubsection
 Database
 \end_layout
@@ -812,47 +882,54 @@ n the system need to process to guarantee a correct and efficient service.
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
 \begin_inset ERT
 status open
 
 \begin_layout Plain Layout
 
-
-\backslash
-begin{adjustwidth*}{-4cm}{-4cm}
 \end_layout
 
 \end_inset
 
 
-\end_layout
-
-\begin_layout Standard
-\align center
 \begin_inset Graphics
 	filename images/Entities.png
 	lyxscale 20
-	scale 45
+	scale 40
 
 \end_inset
 
 
-\end_layout
-
-\begin_layout Standard
-\align center
-Figure X: Entities in the class Diagram
-\end_layout
-
-\begin_layout Standard
 \begin_inset ERT
 status open
 
 \begin_layout Plain Layout
 
+\end_layout
 
-\backslash
-end{adjustwidth*}
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Entities in the class Diagram
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -869,6 +946,13 @@ The DBMS must guarantee the correct functioning of concurrent transactions
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
 \begin_inset ERT
 status open
 
@@ -876,32 +960,20 @@ status open
 
 
 \backslash
-begin{adjustwidth*}{-4cm}{-4cm}
+begin{adjustwidth*}{-2cm}{-2cm}
 \end_layout
 
 \end_inset
 
 
-\end_layout
-
-\begin_layout Standard
-\align center
 \begin_inset Graphics
 	filename images/ER.png
 	lyxscale 20
-	scale 45
+	scale 40
 
 \end_inset
 
 
-\end_layout
-
-\begin_layout Standard
-\align center
-Figure X: Entities in the class Diagram
-\end_layout
-
-\begin_layout Standard
 \begin_inset ERT
 status open
 
@@ -910,6 +982,20 @@ status open
 
 \backslash
 end{adjustwidth*}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+ER Diagram
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -1172,13 +1258,6 @@ The mobile app will be written with Cordova which is a mobile application
  It's the best cost-effective solution to target nearly every phone or tablet
  on the market today and publish to their app stores directly.
  
-\end_layout
-
-\begin_layout Standard
-\begin_inset Newpage pagebreak
-\end_inset
-
-
 \end_layout
 
 \begin_layout Subsection
@@ -1509,14 +1588,7 @@ ASKASSISTANCE(carID,malfunctioning)
 
  is called by the Car Bean as soon as the car notifies some malfunctoning.
  It will send an assistance request to the external assistance service specifyin
-g the carId and the type of malfunctioning to handle.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Newpage pagebreak
-\end_inset
-
-
+g the carId and the type of malfunctioning to handle
 \end_layout
 
 \begin_layout Subsection
@@ -1579,20 +1651,46 @@ Tier This layer contains all the persistent data
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
 \align center
 \begin_inset Graphics
 	filename images/4tier.png
 	lyxscale 20
-	scale 35
+	scale 20
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Four Tier Architecture 
+\end_layout
 
 \end_inset
 
 
 \end_layout
 
-\begin_layout Standard
-\align center
-Figure 1: High Level Components 
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection*
+\begin_inset Newpage pagebreak
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsubsection*
@@ -1616,6 +1714,12 @@ The next figure shows which database table will each component manage.
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
 \align center
 \begin_inset Graphics
 	filename images/microservices.png
@@ -1625,11 +1729,20 @@ The next figure shows which database table will each component manage.
 \end_inset
 
 
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Application Layer with Service Oriented Approach
 \end_layout
 
-\begin_layout Standard
-\align center
-Figure 1: Application Layer with Service Oriented Approach
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Paragraph*
@@ -1669,6 +1782,13 @@ The next figure rapresent the whole system architecture:
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
 \begin_inset ERT
 status open
 
@@ -1682,26 +1802,14 @@ begin{adjustwidth*}{-2cm}{-2cm}
 \end_inset
 
 
-\end_layout
-
-\begin_layout Standard
-\align center
 \begin_inset Graphics
 	filename images/CompletedArchitecture.png
 	lyxscale 20
-	scale 50
+	scale 55
 
 \end_inset
 
 
-\end_layout
-
-\begin_layout Standard
-\align center
-Figure 1: Application Layer with Service Oriented Approach
-\end_layout
-
-\begin_layout Standard
 \begin_inset ERT
 status open
 
@@ -1710,6 +1818,20 @@ status open
 
 \backslash
 end{adjustwidth*}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Application Layer with Service Oriented Approach
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -1729,47 +1851,30 @@ Deployment View
 \end_layout
 
 \begin_layout Standard
-In this subsection we'll move on the physical side of our application, showing
- the deployment diagram for the whole system.
-\end_layout
-
-\begin_layout Standard
-\begin_inset ERT
+\begin_inset Float figure
+wide false
+sideways false
 status open
 
 \begin_layout Plain Layout
-
-
-\backslash
-begin{adjustwidth*}{-4cm}{-4cm}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
 \align center
 \begin_inset Graphics
 	filename images/Deployment.png
 	lyxscale 20
-	scale 30
+	scale 37
 
 \end_inset
 
 
-\end_layout
-
-\begin_layout Standard
-\begin_inset ERT
-status open
+\begin_inset Caption Standard
 
 \begin_layout Plain Layout
+Deployment Diagram
+\end_layout
+
+\end_inset
 
 
-\backslash
-end{adjustwidth*}
 \end_layout
 
 \end_inset
@@ -1803,6 +1908,13 @@ Create Reservation
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
 \begin_inset ERT
 status open
 
@@ -1810,27 +1922,20 @@ status open
 
 
 \backslash
-begin{adjustwidth*}{-4cm}{-4cm}
+begin{adjustwidth*}{-3cm}{-3cm}
 \end_layout
 
 \end_inset
 
 
-\end_layout
-
-\begin_layout Standard
-\align center
 \begin_inset Graphics
 	filename images/runtime/1.startRes.png
 	lyxscale 20
-	scale 60
+	scale 55
 
 \end_inset
 
 
-\end_layout
-
-\begin_layout Standard
 \begin_inset ERT
 status open
 
@@ -1839,6 +1944,20 @@ status open
 
 \backslash
 end{adjustwidth*}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Create Reservation - Runtime Diagram
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -1858,6 +1977,13 @@ Cancel Reservation
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
 \begin_inset ERT
 status open
 
@@ -1865,16 +1991,12 @@ status open
 
 
 \backslash
-begin{adjustwidth*}{-4cm}{-4cm}
+begin{adjustwidth*}{-3cm}{-3cm}
 \end_layout
 
 \end_inset
 
 
-\end_layout
-
-\begin_layout Standard
-\align center
 \begin_inset Graphics
 	filename images/runtime/2.cancelRes.png
 	lyxscale 20
@@ -1883,9 +2005,6 @@ begin{adjustwidth*}{-4cm}{-4cm}
 \end_inset
 
 
-\end_layout
-
-\begin_layout Standard
 \begin_inset ERT
 status open
 
@@ -1894,6 +2013,20 @@ status open
 
 \backslash
 end{adjustwidth*}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Cancel Reservation - Runtime Diagram
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -1913,6 +2046,13 @@ Unlock Car
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
 \begin_inset ERT
 status open
 
@@ -1920,16 +2060,12 @@ status open
 
 
 \backslash
-begin{adjustwidth*}{-4cm}{-4cm}
+begin{adjustwidth*}{-3cm}{-3cm}
 \end_layout
 
 \end_inset
 
 
-\end_layout
-
-\begin_layout Standard
-\align center
 \begin_inset Graphics
 	filename images/runtime/3.unlock.png
 	lyxscale 20
@@ -1938,9 +2074,6 @@ begin{adjustwidth*}{-4cm}{-4cm}
 \end_inset
 
 
-\end_layout
-
-\begin_layout Standard
 \begin_inset ERT
 status open
 
@@ -1949,6 +2082,24 @@ status open
 
 \backslash
 end{adjustwidth*}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Unlock Car - Runtime Diagram
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -1968,6 +2119,13 @@ Start Ride
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
 \begin_inset ERT
 status open
 
@@ -1975,16 +2133,12 @@ status open
 
 
 \backslash
-begin{adjustwidth*}{-4cm}{-4cm}
+begin{adjustwidth*}{-2cm}{-3cm}
 \end_layout
 
 \end_inset
 
 
-\end_layout
-
-\begin_layout Standard
-\align center
 \begin_inset Graphics
 	filename images/runtime/4.startRide.png
 	lyxscale 20
@@ -1993,9 +2147,6 @@ begin{adjustwidth*}{-4cm}{-4cm}
 \end_inset
 
 
-\end_layout
-
-\begin_layout Standard
 \begin_inset ERT
 status open
 
@@ -2004,6 +2155,20 @@ status open
 
 \backslash
 end{adjustwidth*}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Start Ride - Runtime Diagram
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -2023,6 +2188,13 @@ End Ride (Safe Park)
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
 \begin_inset ERT
 status open
 
@@ -2030,16 +2202,12 @@ status open
 
 
 \backslash
-begin{adjustwidth*}{-4cm}{-4cm}
+begin{adjustwidth*}{-4cm}{-3cm}
 \end_layout
 
 \end_inset
 
 
-\end_layout
-
-\begin_layout Standard
-\align center
 \begin_inset Graphics
 	filename images/runtime/5.endSafe.png
 	lyxscale 20
@@ -2048,9 +2216,6 @@ begin{adjustwidth*}{-4cm}{-4cm}
 \end_inset
 
 
-\end_layout
-
-\begin_layout Standard
 \begin_inset ERT
 status open
 
@@ -2059,6 +2224,20 @@ status open
 
 \backslash
 end{adjustwidth*}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+End Ride in a Safe Area - Runtime Diagram
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -2078,6 +2257,13 @@ End Ride (Unsafe Park)
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
 \begin_inset ERT
 status open
 
@@ -2085,27 +2271,20 @@ status open
 
 
 \backslash
-begin{adjustwidth*}{-4cm}{-4cm}
+begin{adjustwidth*}{-3cm}{-3cm}
 \end_layout
 
 \end_inset
 
 
-\end_layout
-
-\begin_layout Standard
-\align center
 \begin_inset Graphics
 	filename images/runtime/6.endUnsafe.png
 	lyxscale 20
-	scale 60
+	scale 55
 
 \end_inset
 
 
-\end_layout
-
-\begin_layout Standard
 \begin_inset ERT
 status open
 
@@ -2114,6 +2293,20 @@ status open
 
 \backslash
 end{adjustwidth*}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+End Ride in an Unsafe Area - Runtime Diagram
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -2152,47 +2345,30 @@ In the runtime diagrams usually a component is asked to find a specific
 \end_layout
 
 \begin_layout Standard
-\begin_inset ERT
+\begin_inset Float figure
+wide false
+sideways false
 status open
 
 \begin_layout Plain Layout
-
-
-\backslash
-begin{adjustwidth*}{-2cm}{-2cm}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
 \align center
 \begin_inset Graphics
 	filename images/algorithms/hashMap.png
 	lyxscale 20
-	scale 60
+	scale 56
 
 \end_inset
 
 
-\end_layout
-
-\begin_layout Standard
-\align center
-Figure 1: Application Layer with Service Oriented Approach
-\end_layout
-
-\begin_layout Standard
-\begin_inset ERT
-status open
+\begin_inset Caption Standard
 
 \begin_layout Plain Layout
+HashMap of Reservation Entities
+\end_layout
+
+\end_inset
 
 
-\backslash
-end{adjustwidth*}
 \end_layout
 
 \end_inset
@@ -2274,47 +2450,50 @@ A better search requires more logic.
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
 \begin_inset ERT
 status open
 
 \begin_layout Plain Layout
 
-
-\backslash
-begin{adjustwidth*}{-4cm}{-4cm}
 \end_layout
 
 \end_inset
 
 
-\end_layout
-
-\begin_layout Standard
-\align center
 \begin_inset Graphics
 	filename images/algorithms/map.png
 	lyxscale 20
-	scale 60
+	scale 55
 
 \end_inset
 
 
-\end_layout
-
-\begin_layout Standard
-\align center
-Figure 1: Grid View
-\end_layout
-
-\begin_layout Standard
 \begin_inset ERT
 status open
 
 \begin_layout Plain Layout
 
+\end_layout
 
-\backslash
-end{adjustwidth*}
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Map divided in cells
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -2335,47 +2514,50 @@ Since the lenght of the cell is fixed, we can limit the search only in zones
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
 \begin_inset ERT
 status open
 
 \begin_layout Plain Layout
 
-
-\backslash
-begin{adjustwidth*}{-4cm}{-4cm}
 \end_layout
 
 \end_inset
 
 
-\end_layout
-
-\begin_layout Standard
-\align center
 \begin_inset Graphics
 	filename images/algorithms/map2.png
 	lyxscale 20
-	scale 60
+	scale 55
 
 \end_inset
 
 
-\end_layout
-
-\begin_layout Standard
-\align center
-Figure 1: Grid Search
-\end_layout
-
-\begin_layout Standard
 \begin_inset ERT
 status open
 
 \begin_layout Plain Layout
 
+\end_layout
 
-\backslash
-end{adjustwidth*}
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Grid Search
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -2455,6 +2637,12 @@ The mobile application, as usual, will have a recognizable icon that can
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
 \align center
 \begin_inset Graphics
 	filename images/mockups/mobile1.png
@@ -2464,11 +2652,20 @@ The mobile application, as usual, will have a recognizable icon that can
 \end_inset
 
 
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Mobile Home Screen 
 \end_layout
 
-\begin_layout Standard
-\align center
-Figure 1: Mockup
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -2487,6 +2684,12 @@ E-mail and Password are required for the login.
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
 \align center
 \begin_inset Graphics
 	filename images/mockups/mobile2.png
@@ -2496,20 +2699,29 @@ E-mail and Password are required for the login.
 \end_inset
 
 
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Car Selection 
 \end_layout
 
-\begin_layout Standard
-\align center
-Figure 1: Mockup
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
 On the screen is possible to see the map of the city, if is available the
  center will be the user position, if it is not available the center will
  be the center of the city.
- In the upper side there is a men˘ with the sections "Main Men˘", "Select
+ In the upper side there is a menu with the sections "Main menu˘", "Select
  Car" and "Payments".
- Main Men˘ open a list of fields.
+ Main menu˘ open a list of fields.
  It contains the field "Modify Profile" that lead to a screen equal to the
  Registration Screen previously described.
  In the Main Men˘ list is auspicable to put all functionalities not strictly
@@ -2519,7 +2731,7 @@ On the screen is possible to see the map of the city, if is available the
  If there are no unpayed fee will be shown a message like "You payed the
  last fee, there is nothing to pay more".
  If there is a payment pending the massage will be "There is a pending payment.
- You have to pay 5Ä (example)." and a button will start the payment procedure.
+ Click here to pay." and a button will start the payment procedure.
  Select car is the basic screen of the application.
  In this section is possible to set the center point of research and the
  research range, user should be guided to choose his position as center
@@ -2531,6 +2743,12 @@ On the screen is possible to see the map of the city, if is available the
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
 \align center
 \begin_inset Graphics
 	filename images/mockups/mobile3.png
@@ -2540,11 +2758,20 @@ On the screen is possible to see the map of the city, if is available the
 \end_inset
 
 
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Car Reservation
 \end_layout
 
-\begin_layout Standard
-\align center
-Figure 1: Mockup
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -2556,8 +2783,7 @@ Informations must be about the battery and the location, could be usefull
  An unlock button and a cancel button will be in the screen as well.
  If the unlock button is pushed not near enough, will be dislayed a message
  that notify the problem.
- When the car is ignited the countdown stops and the application go in standby,
- in the logic the application switch from reservation to ride.
+ When the car is ignited the countdown stops and the application go in standby.
  Only the application is in standby, not the entire phone.
  Application will wake up when the car is turned off.
  If the car is in an unsafe area, "You left car in an unsafe area" will
@@ -2565,9 +2791,6 @@ Informations must be about the battery and the location, could be usefull
  At the end of the countdown the ride will end If the car is in a safe area
  the ride will end.
  When a reservation or a ride ends, a payment notification is shown.
- It should be like "Your reservation has ended.
- Your fee is 8Ä.
- Thanks for using Power Enjoy Service".
  A confirmation button allows to go back to the Main Scree.
  The payment message is not shown if the reservation is canceled.
  Is important to underline that on the payment notificatio will NEVER appear
@@ -2585,11 +2808,10 @@ The application must be as simple as possible, the main idea is to make
 \end_layout
 
 \begin_layout Standard
-The language to write the application obviously will change from a operating
- system to another.
- The application must run on Android and iOS.
- For Android the language will be Java and for iOS the language will be
- Swift.
+\begin_inset Newpage pagebreak
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection
@@ -2602,6 +2824,12 @@ Web Page is a support of the application.
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
 \align center
 \begin_inset Graphics
 	filename images/mockups/web1.png
@@ -2611,11 +2839,20 @@ Web Page is a support of the application.
 \end_inset
 
 
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Home Page
 \end_layout
 
-\begin_layout Standard
-\align center
-Figure 1: Mockup
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -2628,6 +2865,12 @@ The main purpose of the web page is to give the possibility to the user
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
 \align center
 \begin_inset Graphics
 	filename images/mockups/web2.png
@@ -2637,11 +2880,20 @@ The main purpose of the web page is to give the possibility to the user
 \end_inset
 
 
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+User Profile
 \end_layout
 
-\begin_layout Standard
-\align center
-Figure 1: Mockup
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -2731,7 +2983,16 @@ Effort Spent
 \end_layout
 
 \begin_layout Standard
-Niccolo' 26 Ore 
+The approximate number of hours of work for each member of the group is
+ the following:
+\end_layout
+
+\begin_layout Itemize
+Niccolo' Raspa 30 Hours
+\end_layout
+
+\begin_layout Itemize
+Matteo Marinelli 27 Hours
 \end_layout
 
 \end_body
