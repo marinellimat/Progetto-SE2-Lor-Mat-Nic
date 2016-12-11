@@ -898,9 +898,6 @@ status open
 
 \begin_layout Plain Layout
 
-
-\backslash
-begin{adjustwidth*}{-2cm}{-2cm}
 \end_layout
 
 \end_inset
@@ -919,9 +916,6 @@ status open
 
 \begin_layout Plain Layout
 
-
-\backslash
-end{adjustwidth*}
 \end_layout
 
 \end_inset
@@ -2725,26 +2719,37 @@ Car Selection
 On the screen is possible to see the map of the city, if is available the
  center will be the user position, if it is not available the center will
  be the center of the city.
- In the upper side there is a men˘ with the sections "Main Men˘", "Select
+ In the upper side there is a menu with the sections "Main menu˘", "Select
  Car" and "Payments".
- Main Men˘ open a list of fields.
+ 
+\end_layout
+
+\begin_layout Standard
+Main menu open a list of fields.
  It contains the field "Modify Profile" that lead to a screen equal to the
  Registration Screen previously described.
- In the Main Men˘ list is auspicable to put all functionalities not strictly
- related to the reservation and the payment, this will make more clean and
- simple the application.
- Payments allows to pay the unpayed fee, if there is.
- If there are no unpayed fee will be shown a message like "You payed the
- last fee, there is nothing to pay more".
- If there is a payment pending the massage will be "There is a pending payment.
- You have to pay 5Ä (example)." and a button will start the payment procedure.
- Select car is the basic screen of the application.
- In this section is possible to set the center point of research and the
- research range, user should be guided to choose his position as center
- even if is possible to put any position as center of the research.
+ In the Main Menu list is auspicable to put all functionalities not strictly
+ related to the reservation and the payment.
+ 
+\end_layout
+
+\begin_layout Standard
+The Payments sections allows the user to pay pending fees.
+ If there are no pending fee the message "You payed the last fee, there
+ is nothing to pay more" will be shown.
+ If there is a payment pending the message will be "There is a pending payment.
+ Click here to pay." and a button will start the payment procedure.
+ 
+\end_layout
+
+\begin_layout Standard
+Select car is the basic screen of the application.
+ In this section is possible to set the center point of search and the range,
+ user should be guided to choose his position as center even if is possible
+ to put any position as center of the research.
  When center and range are available for the server, it starts to search
  cars.
- Cars will be shown on the map and user can click on them to see the car
+ Cars will be shown on the map and user can click on them to see the additional
  informations.
 \end_layout
 
@@ -2789,8 +2794,7 @@ Informations must be about the battery and the location, could be usefull
  An unlock button and a cancel button will be in the screen as well.
  If the unlock button is pushed not near enough, will be dislayed a message
  that notify the problem.
- When the car is ignited the countdown stops and the application go in standby,
- in the logic the application switch from reservation to ride.
+ When the car is ignited the countdown stops and the application go in standby.
  Only the application is in standby, not the entire phone.
  Application will wake up when the car is turned off.
  If the car is in an unsafe area, "You left car in an unsafe area" will
@@ -2798,9 +2802,6 @@ Informations must be about the battery and the location, could be usefull
  At the end of the countdown the ride will end If the car is in a safe area
  the ride will end.
  When a reservation or a ride ends, a payment notification is shown.
- It should be like "Your reservation has ended.
- Your fee is 8Ä.
- Thanks for using Power Enjoy Service".
  A confirmation button allows to go back to the Main Scree.
  The payment message is not shown if the reservation is canceled.
  Is important to underline that on the payment notificatio will NEVER appear
@@ -2818,11 +2819,10 @@ The application must be as simple as possible, the main idea is to make
 \end_layout
 
 \begin_layout Standard
-The language to write the application obviously will change from a operating
- system to another.
- The application must run on Android and iOS.
- For Android the language will be Java and for iOS the language will be
- Swift.
+\begin_inset Newpage pagebreak
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection
@@ -2999,11 +2999,11 @@ The approximate number of hours of work for each member of the group is
 \end_layout
 
 \begin_layout Itemize
-Niccolo' Raspa 27 Hours
+Niccolo' Raspa 30 Hours
 \end_layout
 
 \begin_layout Itemize
-Matteo Marinelli 
+Matteo Marinelli 27 Hours
 \end_layout
 
 \end_body

@@ -898,9 +898,6 @@ status open
 
 \begin_layout Plain Layout
 
-
-\backslash
-begin{adjustwidth*}{-2cm}{-2cm}
 \end_layout
 
 \end_inset
@@ -919,9 +916,6 @@ status open
 
 \begin_layout Plain Layout
 
-
-\backslash
-end{adjustwidth*}
 \end_layout
 
 \end_inset
@@ -2994,11 +2988,11 @@ The approximate number of hours of work for each member of the group is
 \end_layout
 
 \begin_layout Itemize
-Niccolo' Raspa 27 Hours
+Niccolo' Raspa 30 Hours
 \end_layout
 
 \begin_layout Itemize
-Matteo Marinelli 
+Matteo Marinelli 27 Hours
 \end_layout
 
 \end_body
