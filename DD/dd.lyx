@@ -102,6 +102,10 @@ Design Document
 Niccolo' Raspa, Matteo Marinelli
 \end_layout
 
+\begin_layout Date
+December 11, 2016 (v1.0)
+\end_layout
+
 \begin_layout Standard
 \begin_inset VSpace medskip
 \end_inset
@@ -3000,6 +3004,18 @@ Niccolo' Raspa 30 Hours
 
 \begin_layout Itemize
 Matteo Marinelli 27 Hours
+\end_layout
+
+\begin_layout Subsection
+Versions
+\end_layout
+
+\begin_layout Itemize
+v1.0 deadline 11/12/2016
+\end_layout
+
+\begin_layout Itemize
+v1.1 data (cambiamenti)
 \end_layout
 
 \end_body

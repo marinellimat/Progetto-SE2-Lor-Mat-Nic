@@ -102,6 +102,10 @@ Design Document
 Niccolo' Raspa, Matteo Marinelli
 \end_layout
 
+\begin_layout Date
+December 11, 2016 (v1.0)
+\end_layout
+
 \begin_layout Standard
 \begin_inset VSpace medskip
 \end_inset
@@ -2721,24 +2725,35 @@ On the screen is possible to see the map of the city, if is available the
  be the center of the city.
  In the upper side there is a menu with the sections "Main menu˘", "Select
  Car" and "Payments".
- Main menu˘ open a list of fields.
+ 
+\end_layout
+
+\begin_layout Standard
+Main menu open a list of fields.
  It contains the field "Modify Profile" that lead to a screen equal to the
  Registration Screen previously described.
- In the Main Men˘ list is auspicable to put all functionalities not strictly
- related to the reservation and the payment, this will make more clean and
- simple the application.
- Payments allows to pay the unpayed fee, if there is.
- If there are no unpayed fee will be shown a message like "You payed the
- last fee, there is nothing to pay more".
- If there is a payment pending the massage will be "There is a pending payment.
+ In the Main Menu list is auspicable to put all functionalities not strictly
+ related to the reservation and the payment.
+ 
+\end_layout
+
+\begin_layout Standard
+The Payments sections allows the user to pay pending fees.
+ If there are no pending fee the message "You payed the last fee, there
+ is nothing to pay more" will be shown.
+ If there is a payment pending the message will be "There is a pending payment.
  Click here to pay." and a button will start the payment procedure.
- Select car is the basic screen of the application.
- In this section is possible to set the center point of research and the
- research range, user should be guided to choose his position as center
- even if is possible to put any position as center of the research.
+ 
+\end_layout
+
+\begin_layout Standard
+Select car is the basic screen of the application.
+ In this section is possible to set the center point of search and the range,
+ user should be guided to choose his position as center even if is possible
+ to put any position as center of the research.
  When center and range are available for the server, it starts to search
  cars.
- Cars will be shown on the map and user can click on them to see the car
+ Cars will be shown on the map and user can click on them to see the additional
  informations.
 \end_layout
 
@@ -2775,34 +2790,30 @@ Car Reservation
 \end_layout
 
 \begin_layout Standard
-Informations must be about the battery and the location, could be usefull
- add other information as model and number of sets.
+Informations shown must be about the battery, the location, car model and
+ number of sets.
  A button "Reserve Now" will start the reservation.
  When the reservation starts the display will show a one hour countdown,
- the timer indicates the time to the expiration of the reservation.
+ the timer indicates the time left to the expiration of the reservation.
  An unlock button and a cancel button will be in the screen as well.
- If the unlock button is pushed not near enough, will be dislayed a message
- that notify the problem.
- When the car is ignited the countdown stops and the application go in standby.
+ If the unlock button is pushed not close enough to the reserved vehicle,
+ an error message will be displayed.
+ When the car is ignited the countdown stops and the application goes in
+ standby.
  Only the application is in standby, not the entire phone.
  Application will wake up when the car is turned off.
  If the car is in an unsafe area, "You left car in an unsafe area" will
- be displayed togheter wit an unlock button and a one hour countdown.
- At the end of the countdown the ride will end If the car is in a safe area
- the ride will end.
- When a reservation or a ride ends, a payment notification is shown.
- A confirmation button allows to go back to the Main Scree.
+ be displayed together with an unlock button and a one hour countdown.
+ At the end of the countdown the ride will end.
+ If on the other hand, the car is in a safe area the ride will end immediatly.
+ In any case, when a reservation ends a payment notification is shown.
+ A confirmation button allows to go back to the Main Screeb.
  The payment message is not shown if the reservation is canceled.
- Is important to underline that on the payment notificatio will NEVER appear
- the word "ride": ride is usefull for the logic but its existence is useless
- for the user, so is usefull to avoid the use of two terms.
- Every time is not specified, the "go back" button of every mobile system
- will accomplish the "go back" function.
 \end_layout
 
 \begin_layout Standard
 The application must be as simple as possible, the main idea is to make
- every marginal utilities, like the main men˘ options, obscured by the main
+ every marginal utilities, like the main menu options, obscured by the main
  functionality.
  This reasoning increase usability thanks to the focus on the reservation.
 \end_layout
@@ -2993,6 +3004,14 @@ Niccolo' Raspa 30 Hours
 
 \begin_layout Itemize
 Matteo Marinelli 27 Hours
+\end_layout
+
+\begin_layout Subsection
+Versions
+\end_layout
+
+\begin_layout Itemize
+v1.0 deadline 11/12/2016
 \end_layout
 
 \end_body
