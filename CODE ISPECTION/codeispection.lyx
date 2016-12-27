@@ -91,11 +91,11 @@ pdfform
 \begin_body
 
 \begin_layout Title
-Power EnJoy 
+Apache Ofbiz 
 \begin_inset Newline newline
 \end_inset
 
-Integration Test Plan Document
+Code Ispection Document
 \end_layout
 
 \begin_layout Author
@@ -146,6 +146,28 @@ Software Engineering 2 Course Project
 
 \end_layout
 
+\begin_layout Section*
+ASSIGNMENT INFO
+\end_layout
+
+\begin_layout Standard
+The Integration Test Plan Document (ITPD) aims at describing how you plan
+ to accomplish the integration test.
+ This document is supposed to be written before the integration test really
+ happens.
+ Often it is written in parallel to the Design Document and takes the architectu
+ral description of the software system as a starting point.
+ This document needs to explain to the development team what to test, in
+ which sequence, which tools are needed for testing (if any), and which
+ stubs/drivers/oracles need to be developed.
+ The structure we suggest for this document is the following (if you introduce
+ changes to this structure, please provide a justification for this):
+\begin_inset Newpage pagebreak
+\end_inset
+
+
+\end_layout
+
 \begin_layout Standard
 \begin_inset CommandInset toc
 LatexCommand tableofcontents
@@ -166,70 +188,43 @@ LatexCommand tableofcontents
 Introduction
 \end_layout
 
-\begin_layout Subsection
-Revision History
+\begin_layout Standard
+Apache OFBiz® is an open source product for the automation of enterprise
+ processes that includes framework components and business applications
+ for ERP (Enterprise Resource Planning), CRM (Customer Relationship Management),
+ E-Business / E-Commerce, SCM (Supply Chain Management), MRP (Manufacturing
+ Resource Planning), MMS/EAM (Maintenance Management System/Enterprise Asset
+ Management).
+ 
 \end_layout
 
 \begin_layout Standard
-Record all revision of the document 
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://ofbiz.apache.org/documentation.html
 \end_layout
 
-\begin_layout Subsection
-Purpose and Scope
-\end_layout
+\end_inset
 
-\begin_layout Standard
-State the purpose and scope of the document
-\end_layout
 
-\begin_layout Subsection
-List of Definitions and Abbreviations
-\end_layout
-
-\begin_layout Subsection
-List of Reference Documents
 \end_layout
 
 \begin_layout Standard
-List all reference documents, for instance:
-\end_layout
-
-\begin_layout Itemize
-Project description
-\end_layout
-
-\begin_layout Itemize
-RASD
-\end_layout
-
-\begin_layout Itemize
-DD
-\end_layout
-
-\begin_layout Itemize
-Documentation of any tool you plan to use for testing 
+../apache-ofbiz-16.11.01/specialpurpose/solr/src/main/java/org/apache/ofbiz/solr/Sol
+rProductSearch.java 
 \end_layout
 
 \begin_layout Section
-Integration Strategy
-\end_layout
-
-\begin_layout Subsection
-Entry Criteria
+Effort Spent
 \end_layout
 
 \begin_layout Standard
-Specify the criteria that must be met before integration testing of specific
- elements may begin (e.g., functions must have been unit tested).
-\end_layout
-
-\begin_layout Subsection
-Elements to be Integrated
-\end_layout
-
-\begin_layout Standard
-Identify the components to be integrated, refer to your design document
- to identify such components in a way that is consistent with your design.
+In this section you will include information about the number of hours each
+ group member has worked towards the fulfillment of this deadline.
+ 
 \end_layout
 
 \end_body
