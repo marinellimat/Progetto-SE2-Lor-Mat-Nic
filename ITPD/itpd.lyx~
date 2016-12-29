@@ -75,8 +75,8 @@ pdfform
 \end_index
 \secnumdepth 3
 \tocdepth 3
-\paragraph_separation indent
-\paragraph_indentation default
+\paragraph_separation skip
+\defskip smallskip
 \quotes_language english
 \papercolumns 1
 \papersides 1
@@ -91,6 +91,10 @@ pdfform
 \begin_body
 
 \begin_layout Title
+\begin_inset Flex Emph
+status open
+
+\begin_layout Plain Layout
 Power EnJoy 
 \begin_inset Newline newline
 \end_inset
@@ -98,12 +102,43 @@ Power EnJoy
 Integration Test Plan Document
 \end_layout
 
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{12px}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Author
 Niccolo' Raspa, Matteo Marinelli
 \end_layout
 
 \begin_layout Standard
-\begin_inset VSpace medskip
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace*{20px}
+\end_layout
+
 \end_inset
 
 
@@ -121,14 +156,16 @@ Niccolo' Raspa, Matteo Marinelli
 \end_layout
 
 \begin_layout Standard
-\begin_inset VSpace medskip
-\end_inset
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
 
 
+\backslash
+vspace{100px}
 \end_layout
 
-\begin_layout Standard
-\begin_inset VSpace medskip
 \end_inset
 
 
@@ -193,7 +230,109 @@ Revision History
 \end_layout
 
 \begin_layout Standard
-Record all revision of the document 
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Tabular
+<lyxtabular version="3" rows="2" columns="4">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Version
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Date
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Author(s)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Summary
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1.0
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+06/01/2016
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Niccolo' Raspa, Matteo Marinelli
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Initial Release
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection
@@ -201,11 +340,152 @@ Purpose and Scope
 \end_layout
 
 \begin_layout Standard
-State the purpose and scope of the document
+This document represents the Integration Testing Plan Document for PowerEnJoy.
+ The main purpose of this document is to outline, in a clear and comprehensive
+ way, the main aspects concerning the organization of the integration testing
+ activity for all the components that make up the system.
+ 
+\end_layout
+
+\begin_layout Standard
+This process is essential because it not only guarantees that every component
+ behaves as expected but also that all the components interoperate correctly
+ together to fullfil all the functionalities expected from the system.
+ 
+\end_layout
+
+\begin_layout Standard
+We will focus deeply on the Application Layer since it implements all the
+ core of our business.
+ This component is divided in different services which provides great benefits
+ but the implicit granularity of a service oriented approach must be fully
+ tested to guarantee that all the subcomponents behave as one cohesive layer.
+\end_layout
+
+\begin_layout Paragraph
+This document is structured as follows:
+\end_layout
+
+\begin_layout Description
+Chapter
+\begin_inset space \space{}
+\end_inset
+
+1 Provides general information about the ITPD document.
+\end_layout
+
+\begin_layout Description
+Chapter
+\begin_inset space \space{}
+\end_inset
+
+2 Explains in details the chosen integration strategy.
+ In more details:
+\end_layout
+
+\begin_layout Itemize
+Lists of the subsystems and their subcomponents involved in this process
+\end_layout
+
+\begin_layout Itemize
+Specifies the criteria that must be met before integration testing begins
+\end_layout
+
+\begin_layout Itemize
+Describes the integration testing approach and the rationale behind it 
+\end_layout
+
+\begin_layout Itemize
+Outlines the order in which components and subcomponents will be integrated
+\end_layout
+
+\begin_layout Description
+Chapter
+\begin_inset space \space{}
+\end_inset
+
+3 Describes the type of tests that will be used to verify that every step
+ of the integration process above perform as expected.
+\end_layout
+
+\begin_layout Description
+Chapter
+\begin_inset space \space{}
+\end_inset
+
+4 Identifies all tools and test equipment needed to accomplish the integration.
+ 
+\end_layout
+
+\begin_layout Description
+Chapter
+\begin_inset space \space{}
+\end_inset
+
+5 Identifies any program stubs or special test data required for each integratio
+n step
 \end_layout
 
 \begin_layout Subsection
 List of Definitions and Abbreviations
+\end_layout
+
+\begin_layout Description
+DD: Design Document
+\end_layout
+
+\begin_layout Description
+RASD: Requirement Analysis and Specification Document
+\end_layout
+
+\begin_layout Description
+ITPD: Integration Test Plan Document
+\end_layout
+
+\begin_layout Description
+EJB: Enterprise JavaBeans
+\end_layout
+
+\begin_layout Description
+SOA: Service Oriented Architecture
+\end_layout
+
+\begin_layout Description
+Component: One of the four tier of the system (Client, Web, Application,
+ Database)
+\end_layout
+
+\begin_layout Description
+Subcomponent: Usually refers to the Application Layer, and refers to a EJB
+ that encapsulates a specific part of the business logic of the module
+\end_layout
+
+\begin_layout Description
+Layer: synonim of 
+\begin_inset Flex Emph
+status open
+
+\begin_layout Plain Layout
+Component
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+Service: synonim of
+\begin_inset Flex Emph
+status open
+
+\begin_layout Plain Layout
+ Subcomponent
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection
@@ -213,23 +493,40 @@ List of Reference Documents
 \end_layout
 
 \begin_layout Standard
-List all reference documents, for instance:
+Please refer to the following documents, for additional informations on
+ the Power Enjoy System:
 \end_layout
 
 \begin_layout Itemize
-Project description
+Project rules of the Software Engineering 2 project
 \end_layout
 
 \begin_layout Itemize
-RASD
+Power Enjoy - Requirement Analysis and Specification Document 
 \end_layout
 
 \begin_layout Itemize
-DD
+Power Enjoy - Design Document 
 \end_layout
 
 \begin_layout Itemize
+\begin_inset Flex Strong
+status open
+
+\begin_layout Plain Layout
 Documentation of any tool you plan to use for testing 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
@@ -336,9 +633,26 @@ Effort Spent
 \end_layout
 
 \begin_layout Standard
-In this section you will include information about the number of hours each
- group member has worked towards the fulfillment of this deadline.
- 
+The approximate number of hours of work for each member of the group is
+ the following: 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+Niccolo’
+\begin_inset space \space{}
+\end_inset
+
+Raspa x Hours
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+Matteo
+\begin_inset space \space{}
+\end_inset
+
+Marinelli y Hours
 \end_layout
 
 \end_body

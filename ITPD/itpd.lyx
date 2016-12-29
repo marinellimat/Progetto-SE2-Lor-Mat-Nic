@@ -538,8 +538,96 @@ Entry Criteria
 \end_layout
 
 \begin_layout Standard
-Specify the criteria that must be met before integration testing of specific
- elements may begin (e.g., functions must have been unit tested).
+This section describes the prerequisites that need to be met before integration
+ testing can be started.
+\end_layout
+
+\begin_layout Paragraph
+Stakeholder Approval 
+\end_layout
+
+\begin_layout Standard
+First of all, the Requirements Analysis and Specification Document and the
+ Design Document must have been presented to the stakeholders for approval
+ even before the coding phase can begin, this will ensure that they're satisfied
+ with the development.
+\end_layout
+
+\begin_layout Paragraph*
+Website and Mobile App
+\end_layout
+
+\begin_layout Standard
+The presentation layer to the user might not be completed but communication
+ between the Application Server and Clients, both via the Mobile App and
+ via the Web Server, must have clearly structured and coded via RESTful
+ APIs using JAX-RS.
+\end_layout
+
+\begin_layout Paragraph*
+Coding and Testing Application Layer
+\end_layout
+
+\begin_layout Itemize
+All the classes and methods of the Entity Beans must be coded and must pass
+ thorough
+\begin_inset Flex Strong
+status open
+
+\begin_layout Plain Layout
+Unit tests
+\end_layout
+
+\end_inset
+
+.
+ Unit tests should have a minimum coverage of 90% of the lines of code and
+ should be run automatically at each build using JUnit.
+ 
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Flex Strong
+status open
+
+\begin_layout Plain Layout
+Code inspection
+\end_layout
+
+\end_inset
+
+ has to be performed on all the code in order to ensure maintainability,
+ respect of conventions and find possible issues which could increase the
+ testers’ effort in next testing phases.
+ Code inspection should be performed using automated tools when possible.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Flex Strong
+status open
+
+\begin_layout Plain Layout
+Documentation
+\end_layout
+
+\end_inset
+
+ of all classes and functions should be well written using JavaDoc.
+ The public interfaces of each Entity Bean shoud be clearly stated.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Flex Strong
+status open
+
+\begin_layout Plain Layout
+Object relational mapping
+\end_layout
+
+\end_inset
+
+of each service to its corresponding database should be implemented with
+ automated tools to avoid errors (such as Hibernate) and fully tested.
 \end_layout
 
 \begin_layout Subsection
