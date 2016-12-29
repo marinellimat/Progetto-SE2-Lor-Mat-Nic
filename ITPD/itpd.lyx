@@ -570,7 +570,7 @@ Coding and Testing Application Layer
 
 \begin_layout Itemize
 All the classes and methods of the Entity Beans must be coded and must pass
- thorough
+ thorough 
 \begin_inset Flex Strong
 status open
 
@@ -626,7 +626,7 @@ Object relational mapping
 
 \end_inset
 
-of each service to its corresponding database should be implemented with
+ of each service to its corresponding database should be implemented with
  automated tools to avoid errors (such as Hibernate) and fully tested.
 \end_layout
 
@@ -635,8 +635,94 @@ Elements to be Integrated
 \end_layout
 
 \begin_layout Standard
-Identify the components to be integrated, refer to your design document
- to identify such components in a way that is consistent with your design.
+In this section we’re going to provide a list of all the components that
+ need to be integrated together.
+ The figure below corrispond to the system architecture already discussed
+ in the Design Document.
+ 
+\end_layout
+
+\begin_layout Standard
+The system is built upon the interactions of many tiers, each one implementing
+ a specific set of functionalities.
+ Every tier is also obtained by the combination of several lower-level component
+s.
+ This modularity causes that the integration phase will involve the integration
+ of components at different levels of abstraction.
+ In addition our system is in relation with External Services, which are
+ crucial for our application to work.
+ It's important that they're correctly integrated to the system in a way
+ in which everything is trasparent to the user.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{adjustwidth*}{-2cm}{-2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename images/CompletedArchitecture.png
+	lyxscale 20
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{adjustwidth*}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In summary, the elements that needs to be integrated are:
+\end_layout
+
+\begin_layout Enumerate
+Integration of the different subcomponents (classes, Java Beans) inside
+ the same tier.
+\end_layout
+
+\begin_layout Enumerate
+Integration of different tiers (Client - Web - Application)
+\end_layout
+
+\begin_layout Enumerate
+Integration and configuration with third party services (Payment Service,
+ Assistance Service)
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection
