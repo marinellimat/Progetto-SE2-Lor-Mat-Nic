@@ -466,6 +466,14 @@ status open
 
 \end_layout
 
+\begin_layout Description
+Power
+\begin_inset space \space{}
+\end_inset
+
+User: Registered user of the application
+\end_layout
+
 \begin_layout Subsection
 List of Reference Documents
 \end_layout
@@ -707,12 +715,241 @@ Integration Testing Strategy
 \end_layout
 
 \begin_layout Standard
-Describe the integration testing approach (top-down, bottom-up, functional
- groupings, etc.) and the rationale for the choosing that approach.
+The approach we’re going to use to perform integration testing is based
+ on a mixture of the bottom-up and functional-grouping integration strategies.
+ This choice is due to the fact that if the entry criteria is met, it's
+ reasonable to assume that we have different small services, indipendent
+ from one other, that implement correctly a small part of the application
+ logic and by integrating them we're able to create a more and more complex
+ system that will eventually satisfy all the requirements.
+ In a pure bottom-up strategy we would start from the lowest layers of the
+ system, testing the basic functionalities, then moving forward the most
+ abstract layers but in our case this approach would be unefficient.
+ Since every service is dedicated to one part of the business logic we can
+ parallelize this testing, focusing on different logic groups at the same
+ time, giving more priority to the critical components first and then integratin
+g secondary functionalities.
+ Moreover, we also need to keep in mind that we're dealing with external
+ systems and if we discover some bugs or problems on their side, fixes might
+ take time and this would create a time gap in which we're not able to move
+ the integration forward.
 \end_layout
 
 \begin_layout Standard
-As stated in the entry criteria every bean must 
+For all these reasons we believe that the best integration strategy is the
+ following:
+\end_layout
+
+\begin_layout Paragraph
+PHASE 1: Assure that services in relations with external systems works as
+ expected.
+ 
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+As stated earlier, in order to avoid wasting time we start from the boundary
+ of the system.
+ This process should be fairly quick if everything was implemented as mutually
+ agreed and should immediatly discover issues that we can notify early on
+ to external parties.
+ In this phase we'll test the communication between
+\begin_inset Flex Emph
+status open
+
+\begin_layout Plain Layout
+ Assistance Service - Assistance System
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset Flex Emph
+status open
+
+\begin_layout Plain Layout
+Payment Service - Payment System
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Paragraph
+PHASE 2: Assure that we have control over the Car 
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This phase is similar to the previous, and can be carried in parallel.
+ In this phase we're also in relation with an external system which is the
+ 
+\begin_inset Flex Emph
+status open
+
+\begin_layout Plain Layout
+Car On Board System
+\end_layout
+
+\end_inset
+
+ but due to the relevance of this process we've decided to outline it and
+ dedicated a whole phase.
+ We can't move the integration forward if we're lacking the foundations.
+ In a digital management system for a car-sharing service the control over
+ the car must be treated as a first class citizen.
+ This will avoid a big bang scenario, where we have implemented high level
+ functionalities that not reflect the concrete situation of the car in the
+ real world.
+ These two inital phases will also allow us to 
+\begin_inset Quotes eld
+\end_inset
+
+forget
+\begin_inset Quotes erd
+\end_inset
+
+ of external systems in the next phases, and only focus on the relation
+ among different services.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+PHASE 3: Integration of Services 
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In this part the bottom-up approach would be used to build complex functionaliti
+es integrating different services.
+ Since subsystems are fairly independent from one another, the order in
+ which they’re integrated together to obtain the full system follows the
+ critical-module-first approach.
+ This strategy allows us to concentrate our testing efforts on the riskiest
+ components first that represent the core functionalities of the whole system.
+ By proceeding this way, we are able to discover bugs earlier in the integration
+ progress and take the necessary measures to correct them on time.
+\end_layout
+
+\begin_layout Standard
+The most critical service to integrate is the 
+\begin_inset Flex Emph
+status open
+
+\begin_layout Plain Layout
+Reservation Component
+\end_layout
+
+\end_inset
+
+ which manages all active reservation made by Power Users, we will ensure
+ that it integrates correctly both with the 
+\begin_inset Flex Emph
+status open
+
+\begin_layout Plain Layout
+User Component
+\end_layout
+
+\end_inset
+
+ and the 
+\begin_inset Flex Emph
+status open
+
+\begin_layout Plain Layout
+Car Service
+\end_layout
+
+\end_inset
+
+.
+ This will ensure that we have a stable prototype of the actual software
+ that implements the core functionalities.
+ From this prototype we will spread like wildfire, integrating other Components
+ that implements all the secondary functionalities.
+\end_layout
+
+\begin_layout Standard
+In this phase, it is only necessary to use drivers to simulate the top layers
+ during the testing, which are a lot easier to produce than stubs.
+ 
+\end_layout
+
+\begin_layout Paragraph
+PHASE 4: Integration with top layers 
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In this phase we will remove the drivers and connect the Application Side
+ to the top tiers.
+ We must ensure that the Application Layer works with real inputs from the
+ 
+\begin_inset Quotes eld
+\end_inset
+
+external word
+\begin_inset Quotes erd
+\end_inset
+
+ and not only in a simulated and controlled environment.
+ The integration should proceed smoothly since the communication via RESTful
+ APIs was clearly structured at the beginning of the integration but we
+ should focus deeply on errors and expection handling.
+\end_layout
+
+\begin_layout Paragraph
+PHASE 5: Alpha Test
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In this phase we'll test the Power Enjoy System as a whole.
+ This phase will provide a confirmation of the correctness of the integration
+ process and will ensure that we haven't overlooked possible error scenarios.
 \end_layout
 
 \begin_layout Subsection
