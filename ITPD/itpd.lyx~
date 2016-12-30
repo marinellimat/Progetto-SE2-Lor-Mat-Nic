@@ -183,28 +183,6 @@ Software Engineering 2 Course Project
 
 \end_layout
 
-\begin_layout Section*
-ASSIGNMENT INFO
-\end_layout
-
-\begin_layout Standard
-The Integration Test Plan Document (ITPD) aims at describing how you plan
- to accomplish the integration test.
- This document is supposed to be written before the integration test really
- happens.
- Often it is written in parallel to the Design Document and takes the architectu
-ral description of the software system as a starting point.
- This document needs to explain to the development team what to test, in
- which sequence, which tools are needed for testing (if any), and which
- stubs/drivers/oracles need to be developed.
- The structure we suggest for this document is the following (if you introduce
- changes to this structure, please provide a justification for this):
-\begin_inset Newpage pagebreak
-\end_inset
-
-
-\end_layout
-
 \begin_layout Standard
 \begin_inset CommandInset toc
 LatexCommand tableofcontents
@@ -570,7 +548,7 @@ Coding and Testing Application Layer
 
 \begin_layout Itemize
 All the classes and methods of the Entity Beans must be coded and must pass
- thorough
+ thorough 
 \begin_inset Flex Strong
 status open
 
@@ -626,7 +604,7 @@ Object relational mapping
 
 \end_inset
 
-of each service to its corresponding database should be implemented with
+ of each service to its corresponding database should be implemented with
  automated tools to avoid errors (such as Hibernate) and fully tested.
 \end_layout
 
@@ -635,8 +613,93 @@ Elements to be Integrated
 \end_layout
 
 \begin_layout Standard
-Identify the components to be integrated, refer to your design document
- to identify such components in a way that is consistent with your design.
+In this section we’re going to provide a list of all the components that
+ need to be integrated together.
+ The figure below corrispond to the system architecture already discussed
+ in the Design Document.
+ 
+\end_layout
+
+\begin_layout Standard
+The system is built upon the interactions of many tiers, each one implementing
+ a specific set of functionalities.
+ Every tier is also obtained by the combination of several lower-level component
+s.
+ This modularity causes that the integration phase will involve the integration
+ of components at different levels of abstraction.
+ In addition our system is in relation with External Systems, which are
+ crucial for our application to work.
+ It's important that they're correctly integrated to the system in a way
+ in which everything is trasparent to the user.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{adjustwidth*}{-2cm}{-2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename images/CompletedArchitecture.png
+	lyxscale 20
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{adjustwidth*}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In summary, the elements to integrate are:
+\end_layout
+
+\begin_layout Enumerate
+Integration of the different services inside the Application Layer.
+\end_layout
+
+\begin_layout Enumerate
+Integration of different tiers (Client - Web - Application)
+\end_layout
+
+\begin_layout Enumerate
+Integration and configuration with third party systems (Payment System,
+ Assistance System)
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection
@@ -646,6 +709,10 @@ Integration Testing Strategy
 \begin_layout Standard
 Describe the integration testing approach (top-down, bottom-up, functional
  groupings, etc.) and the rationale for the choosing that approach.
+\end_layout
+
+\begin_layout Standard
+As stated in the entry criteria every bean must 
 \end_layout
 
 \begin_layout Subsection
@@ -731,7 +798,7 @@ Niccolo’
 \begin_inset space \space{}
 \end_inset
 
-Raspa x Hours
+Raspa 3 Hours
 \end_layout
 
 \begin_layout Labeling

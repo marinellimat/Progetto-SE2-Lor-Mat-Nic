@@ -834,56 +834,13 @@ PHASE 3: Integration of Services
 
 \begin_layout Standard
 In this part the bottom-up approach would be used to build complex functionaliti
-es integrating different services.
- Since subsystems are fairly independent from one another, the order in
- which they’re integrated together to obtain the full system follows the
- critical-module-first approach.
- This strategy allows us to concentrate our testing efforts on the riskiest
- components first, that is those that represent the core functionalities
- of the whole system and whose malfunctioning could pose a serious threat
- to the correct implementation of the PowerEnJoy infrastructure.
- By proceeding this way, we are able to discover bugs earlier in the integration
- progress and take the necessary measures to correct them on time.
+es integrating services 
 \end_layout
 
 \begin_layout Standard
 In this case, it is only necessary to use drivers, in order to simulate
  the top layers during the testing, which are a lot easier to produce with
- respect to the stubs.
- 
-\end_layout
-
-\begin_layout Paragraph
-PHASE 4: Integration with top layers 
-\begin_inset Newline newline
-\end_inset
-
-
-\begin_inset Newline newline
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-In this phase we will remove the drivers and connect the Application Side
- to the top tiers.
-\end_layout
-
-\begin_layout Paragraph
-PHASE 5: Alpha Test
-\begin_inset Newline newline
-\end_inset
-
-
-\begin_inset Newline newline
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-In this phase we'll test the Power Enjoy System as a whole.
+ respect to the stubs 
 \end_layout
 
 \begin_layout Subsection
