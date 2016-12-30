@@ -663,7 +663,7 @@ begin{adjustwidth*}{-2cm}{-2cm}
 \begin_inset Graphics
 	filename images/CompletedArchitecture.png
 	lyxscale 20
-	scale 50
+	scale 45
 
 \end_inset
 
@@ -679,6 +679,22 @@ status open
 
 \backslash
 end{adjustwidth*}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace*{20px}
 \end_layout
 
 \end_inset
@@ -1004,11 +1020,73 @@ Tools and Test Equipment Required
 \end_layout
 
 \begin_layout Standard
+\begin_inset Flex Strong
+status open
+
+\begin_layout Plain Layout
 Identify all tools and test equipment needed to accomplish the integration.
  Refer to the tools presented during the lectures.
  Explain why and how you are going to use them.
  Note that you may also use manual testing for some part.
  Consider manual testing as one of the possible tools you have available.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+JUnit Before integration testing, tests on single components is necessary.
+ This first part of testing is not covered in this document.
+ Anyway, the main issue is to check the absence of bugs and problem in each
+ part of the system, from the application to the all the Application Server
+ components.
+ JUnit is the most used framework for single components testing in java.
+ In particular, we are going to use it in order to verify that the correct
+ objects are returned after a method invocation, that appropriate exceptions
+ are raised when invalid parameters are passed to a method and other issues
+ that may arise when components interact with each other.
+\end_layout
+
+\begin_layout Description
+Mockito Mockito is an open-source test framework useful to generate mock
+ objects, stubs and drivers.
+ Since the entire system interacts with external and real objects, is necessary
+ to use a framework to reproduce this kind of entityes.
+ In unit testing, mock objects can simulate the behavior of complex, real
+ objects: they are useful when a real object is impractical or impossible
+ to incorporate into a unit test.
+ They are also useful for the developers, who have to focus their tests
+ on the behavior of the system without worrying about its dependencies and
+ having predictable results.
+\end_layout
+
+\begin_layout Description
+Arquillian Arquillian is an integration testing framework for business objects
+ that are executed inside a container or that interact with the container
+ as a client.
+ We choose it as framework because is widely used and is quite simple to
+ work on.
+ It combines a unit testing framework (JUnit), and one or more sup- ported
+ target containers (Java EE container, etc) to provide a simple, flexible
+ and pluggable integration testing environment.
+ Arquillian makes integration testing no more difficult than the bins testing.
+ Specifically, we are going to use Arquillian to verify that the right component
+s are injected when dependency injection is specified, that the connections
+ with the database are properly managed and similar containerlevel tests.
+\end_layout
+
+\begin_layout Description
+Devices The application run on two types of operative systems (Android and
+ IOs).
+ This fact make necessary testing on the direct tools that allow users to
+ exploit power enjoy system.
+ Power Enjoy service was tested on two groups of mobile devices (non necessarly
+ phones), one for each type of operative system.
+ Web page is available on the web and a group of computers were used to
+ test the page.
+ Test were made on every combination of Operative system and browser.
 \end_layout
 
 \begin_layout Section
@@ -1035,7 +1113,7 @@ Niccolo’
 \begin_inset space \space{}
 \end_inset
 
-Raspa 3 Hours
+Raspa 5 Hours
 \end_layout
 
 \begin_layout Labeling
