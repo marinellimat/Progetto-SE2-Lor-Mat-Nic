@@ -474,6 +474,15 @@ Power
 User: Registered user of the application
 \end_layout
 
+\begin_layout Description
+External
+\begin_inset space \space{}
+\end_inset
+
+System: Refers to third party systems used in the Power EnJoy application
+ (Payment System, Assistance System, Car-On-Board System)
+\end_layout
+
 \begin_layout Subsection
 List of Reference Documents
 \end_layout
@@ -973,29 +982,90 @@ Sequence of Component/Function Integration
 \end_layout
 
 \begin_layout Standard
-NOTE: The structure of this section may vary depending on the integration
- strategy you select in Section 2.3; use the structure proposed below as
- a non mandatory guide
+In this section we’re going to formalize the order of integration (and integrati
+on testing) of the various components and subsystems presented in the previous
+ section.
+ As a notation, in the figures we will refer to an entity java bean contained
+ in the application layer as a 
+\begin_inset Flex Emph
+status open
+
+\begin_layout Plain Layout
+<<service>>
 \end_layout
 
-\begin_layout Subsubsection
-Software Integration Sequence
+\end_inset
+
+ , we will use 
+\begin_inset Flex Emph
+status open
+
+\begin_layout Plain Layout
+<<component>>
+\end_layout
+
+\end_inset
+
+ to refer to a layer (subsystem) of the Power EnJoy Application and 
+\begin_inset Flex Emph
+status open
+
+\begin_layout Plain Layout
+<<external system>>
+\end_layout
+
+\end_inset
+
+to refer to External Systems (Payment System, Assistance System, Car-on-Board
+ System).
+\end_layout
+
+\begin_layout Paragraph
+Payment Functionalities
 \end_layout
 
 \begin_layout Standard
-For each subsystem, identify the sequence in which the software components
- will be integrated within the subsystem; relate this sequence to any product
- features that are being built up.
+\noindent
+\align center
+\begin_inset Graphics
+	filename images/PS.png
+	scale 75
+
+\end_inset
+
+
 \end_layout
 
-\begin_layout Subsubsection
-Subsystem Integration Sequence
+\begin_layout Paragraph
+Assistance Management 
 \end_layout
 
 \begin_layout Standard
-Identify the order in which subsystems will be integrated; if you have a
- single subsystem, 2.4.1 and 2.4.2 are to be merged in a single section.
- You can refer to Section 2.2 of the test plan example [1] as an example
+\noindent
+\align center
+\begin_inset Graphics
+	filename images/AS.png
+	scale 75
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Car Management 
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename images/CS.png
+	scale 75
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
@@ -1053,7 +1123,7 @@ JUnit Before integration testing, tests on single components is necessary.
 Mockito Mockito is an open-source test framework useful to generate mock
  objects, stubs and drivers.
  Since the entire system interacts with external and real objects, is necessary
- to use a framework to reproduce this kind of entityes.
+ to use a framework to reproduce this kind of entities.
  In unit testing, mock objects can simulate the behavior of complex, real
  objects: they are useful when a real object is impractical or impossible
  to incorporate into a unit test.

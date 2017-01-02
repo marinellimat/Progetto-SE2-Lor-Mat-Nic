@@ -1025,11 +1025,26 @@ Payment Functionalities
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
 \noindent
 \align center
 \begin_inset Graphics
 	filename images/PS.png
-	scale 75
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
 
 \end_inset
 
@@ -1041,11 +1056,22 @@ Assistance Management
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
 \noindent
 \align center
 \begin_inset Graphics
-	filename images/AS.png
-	scale 75
+	filename images/PS.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
 
 \end_inset
 
@@ -1057,11 +1083,22 @@ Car Management
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
 \noindent
 \align center
 \begin_inset Graphics
-	filename images/CS.png
-	scale 75
+	filename images/PS.png
+	scale 40
+
+\end_inset
+
+
+\end_layout
 
 \end_inset
 
