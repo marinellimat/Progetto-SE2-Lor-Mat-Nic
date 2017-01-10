@@ -901,7 +901,7 @@ Reservation Component
 status open
 
 \begin_layout Plain Layout
-User Component
+Location Component
 \end_layout
 
 \end_inset
@@ -920,7 +920,7 @@ Car Service
  This will ensure that we have a stable prototype of the actual software
  that implements the core functionalities.
  From this prototype we will spread like wildfire, integrating other Components
- that implements all the secondary functionalities.
+ that implements all the other functionalities.
 \end_layout
 
 \begin_layout Standard
@@ -979,6 +979,15 @@ In this phase we'll test the Power Enjoy System as a whole.
 
 \begin_layout Subsection
 Sequence of Component/Function Integration
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename images/microservices.png
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard

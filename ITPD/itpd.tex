@@ -135,6 +135,9 @@ the module
 \item [{Layer:}] synonim of \emph{Component}
 \item [{Service:}] synonim of\emph{ Subcomponent}
 \item [{Power\ User:}] Registered user of the application
+\item [{External\ System:}] Refers to third party systems used in the
+Power EnJoy application (Payment System, Assistance System, Car-On-Board
+System)
 \end{description}
 
 \subsection{List of Reference Documents}
@@ -294,11 +297,11 @@ to correct them on time.
 
 The most critical service to integrate is the \emph{Reservation Component}
 which manages all active reservation made by Power Users, we will
-ensure that it integrates correctly both with the \emph{User Component}
+ensure that it integrates correctly both with the \emph{Location Component}
 and the \emph{Car Service}. This will ensure that we have a stable
 prototype of the actual software that implements the core functionalities.
 From this prototype we will spread like wildfire, integrating other
-Components that implements all the secondary functionalities.
+Components that implements all the other functionalities.
 
 In this phase, it is only necessary to use drivers to simulate the
 top layers during the testing, which are a lot easier to produce than
@@ -327,22 +330,49 @@ scenarios.
 
 \subsection{Sequence of Component/Function Integration}
 
-NOTE: The structure of this section may vary depending on the integration
-strategy you select in Section 2.3; use the structure proposed below
-as a non mandatory guide
+\includegraphics{images/microservices}
 
-\subsubsection{Software Integration Sequence}
+In this section we\textquoteright re going to formalize the order
+of integration (and integration testing) of the various components
+and subsystems presented in the previous section. Before diving in
+some words about the notation used. In the figures we will refer to
+an entity java bean contained in the application layer as a \emph{<\textcompwordmark{}<service>\textcompwordmark{}>}
+, we will use \emph{<\textcompwordmark{}<component>\textcompwordmark{}>}
+to refer to a layer (subsystem) of the Power EnJoy Application and
+\emph{<\textcompwordmark{}<external system>\textcompwordmark{}>}to
+refer to External Systems (Payment System, Assistance System, Car-on-Board
+System). Elements that will be simulated during the integration process
+will be placed inside a dashed line box.
 
-For each subsystem, identify the sequence in which the software components
-will be integrated within the subsystem; relate this sequence to any
-product features that are being built up.
+\paragraph{Payment Functionalities}
+\begin{center}
+\includegraphics[scale=0.75]{images/PS}
+\par\end{center}
 
-\subsubsection{Subsystem Integration Sequence}
+\paragraph{Assistance Management }
+\begin{center}
+\includegraphics[scale=0.75]{images/AS}
+\par\end{center}
 
-Identify the order in which subsystems will be integrated; if you
-have a single subsystem, 2.4.1 and 2.4.2 are to be merged in a single
-section. You can refer to Section 2.2 of the test plan example {[}1{]}
-as an example
+\paragraph{Car Management }
+\begin{center}
+\includegraphics[scale=0.75]{images/CS}
+\par\end{center}
+
+\paragraph{Car Management }
+\begin{center}
+\includegraphics[scale=0.75]{images/CS}
+\par\end{center}
+
+\paragraph{Car Management }
+\begin{center}
+\includegraphics[scale=0.75]{images/CS}
+\par\end{center}
+
+\paragraph{Car Management }
+\begin{center}
+\includegraphics[scale=0.75]{images/CS}
+\par\end{center}
 
 \section{Individual Steps and Test Description}
 
