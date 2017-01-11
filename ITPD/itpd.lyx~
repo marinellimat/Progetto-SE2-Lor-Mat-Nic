@@ -994,8 +994,9 @@ Sequence of Component/Function Integration
 In this section we’re going to formalize the order of integration (and integrati
 on testing) of the various components and subsystems presented in the previous
  section.
- As a notation, in the figures we will refer to an entity java bean contained
- in the application layer as a 
+ Before diving in some words about the notation used.
+ In the figures we will refer to an entity java bean contained in the applicatio
+n layer as a 
 \begin_inset Flex Emph
 status open
 
@@ -1027,6 +1028,8 @@ status open
 
 to refer to External Systems (Payment System, Assistance System, Car-on-Board
  System).
+ Elements that will be simulated during the integration process will be
+ placed inside a dashed line box.
 \end_layout
 
 \begin_layout Paragraph
@@ -1054,6 +1057,54 @@ Assistance Management
 \align center
 \begin_inset Graphics
 	filename images/AS.png
+	scale 75
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Car Management 
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename images/CS.png
+	scale 75
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Car Management 
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename images/CS.png
+	scale 75
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Car Management 
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename images/CS.png
 	scale 75
 
 \end_inset
