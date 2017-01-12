@@ -484,6 +484,18 @@ System: Refers to third party systems used in the Power EnJoy application
  (Payment System, Assistance System, Car-On-Board System)
 \end_layout
 
+\begin_layout Description
+CF: Codice Fiscale of an Italian Document
+\end_layout
+
+\begin_layout Description
+PS: Payment System (External System)
+\end_layout
+
+\begin_layout Description
+AS: Assistance System (External System)
+\end_layout
+
 \begin_layout Subsection
 List of Reference Documents
 \end_layout
@@ -1211,12 +1223,12 @@ status open
 \end_layout
 
 \begin_layout Paragraph
-Location of Power Users 
+Car Selection
 \end_layout
 
 \begin_layout Standard
-Second, we integrate the location of user by simulating reservation request
- from a user via Mobile App.
+Second, we integrate the location of user by simulating the initial part
+ of a reservation request from a user via Mobile App.
  As a remainder, our system is mobile-first and the reservation of a vehicle
  is only possibile via a mobile device, this allows us to reduce the scope
  of the testing and forget about the web services which we'll be integrated
@@ -1513,7 +1525,7 @@ Temporary Ban a Power User if it has a payment pending
 \end_layout
 
 \begin_layout Enumerate
-Unban as soon as a payment request is recieved 
+Unban as soon as a payment request is received 
 \end_layout
 
 \begin_layout Enumerate
@@ -1650,12 +1662,16 @@ y.
 \end_layout
 
 \begin_layout Standard
+\noindent
+\align center
 \begin_inset Float figure
 wide false
 sideways false
 status open
 
 \begin_layout Plain Layout
+\noindent
+\align center
 \begin_inset Graphics
 	filename images/11Web.png
 	scale 60
@@ -1703,13 +1719,7 @@ Individual Steps and Test Description
 
 \begin_layout Standard
 This chapter describes the individual test cases to be executed.
- Test cases are identified by a code, test cases whose code starts with
- SI are integration tests between subsystems; test cases whose code starts
- with I are integration tests between components.
-\end_layout
-
-\begin_layout Standard
-The Database integration test and all related tests are not present because
+ The Database integration test and all related tests are not present because
  our application is composed of microservices, each one with its own DBMS,
  which is strictly related to the functionality expected from that component
  .
@@ -1719,15 +1729,53 @@ The Database integration test and all related tests are not present because
 \end_layout
 
 \begin_layout Subsection
-I1
+I1 Payment 
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{10px}
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
 \begin_inset Tabular
-<lyxtabular version="3" rows="6" columns="2">
+<lyxtabular version="3" rows="7" columns="2">
 <features booktabs="true" tabularvalignment="middle" tabularwidth="60page%">
 <column alignment="left" valignment="top">
 <column alignment="left" valignment="top" width="40page%">
+<row>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Test Case Identifier
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+I1T1
+\end_layout
+
+\end_inset
+</cell>
+</row>
 <row>
 <cell alignment="left" valignment="top" topline="true" usebox="none">
 \begin_inset Text
@@ -1744,7 +1792,29 @@ Test Items
 \begin_inset Text
 
 \begin_layout Plain Layout
-Payment Service –> Payment System
+Payment Service, Payment System
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Test Description
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Check if a Power User has an account on the third party payment service
 \end_layout
 
 \end_inset
@@ -1762,15 +1832,11 @@ Input Specification
 
 \end_inset
 </cell>
-<cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
+<cell alignment="left" valignment="top" topline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
-Messages who identify the user (existing in the Payment System Database)
- to charge.
- Informations about the amount to pay.
- Tipical values could be existing/unexisting users, random amount to pay,
- also over the user's disponibility.
+Codice Fiscale (CF) of the Power User
 \end_layout
 
 \end_inset
@@ -1792,8 +1858,7 @@ Output Specification
 \begin_inset Text
 
 \begin_layout Plain Layout
-User to charge is find or not.
- Payment has happend or not.
+Boolean that rapresents if the user was found or not.
 \end_layout
 
 \end_inset
@@ -1815,39 +1880,8 @@ Enviromental Needs
 \begin_inset Text
 
 \begin_layout Plain Layout
-Payment Service Driver and Payment System Mock
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="left" valignment="top" topline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\series bold
-Test Description
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" topline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-A invoice is sended to Payment Service.
- It will contact the Payment System in order to charge the user.
- Payment System will respond with the result (positive or negative) of the
- charging operaction.
- The test must check the behaviour of the Paiment System according to the
- informations received.
- Crucial points are the existance of the user, the possibility to pay and
- the return of the result.
- Is also to test the correct ban of the user with a payment pending and
- the relative unban when a payment notification arrive from the Payment
- System
+Existing accounts on the Payment System and being in contact with them during
+ the process
 \end_layout
 
 \end_inset
@@ -1869,7 +1903,7 @@ Testing Method
 \begin_inset Text
 
 \begin_layout Plain Layout
-Automated with JUnit and Mockito
+Manual
 \end_layout
 
 \end_inset
@@ -1882,16 +1916,50 @@ Automated with JUnit and Mockito
 
 \end_layout
 
-\begin_layout Subsection
-I2
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{20px}
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
 \begin_inset Tabular
-<lyxtabular version="3" rows="6" columns="2">
+<lyxtabular version="3" rows="7" columns="2">
 <features booktabs="true" tabularvalignment="middle" tabularwidth="60page%">
 <column alignment="left" valignment="top">
 <column alignment="left" valignment="top" width="40page%">
+<row>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Test Case Identifier
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+I1T2
+\end_layout
+
+\end_inset
+</cell>
+</row>
 <row>
 <cell alignment="left" valignment="top" topline="true" usebox="none">
 \begin_inset Text
@@ -1908,7 +1976,29 @@ Test Items
 \begin_inset Text
 
 \begin_layout Plain Layout
-Assistance Service –> Assistance System
+Payment Service, Payment System
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Test Description
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Payment Request 
 \end_layout
 
 \end_inset
@@ -1926,11 +2016,11 @@ Input Specification
 
 \end_inset
 </cell>
-<cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
+<cell alignment="left" valignment="top" topline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
-Information about malfuncioning cars and malfunctioning type
+CF of the Power User, Amount to Pay
 \end_layout
 
 \end_inset
@@ -1952,7 +2042,7 @@ Output Specification
 \begin_inset Text
 
 \begin_layout Plain Layout
-Notification of completed assistance
+Acknowledgement with a PaymentID or ErrorMessage
 \end_layout
 
 \end_inset
@@ -1974,33 +2064,7 @@ Enviromental Needs
 \begin_inset Text
 
 \begin_layout Plain Layout
-Assistance Service Driver and Assistance System Mock
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="left" valignment="top" topline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\series bold
-Test Description
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" topline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Is simulated a malfunciotioning car status.
- The test wants to check the correct exchange of messages between Assistance
- Service and Assistance System.
- Assistance Service must also notify the solution of malfunctioning to the
- Car Service.
+Existing accounts on the PS and being in contact with them during the process
 \end_layout
 
 \end_inset
@@ -2022,7 +2086,7 @@ Testing Method
 \begin_inset Text
 
 \begin_layout Plain Layout
-Automated with JUnit and Mockito
+Manual
 \end_layout
 
 \end_inset
@@ -2035,16 +2099,50 @@ Automated with JUnit and Mockito
 
 \end_layout
 
-\begin_layout Subsection
-I3
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{20px}
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
 \begin_inset Tabular
-<lyxtabular version="3" rows="6" columns="2">
+<lyxtabular version="3" rows="7" columns="2">
 <features booktabs="true" tabularvalignment="middle" tabularwidth="60page%">
 <column alignment="left" valignment="top">
 <column alignment="left" valignment="top" width="40page%">
+<row>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Test Case Identifier
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+I1T3
+\end_layout
+
+\end_inset
+</cell>
+</row>
 <row>
 <cell alignment="left" valignment="top" topline="true" usebox="none">
 \begin_inset Text
@@ -2061,74 +2159,7 @@ Test Items
 \begin_inset Text
 
 \begin_layout Plain Layout
-Car Service –> Car on Board System
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="left" valignment="top" topline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\series bold
-Input Specification
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-All car status change provided by the Application Server
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="left" valignment="top" topline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\series bold
-Output Specification
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" topline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-All car status provided by the car interacting with real world (user).
- Cmmunication of information to produce an invoice and the position.
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="left" valignment="top" topline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\series bold
-Enviromental Needs
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" topline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Car Service Driver and Car on Board System Mock
+Payment Service, Payment System
 \end_layout
 
 \end_inset
@@ -2146,106 +2177,11 @@ Test Description
 
 \end_inset
 </cell>
-<cell alignment="left" valignment="top" topline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-A complete Reservation is simulated.
- The test must ceck that the interaction between Car Service and Car on
- Board System is correct.
- The Remote Control must correctly lock and unlock the car when requested.
- When an ignition is simulated, it will be detected by the Car on Board
- System and notified to Car service; the same for malfunctioning and Charging
- state.
- If is simulated the presence of passengers, the Car on Board System must
- correctly calculate the Shared Ride time and send it to Car Service.
- The Car on Board System must also be able to calculate the Ride Length
- when the reservation simulation ends and send it to Car Service.
- 
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="left" valignment="top" topline="true" bottomline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\series bold
-Testing Method
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Automated with JUnit and Mockito
-\end_layout
-
-\end_inset
-</cell>
-</row>
-</lyxtabular>
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsection
-I4
-\end_layout
-
-\begin_layout Standard
-\begin_inset Tabular
-<lyxtabular version="3" rows="6" columns="2">
-<features booktabs="true" tabularvalignment="middle" tabularwidth="60page%">
-<column alignment="left" valignment="top">
-<column alignment="left" valignment="top" width="40page%">
-<row>
-<cell alignment="left" valignment="top" topline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\series bold
-Test Items
-\end_layout
-
-\end_inset
-</cell>
 <cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
-Location Service –> Car Service
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="left" valignment="top" topline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\series bold
-Input Specification
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Position of the cars.
- Safe/Unsafe Park.
+Payment Confirmation from third party.
  
 \end_layout
 
@@ -2259,6 +2195,28 @@ Position of the cars.
 \begin_layout Plain Layout
 
 \series bold
+Input Specification
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+PaymentID 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
 Output Specification
 \end_layout
 
@@ -2268,7 +2226,7 @@ Output Specification
 \begin_inset Text
 
 \begin_layout Plain Layout
-Position Updates
+Acknowledgment or ErrorMessage
 \end_layout
 
 \end_inset
@@ -2290,33 +2248,8 @@ Enviromental Needs
 \begin_inset Text
 
 \begin_layout Plain Layout
-Location Service Driver and Car Service Driver
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="left" valignment="top" topline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\series bold
-Test Description
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" topline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Test must check that Location Service can give an updated postition to all
- cars and can register all update communicated by Car Service.
- The location grind must be tested as well, so a car selection must be simulated
- in order to check if the location grid correctly shows the most convnient
- available cars.
+Existing accounts on the Payment System and being in contact with the PS
+ during the process
 \end_layout
 
 \end_inset
@@ -2338,7 +2271,7 @@ Testing Method
 \begin_inset Text
 
 \begin_layout Plain Layout
-Automated with JUnit
+Manual
 \end_layout
 
 \end_inset
@@ -2351,16 +2284,34 @@ Automated with JUnit
 
 \end_layout
 
-\begin_layout Subsection
-I5
-\end_layout
-
 \begin_layout Standard
 \begin_inset Tabular
-<lyxtabular version="3" rows="6" columns="2">
+<lyxtabular version="3" rows="7" columns="2">
 <features booktabs="true" tabularvalignment="middle" tabularwidth="60page%">
 <column alignment="left" valignment="top">
 <column alignment="left" valignment="top" width="40page%">
+<row>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Test Case Identifier
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+I1T4
+\end_layout
+
+\end_inset
+</cell>
+</row>
 <row>
 <cell alignment="left" valignment="top" topline="true" usebox="none">
 \begin_inset Text
@@ -2377,7 +2328,29 @@ Test Items
 \begin_inset Text
 
 \begin_layout Plain Layout
-Mobile App –> Location Service, Car Service
+Payment Service
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Test Description
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Insert/Update Payment Logs
 \end_layout
 
 \end_inset
@@ -2395,12 +2368,11 @@ Input Specification
 
 \end_inset
 </cell>
-<cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
+<cell alignment="left" valignment="top" topline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
-Request of selection of a car.
- User position (GPS) or an address
+Event: Payment Request or Payment Confirmation
 \end_layout
 
 \end_inset
@@ -2422,8 +2394,7 @@ Output Specification
 \begin_inset Text
 
 \begin_layout Plain Layout
-List of suggested available cars, if no cars are available the output is
- a notification.
+Event: Create/Update entity in the Database
 \end_layout
 
 \end_inset
@@ -2445,31 +2416,7 @@ Enviromental Needs
 \begin_inset Text
 
 \begin_layout Plain Layout
-Mobile Application mock and I4
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="left" valignment="top" topline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\series bold
-Test Description
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" topline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-A request of a car is performed on the app.
- The test must check that a the output is correct according to the input
- and the cars disposition
+Stubs to simulate payment request 
 \end_layout
 
 \end_inset
@@ -2491,7 +2438,7 @@ Testing Method
 \begin_inset Text
 
 \begin_layout Plain Layout
-Automated with JUnit and Mockito
+Automated with JUnit, Mockito, Arquilian
 \end_layout
 
 \end_inset
@@ -2504,16 +2451,74 @@ Automated with JUnit and Mockito
 
 \end_layout
 
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{5px}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
 \begin_layout Subsection
-I6
+I2 Assistance
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{10px}
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
 \begin_inset Tabular
-<lyxtabular version="3" rows="6" columns="2">
+<lyxtabular version="3" rows="7" columns="2">
 <features booktabs="true" tabularvalignment="middle" tabularwidth="60page%">
 <column alignment="left" valignment="top">
 <column alignment="left" valignment="top" width="40page%">
+<row>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Test Case Identifier
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+I2T1
+\end_layout
+
+\end_inset
+</cell>
+</row>
 <row>
 <cell alignment="left" valignment="top" topline="true" usebox="none">
 \begin_inset Text
@@ -2530,7 +2535,29 @@ Test Items
 \begin_inset Text
 
 \begin_layout Plain Layout
-Reservation Service –> Mobile App, Location Service, Car Service
+Assistance Service, Assistance System
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Test Description
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Assistance Request 
 \end_layout
 
 \end_inset
@@ -2548,15 +2575,11 @@ Input Specification
 
 \end_inset
 </cell>
-<cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
+<cell alignment="left" valignment="top" topline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
-Selection of a car (start of the reservation).
- Reservation canceled.
- Unlock request.
- Car Ignition notification.
- Position notification at the end of the reservation.
+CarID, Location, Type of Problem
 \end_layout
 
 \end_inset
@@ -2578,9 +2601,7 @@ Output Specification
 \begin_inset Text
 
 \begin_layout Plain Layout
-Unlock successfull or denied.
- Start ride notification.
- Ending sequence.
+Acknowledgement with a AssistanceID or ErrorMessage
 \end_layout
 
 \end_inset
@@ -2602,35 +2623,7 @@ Enviromental Needs
 \begin_inset Text
 
 \begin_layout Plain Layout
-Reservation Service Driver and I5
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="left" valignment="top" topline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\series bold
-Test Description
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" topline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Is simulated a Reservation from the very beginning.
- Test must perform the reservation starting with the car selection and proceed
- with every step till the end (payment excluded).
- All possible situations must be simulated in order to verify the correct
- behaviour and return of the system.
- Remember to verify the reservation cancellation (not the expiration, it
- will be tested in the next test), park in a non safe area is not considered.
+Being in contact with the AS during the process
 \end_layout
 
 \end_inset
@@ -2652,7 +2645,7 @@ Testing Method
 \begin_inset Text
 
 \begin_layout Plain Layout
-Automated with JUnit and Mockito
+Manual
 \end_layout
 
 \end_inset
@@ -2665,16 +2658,50 @@ Automated with JUnit and Mockito
 
 \end_layout
 
-\begin_layout Subsection
-I7
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{20px}
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
 \begin_inset Tabular
-<lyxtabular version="3" rows="6" columns="2">
+<lyxtabular version="3" rows="7" columns="2">
 <features booktabs="true" tabularvalignment="middle" tabularwidth="60page%">
 <column alignment="left" valignment="top">
 <column alignment="left" valignment="top" width="40page%">
+<row>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Test Case Identifier
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+I2T2
+\end_layout
+
+\end_inset
+</cell>
+</row>
 <row>
 <cell alignment="left" valignment="top" topline="true" usebox="none">
 \begin_inset Text
@@ -2691,8 +2718,29 @@ Test Items
 \begin_inset Text
 
 \begin_layout Plain Layout
-Payment Service, Timer Service –> Mobile App, Location Service, Car Service,
- Reservation Service
+Assistance Service, Assistance System
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Test Description
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Assistance Rendered Confirmation from AS 
 \end_layout
 
 \end_inset
@@ -2710,13 +2758,11 @@ Input Specification
 
 \end_inset
 </cell>
-<cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
+<cell alignment="left" valignment="top" topline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
-Timer Service: Selection of a car (start of the reservation).
- Reservation canceled.
- Car Ignition notification Payment Service: Invoice.
+AssistanceID, CarID, NewLocation
 \end_layout
 
 \end_inset
@@ -2738,8 +2784,7 @@ Output Specification
 \begin_inset Text
 
 \begin_layout Plain Layout
-Timer Service: Time to expiration.
- Payment Service: Ban/Unban user with pending payment.
+Acknowledgment or ErrorMessage
 \end_layout
 
 \end_inset
@@ -2761,35 +2806,7 @@ Enviromental Needs
 \begin_inset Text
 
 \begin_layout Plain Layout
-Car Service Driver Timer Driver, I6 and I1.
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="left" valignment="top" topline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\series bold
-Test Description
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" topline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-A reservation is simulated.
- In this test is important to check the correct management of the expiration
- time by the Timer Service in case of waiting of an ignition and in case
- of park in a non safe area.
- The System must also corretly send the invoices when the time expire or
- the reservation end.
- 
+Being in contact with the AS during the process
 \end_layout
 
 \end_inset
@@ -2811,7 +2828,7 @@ Testing Method
 \begin_inset Text
 
 \begin_layout Plain Layout
-Automated with JUnit and Mockito
+Manual
 \end_layout
 
 \end_inset
@@ -2824,16 +2841,70 @@ Automated with JUnit and Mockito
 
 \end_layout
 
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{5px}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Subsection
-I8
+I3 Car On Board System
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{10px}
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
 \begin_inset Tabular
-<lyxtabular version="3" rows="6" columns="2">
+<lyxtabular version="3" rows="7" columns="2">
 <features booktabs="true" tabularvalignment="middle" tabularwidth="60page%">
 <column alignment="left" valignment="top">
 <column alignment="left" valignment="top" width="40page%">
+<row>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Test Case Identifier
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+I3T1
+\end_layout
+
+\end_inset
+</cell>
+</row>
 <row>
 <cell alignment="left" valignment="top" topline="true" usebox="none">
 \begin_inset Text
@@ -2850,7 +2921,29 @@ Test Items
 \begin_inset Text
 
 \begin_layout Plain Layout
-Payment Service, User Service, Location Service
+Car On Board System
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Test Description
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+General test of all the functionalities expected from the embedded system
 \end_layout
 
 \end_inset
@@ -2868,11 +2961,12 @@ Input Specification
 
 \end_inset
 </cell>
-<cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
+<cell alignment="left" valignment="top" topline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
-Informations about the user, ban/unban updates, Location Updates.
+Event: Door opening and closing, Engine starting, Locking/Unlocking, Malfunction
+ing Detection, Charging Detection
 \end_layout
 
 \end_inset
@@ -2894,7 +2988,7 @@ Output Specification
 \begin_inset Text
 
 \begin_layout Plain Layout
-Result of profile modification.
+Event Correctly Detected and Managed
 \end_layout
 
 \end_inset
@@ -2916,33 +3010,7 @@ Enviromental Needs
 \begin_inset Text
 
 \begin_layout Plain Layout
-Payment Service Driver, User Service Driver, Location Driver and Web Application
- and Server mock
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="left" valignment="top" topline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\series bold
-Test Description
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" topline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-In this test must be performed the profile managemet.
- Check the behaviour of the system inserting both possible and unpossible
- values.
- Both Login and Profile Modification must be tested in this section.
+Power Enjoy Vehicle
 \end_layout
 
 \end_inset
@@ -2964,7 +3032,7 @@ Testing Method
 \begin_inset Text
 
 \begin_layout Plain Layout
-Automated with JUnit and Mockito
+Manual
 \end_layout
 
 \end_inset
@@ -2977,16 +3045,50 @@ Automated with JUnit and Mockito
 
 \end_layout
 
-\begin_layout Subsection
-I9
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{20px}
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
 \begin_inset Tabular
-<lyxtabular version="3" rows="6" columns="2">
+<lyxtabular version="3" rows="7" columns="2">
 <features booktabs="true" tabularvalignment="middle" tabularwidth="60page%">
 <column alignment="left" valignment="top">
 <column alignment="left" valignment="top" width="40page%">
+<row>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Test Case Identifier
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+I3T2
+\end_layout
+
+\end_inset
+</cell>
+</row>
 <row>
 <cell alignment="left" valignment="top" topline="true" usebox="none">
 \begin_inset Text
@@ -3003,7 +3105,29 @@ Test Items
 \begin_inset Text
 
 \begin_layout Plain Layout
-Web Application, Web Server –>Payment Service, User Service, Location Service
+Car Service, Car On Board System
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Test Description
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Remote Control over the Vehicle 
 \end_layout
 
 \end_inset
@@ -3021,11 +3145,12 @@ Input Specification
 
 \end_inset
 </cell>
-<cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
+<cell alignment="left" valignment="top" topline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
-Informations about the user, ban/unban updates, Location Updates.
+Command to Vehicle (e.g.
+ unlock car)
 \end_layout
 
 \end_inset
@@ -3047,7 +3172,7 @@ Output Specification
 \begin_inset Text
 
 \begin_layout Plain Layout
-Result of profile modification.
+Command Executed 
 \end_layout
 
 \end_inset
@@ -3069,35 +3194,7 @@ Enviromental Needs
 \begin_inset Text
 
 \begin_layout Plain Layout
-SI1 and Web Application and Server completed
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="left" valignment="top" topline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\series bold
-Test Description
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" topline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-In this test must be performed the profile managemet.
- Check the behaviour of the system inserting both possible and unpossible
- values.
- Both Login and Profile Modification must be tested in this section.
- This time no components are simulated.
- Since the Web Application is not simulated, must be tested also the web
- interface and its correct behaviour.
+Power Enjoy Vehicle, GSM Connection 
 \end_layout
 
 \end_inset
@@ -3119,7 +3216,7 @@ Testing Method
 \begin_inset Text
 
 \begin_layout Plain Layout
-Automated with JUnit and manual testing (all combination of OS-Browser)
+Manual
 \end_layout
 
 \end_inset
@@ -3132,16 +3229,50 @@ Automated with JUnit and manual testing (all combination of OS-Browser)
 
 \end_layout
 
-\begin_layout Subsection
-I10
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{20px}
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
 \begin_inset Tabular
-<lyxtabular version="3" rows="6" columns="2">
+<lyxtabular version="3" rows="7" columns="2">
 <features booktabs="true" tabularvalignment="middle" tabularwidth="60page%">
 <column alignment="left" valignment="top">
 <column alignment="left" valignment="top" width="40page%">
+<row>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Test Case Identifier
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+I3T3
+\end_layout
+
+\end_inset
+</cell>
+</row>
 <row>
 <cell alignment="left" valignment="top" topline="true" usebox="none">
 \begin_inset Text
@@ -3158,7 +3289,29 @@ Test Items
 \begin_inset Text
 
 \begin_layout Plain Layout
-All Services (Top Layer Simulated)
+Car Service, Car On Board System
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Test Description
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Information stream from Vehicle 
 \end_layout
 
 \end_inset
@@ -3176,11 +3329,12 @@ Input Specification
 
 \end_inset
 </cell>
-<cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
+<cell alignment="left" valignment="top" topline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
-All methods invoked by a simulated mobile application
+Information from vehicle about Ride (Battery Level, Ride Length, Shared
+ Ride Length) and Notification of detected events
 \end_layout
 
 \end_inset
@@ -3202,8 +3356,7 @@ Output Specification
 \begin_inset Text
 
 \begin_layout Plain Layout
-Visual notification to inform the user about any usefull state or modification
- in the system.
+Information correctly detected and managed
 \end_layout
 
 \end_inset
@@ -3225,30 +3378,7 @@ Enviromental Needs
 \begin_inset Text
 
 \begin_layout Plain Layout
-I1, I2, I3, I7 and Mobile Application Mock
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="left" valignment="top" topline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\series bold
-Test Description
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" topline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Complete simulation of all functionalities of the Application.
- Perform test on every kind of users, registered or not, banned or unbanned.
+Power Enjoy Vehicle, GSM Connection 
 \end_layout
 
 \end_inset
@@ -3270,7 +3400,7 @@ Testing Method
 \begin_inset Text
 
 \begin_layout Plain Layout
-Automated with JUnit and Mockito
+Manual, JUnit
 \end_layout
 
 \end_inset
@@ -3283,16 +3413,70 @@ Automated with JUnit and Mockito
 
 \end_layout
 
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{5px}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Subsection
-I11
+I4 Location of Cars
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{10px}
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
 \begin_inset Tabular
-<lyxtabular version="3" rows="6" columns="2">
+<lyxtabular version="3" rows="7" columns="2">
 <features booktabs="true" tabularvalignment="middle" tabularwidth="60page%">
 <column alignment="left" valignment="top">
 <column alignment="left" valignment="top" width="40page%">
+<row>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Test Case Identifier
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+I4T1
+\end_layout
+
+\end_inset
+</cell>
+</row>
 <row>
 <cell alignment="left" valignment="top" topline="true" usebox="none">
 \begin_inset Text
@@ -3309,7 +3493,29 @@ Test Items
 \begin_inset Text
 
 \begin_layout Plain Layout
-All Services (no simulated layers)
+Car Service, Location Service
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Test Description
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Monitor mode of the car during driving 
 \end_layout
 
 \end_inset
@@ -3327,11 +3533,11 @@ Input Specification
 
 \end_inset
 </cell>
-<cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
+<cell alignment="left" valignment="top" topline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
-All methods invoked by a simulated mobile application
+GPS Position of the vehicle
 \end_layout
 
 \end_inset
@@ -3353,8 +3559,7 @@ Output Specification
 \begin_inset Text
 
 \begin_layout Plain Layout
-Visual notification to inform the user about any usefull state or modification
- in the system.
+Information correctly detected and managed
 \end_layout
 
 \end_inset
@@ -3376,33 +3581,7 @@ Enviromental Needs
 \begin_inset Text
 
 \begin_layout Plain Layout
-SI3 and Mobile Application
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="left" valignment="top" topline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\series bold
-Test Description
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" topline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Complete simulation of all functionalities of the Application.
- Perform test on every kind of users, registered or not, banned or unbanned.
- Since no layer are simulated, chec the correc behaviour of the application
- on every device (IOs and Android), check that the visual presentation is
- also correct.
+Power Enjoy Vehicle, someone driving the vehicle
 \end_layout
 
 \end_inset
@@ -3424,7 +3603,7 @@ Testing Method
 \begin_inset Text
 
 \begin_layout Plain Layout
-Automated with JUnit and manual testing (IOs and Android)
+Manual, JUnit, Arquilian
 \end_layout
 
 \end_inset
@@ -3435,19 +3614,1611 @@ Automated with JUnit and manual testing (IOs and Android)
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{20px}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="7" columns="2">
+<features booktabs="true" tabularvalignment="middle" tabularwidth="60page%">
+<column alignment="left" valignment="top">
+<column alignment="left" valignment="top" width="40page%">
+<row>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Test Case Identifier
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+I4T2
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Test Items
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Car Service, Location Service
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Test Description
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Safe/Unsafe Park Detection
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Input Specification
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+GPS Position from parked vehicle
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Output Specification
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Boolean rapresenting safe park
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Enviromental Needs
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Set of GPS Location
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Testing Method
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Automated JUnit, Arquilian
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{5px}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+I5 Car Selection
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{10px}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="7" columns="2">
+<features booktabs="true" tabularvalignment="middle" tabularwidth="60page%">
+<column alignment="left" valignment="top">
+<column alignment="left" valignment="top" width="40page%">
+<row>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Test Case Identifier
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+I5T1
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Test Items
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Car Service, Location Service
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Test Description
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Car Selection
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Input Specification
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+User input with GPS
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Output Specification
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+List of Available Cars
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Enviromental Needs
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Simulated Mobile App
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Testing Method
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Automated JUnit, Arquilian, Mockito
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{5px}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+I6 Start/Cancel Reservation
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{10px}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="7" columns="2">
+<features booktabs="true" tabularvalignment="middle" tabularwidth="60page%">
+<column alignment="left" valignment="top">
+<column alignment="left" valignment="top" width="40page%">
+<row>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Test Case Identifier
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+I6T1
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Test Items
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Car Service, Location Service, Reservation Service
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Test Description
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Reservation of a Car 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Input Specification
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+User input of the choosen car (rapresented with CarID)
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Output Specification
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Acknowledgment or ErrorMessage
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Enviromental Needs
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Simulated Mobile App
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Testing Method
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Automated JUnit, Arquilian, Mockito
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{20px}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="7" columns="2">
+<features booktabs="true" tabularvalignment="middle" tabularwidth="60page%">
+<column alignment="left" valignment="top">
+<column alignment="left" valignment="top" width="40page%">
+<row>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Test Case Identifier
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+I6T2
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Test Items
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Car Service, Location Service, Reservation Service
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Test Description
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Cancel Reservation of a Car 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Input Specification
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+User input 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Output Specification
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Acknowledgment or ErrorMessage
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Enviromental Needs
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Simulated Mobile App
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Testing Method
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Automated JUnit, Arquilian, Mockito
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{20px}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="7" columns="2">
+<features booktabs="true" tabularvalignment="middle" tabularwidth="60page%">
+<column alignment="left" valignment="top">
+<column alignment="left" valignment="top" width="40page%">
+<row>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Test Case Identifier
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+I6T3
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Test Items
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Car Service, Location Service, Reservation Service
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Test Description
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Request Unlock Vehicle
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Input Specification
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+User input, CarID, UserGPS
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Output Specification
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Acknowledgment and unlocking or ErrorMessage (No Reservation, Distance Error)
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Enviromental Needs
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Simulated Mobile App
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Testing Method
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Automated JUnit, Arquilian, Mockito
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{5px}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+I7 Driving and Ending Reservation
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{10px}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="7" columns="2">
+<features booktabs="true" tabularvalignment="middle" tabularwidth="60page%">
+<column alignment="left" valignment="top">
+<column alignment="left" valignment="top" width="40page%">
+<row>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Test Case Identifier
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+I7T1
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Test Items
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Car Service, Location Service, Reservation Service
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Test Description
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+End Reservation
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Input Specification
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Event: Reserved vehicle parked and locked
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Output Specification
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+End of reservation properly managed
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Enviromental Needs
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Power Enjoy Vehicle
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Testing Method
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Manual, JUnit, Arquilian
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{5px}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+I8 Timing
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{10px}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="7" columns="2">
+<features booktabs="true" tabularvalignment="middle" tabularwidth="60page%">
+<column alignment="left" valignment="top">
+<column alignment="left" valignment="top" width="40page%">
+<row>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Test Case Identifier
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+I8T1
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Test Items
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Car Service, Reservation Service, Timing Service 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Test Description
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Timing Features
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Input Specification
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Event: Reservation Countdown Expires
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Output Specification
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+End of reservation properly managed
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Enviromental Needs
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+/
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Testing Method
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+ JUnit, Arquilian
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{5px}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+I9 Payment of Reservations
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{10px}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="7" columns="2">
+<features booktabs="true" tabularvalignment="middle" tabularwidth="60page%">
+<column alignment="left" valignment="top">
+<column alignment="left" valignment="top" width="40page%">
+<row>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Test Case Identifier
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+I9T1
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Test Items
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Car Service, Reservation Service, Payment Service
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Test Description
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+End of Reservation causes Payment Request
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Input Specification
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Event: Reservation Countdown Expires or car parked in Safe Area
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Output Specification
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Sent Payment Request
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Enviromental Needs
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Simulated PS
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Testing Method
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+ JUnit, Arquilian, Mockito
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{5px}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+I10 User & Profile Management
+\end_layout
+
+\begin_layout Subsection
+I11 Assistance
 \end_layout
 
 \begin_layout Section
 Tools and Test Equipment Required
 \end_layout
 
-\begin_layout Description
+\begin_layout Paragraph
 Manual
 \begin_inset space \space{}
 \end_inset
 
-Testing On Board Computer: The most frequent interaction is between the
- Application server and the On Board Computer in cars.
+Testing 
+\end_layout
+
+\begin_layout Standard
+On Board Computer: The most frequent interaction is between the Application
+ server and the On Board Computer in cars.
  Is fundamental to simulate reservations in order to control the absence
  of malfunctioning or errors in the interaction.
  The test will cover all the possible situations that may happen during
@@ -3455,8 +5226,12 @@ Testing On Board Computer: The most frequent interaction is between the
  park in a non safe area, ecc…
 \end_layout
 
-\begin_layout Description
-JUnit Before integration testing, tests on single components is necessary.
+\begin_layout Paragraph
+JUnit 
+\end_layout
+
+\begin_layout Standard
+Before integration testing, tests on single components is necessary.
  This first part of testing is not covered in this document.
  Anyway, the main issue is to check the absence of bugs and problem in each
  part of the system, from the application to the all the Application Server
@@ -3472,9 +5247,13 @@ JUnit Before integration testing, tests on single components is necessary.
  
 \end_layout
 
-\begin_layout Description
-Mockito Mockito is an open-source test framework useful to generate mock
- objects, stubs and drivers.
+\begin_layout Paragraph
+Mockito
+\end_layout
+
+\begin_layout Standard
+Mockito is an open-source test framework useful to generate mock objects,
+ stubs and drivers.
  Since the entire system interacts with external and real objects, is necessary
  to use a framework to reproduce this kind of entities.
  In unit testing, mock objects can simulate the behavior of complex, real
@@ -3485,10 +5264,14 @@ Mockito Mockito is an open-source test framework useful to generate mock
  having predictable results.
 \end_layout
 
-\begin_layout Description
-Arquillian Arquillian is an integration testing framework for business objects
- that are executed inside a container or that interact with the container
- as a client.
+\begin_layout Paragraph
+Arquillian 
+\end_layout
+
+\begin_layout Standard
+Arquillian is an integration testing framework for business objects that
+ are executed inside a container or that interact with the container as
+ a client.
  Our choice falls on it because is widely used, in particular makes simple
  the kind of testing we need, since we have different components grouped
  inside one big application server.
@@ -3503,16 +5286,24 @@ s are injected when dependency injection is specified, that the connections
  with the database are properly managed and similar containerlevel tests.
 \end_layout
 
-\begin_layout Description
-Devices The application run on two types of operative systems (Android and
- IOs).
- This fact make necessary testing on the direct tools that allow users to
- exploit power enjoy system.
- Power Enjoy service was tested on two groups of mobile devices (non necessarly
- phones), one for each type of operative system.
- Web page is available on the web and a group of computers were used to
- test the page.
- Test were made on every combination of Operative system and browser.
+\begin_layout Paragraph
+Devices 
+\end_layout
+
+\begin_layout Standard
+The application run on operative systems thanks to Apache Cordoba.
+ This fact make necessary testing on different devices to make sure that
+ everyone supports the power enjoy system.
+ 
+\end_layout
+
+\begin_layout Paragraph
+Power Enjoy Cars
+\end_layout
+
+\begin_layout Standard
+In order to perform most of the task involing vehicles, we need a proper
+ vehicle to check all the fucntionalities.
 \end_layout
 
 \begin_layout Section
