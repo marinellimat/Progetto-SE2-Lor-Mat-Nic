@@ -7,6 +7,7 @@
 \textclass article
 \begin_preamble
 \usepackage{changepage}
+\usepackage{graphicx}
 \end_preamble
 \use_default_options true
 \begin_modules
@@ -147,7 +148,7 @@ vspace*{20px}
 \begin_layout Standard
 \align center
 \begin_inset Graphics
-	filename ../DD/images/polimi.png
+	filename images/polimi.png
 	scale 60
 
 \end_inset
@@ -504,19 +505,6 @@ Power Enjoy - Requirement Analysis and Specification Document
 Power Enjoy - Design Document 
 \end_layout
 
-\begin_layout Itemize
-\begin_inset Flex Strong
-status open
-
-\begin_layout Plain Layout
-Documentation of any tool you plan to use for testing 
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
 \begin_layout Standard
 \begin_inset Newpage pagebreak
 \end_inset
@@ -578,7 +566,8 @@ Unit tests
 .
  Unit tests should have a minimum coverage of 90% of the lines of code and
  should be run automatically at each build using JUnit.
- 
+ (non necessariamente tutte, ma quelle piu importanti prima ed eventualmente
+ simulare le altre durante il testing)
 \end_layout
 
 \begin_layout Itemize
@@ -651,44 +640,12 @@ s.
 \end_layout
 
 \begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{adjustwidth*}{-2cm}{-2cm}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
 \noindent
 \align center
 \begin_inset Graphics
 	filename images/CompletedArchitecture.png
 	lyxscale 20
-	scale 45
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{adjustwidth*}
-\end_layout
+	scale 40
 
 \end_inset
 
@@ -982,15 +939,6 @@ Sequence of Component/Function Integration
 \end_layout
 
 \begin_layout Standard
-\begin_inset Graphics
-	filename images/microservices.png
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
 In this section we’re going to formalize the order of integration (and integrati
 on testing) of the various components and subsystems presented in the previous
  section.
@@ -1033,95 +981,9 @@ to refer to External Systems (Payment System, Assistance System, Car-on-Board
 \end_layout
 
 \begin_layout Paragraph
-Payment Functionalities
-\end_layout
-
-\begin_layout Standard
-\noindent
-\align center
-\begin_inset Graphics
-	filename images/PS.png
-	scale 75
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Paragraph
-Assistance Management 
-\end_layout
-
-\begin_layout Standard
-\noindent
-\align center
-\begin_inset Graphics
-	filename images/AS.png
-	scale 75
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Paragraph
-Car Management 
-\end_layout
-
-\begin_layout Standard
-\noindent
-\align center
-\begin_inset Graphics
-	filename images/CS.png
-	scale 75
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Paragraph
-Car Management 
-\end_layout
-
-\begin_layout Standard
-\noindent
-\align center
-\begin_inset Graphics
-	filename images/CS.png
-	scale 75
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Paragraph
-Car Management 
-\end_layout
-
-\begin_layout Standard
-\noindent
-\align center
-\begin_inset Graphics
-	filename images/CS.png
-	scale 75
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Paragraph
-Car Management 
-\end_layout
-
-\begin_layout Standard
-\noindent
-\align center
-\begin_inset Graphics
-	filename images/CS.png
-	scale 75
+\begin_inset External
+	template PDFPages
+	filename /Users/nikolai/Desktop/2.4 Schema.pdf
 
 \end_inset
 
@@ -1133,16 +995,1736 @@ Individual Steps and Test Description
 \end_layout
 
 \begin_layout Standard
-For each step of the integration process above, describe the type of tests
- that will be used to verify that the elements integrated in this step perform
- as expected.
- Describe in general the expected results of the test set.
- You may refer to Chapter 3 and Chapter 4 of the test plan example [1] as
- an example of what we expect.
- (NOTE: This is not a detailed description of test protocols.
- Think of this as the test design phase.
- Specific protocols will be written to fulfill the goals of the tests in
- this section.
+This chapter describes the individual test cases to be executed.
+ Test cases are identified by a code, test cases whose code starts with
+ SI are integration tests between subsystems; test cases whose code starts
+ with I are integration tests between components.
+\end_layout
+
+\begin_layout Standard
+Is not present the Database integration test and all relate tests because,
+ since the architecture is composed by microservices, each DBMS is strictly
+ related to the respective component and the tests were performed during
+ the individual testing stage.
+\end_layout
+
+\begin_layout Subsection
+I1
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features booktabs="true" tabularvalignment="middle" tabularwidth="60page%">
+<column alignment="left" valignment="top">
+<column alignment="left" valignment="top" width="40page%">
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Test Items
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Payment Service –> Payment System
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Input Specification
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Messages who identify the user (existing in the Payment System Database)
+ to charge.
+ Informations about the amount to pay.
+ Tipical values could be existing/unexisting users, random amount to pay,
+ also over the user's disponibility.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Output Specification
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+User to charge is find or not.
+ Payment has happend or not.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Enviromental Needs
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Payment Service Driver and Payment System Mock
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Test Description
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+A invoice is sended to Payment Service.
+ It will contact the Payment System in order to charge the user.
+ Payment System will respond with the result (positive or negative) of the
+ charging operaction.
+ The test must check the behaviour of the Paiment System according to the
+ informations received.
+ Crucial points are the existance of the user, the possibility to pay and
+ the return of the result.
+ Is also to test the correct ban of the user with a payment pending and
+ the relative unban when a payment notification arrive from the Payment
+ System
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Testing Method
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Automated with JUnit and Mockito
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+I2
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features booktabs="true" tabularvalignment="middle" tabularwidth="60page%">
+<column alignment="left" valignment="top">
+<column alignment="left" valignment="top" width="40page%">
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Test Items
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Assistance Service –> Assistance System
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Input Specification
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Information about malfuncioning cars and malfunctioning type
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Output Specification
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Notification of completed assistance
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Enviromental Needs
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Assistance Service Driver and Assistance System Mock
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Test Description
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Is simulated a malfunciotioning car status.
+ The test wants to check the correct exchange of messages between Assistance
+ Service and Assistance System.
+ Assistance Service must also notify the solution of malfunctioning to the
+ Car Service.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Testing Method
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Automated with JUnit and Mockito
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+I3
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features booktabs="true" tabularvalignment="middle" tabularwidth="60page%">
+<column alignment="left" valignment="top">
+<column alignment="left" valignment="top" width="40page%">
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Test Items
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Car Service –> Car on Board System
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Input Specification
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+All car status change provided by the Application Server
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Output Specification
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+All car status provided by the car interacting with real world (user).
+ Cmmunication of information to produce an invoice and the position.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Enviromental Needs
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Car Service Driver and Car on Board System Mock
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Test Description
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+A complete Reservation is simulated.
+ The test must ceck that the interaction between Car Service and Car on
+ Board System is correct.
+ The Remote Control must correctly lock and unlock the car when requested.
+ When an ignition is simulated, it will be detected by the Car on Board
+ System and notified to Car service; the same for malfunctioning and Charging
+ state.
+ If is simulated the presence of passengers, the Car on Board System must
+ correctly calculate the Shared Ride time and send it to Car Service.
+ The Car on Board System must also be able to calculate the Ride Length
+ when the reservation simulation ends and send it to Car Service.
+ 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Testing Method
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Automated with JUnit and Mockito
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+I4
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features booktabs="true" tabularvalignment="middle" tabularwidth="60page%">
+<column alignment="left" valignment="top">
+<column alignment="left" valignment="top" width="40page%">
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Test Items
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Location Service –> Car Service
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Input Specification
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Position of the cars.
+ Safe/Unsafe Park.
+ 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Output Specification
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Position Updates
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Enviromental Needs
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Location Service Driver and Car Service Driver
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Test Description
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Test must check that Location Service can give an updated postition to all
+ cars and can register all update communicated by Car Service.
+ The location grind must be tested as well, so a car selection must be simulated
+ in order to check if the location grid correctly shows the most convnient
+ available cars.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Testing Method
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Automated with JUnit
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+I5
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features booktabs="true" tabularvalignment="middle" tabularwidth="60page%">
+<column alignment="left" valignment="top">
+<column alignment="left" valignment="top" width="40page%">
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Test Items
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Mobile App –> Location Service, Car Service
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Input Specification
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Request of selection of a car.
+ User position (GPS) or an address
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Output Specification
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+List of suggested available cars, if no cars are available the output is
+ a notification.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Enviromental Needs
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Mobile Application mock and I4
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Test Description
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+A request of a car is performed on the app.
+ The test must check that a the output is correct according to the input
+ and the cars disposition
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Testing Method
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Automated with JUnit and Mockito
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+I6
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features booktabs="true" tabularvalignment="middle" tabularwidth="60page%">
+<column alignment="left" valignment="top">
+<column alignment="left" valignment="top" width="40page%">
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Test Items
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Reservation Service –> Mobile App, Location Service, Car Service
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Input Specification
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Selection of a car (start of the reservation).
+ Reservation canceled.
+ Unlock request.
+ Car Ignition notification.
+ Position notification at the end of the reservation.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Output Specification
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Unlock successfull or denied.
+ Start ride notification.
+ Ending sequence.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Enviromental Needs
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Reservation Service Driver and I5
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Test Description
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Is simulated a Reservation from the very beginning.
+ Test must perform the reservation starting with the car selection and proceed
+ with every step till the end (payment excluded).
+ All possible situations must be simulated in order to verify the correct
+ behaviour and return of the system.
+ Remember to verify the reservation cancellation (not the expiration, it
+ will be tested in the next test), park in a non safe area is not considered.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Testing Method
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Automated with JUnit and Mockito
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+I7
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features booktabs="true" tabularvalignment="middle" tabularwidth="60page%">
+<column alignment="left" valignment="top">
+<column alignment="left" valignment="top" width="40page%">
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Test Items
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Payment Service, Timer Service –> Mobile App, Location Service, Car Service,
+ Reservation Service
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Input Specification
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Timer Service: Selection of a car (start of the reservation).
+ Reservation canceled.
+ Car Ignition notification Payment Service: Invoice.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Output Specification
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Timer Service: Time to expiration.
+ Payment Service: Ban/Unban user with pending payment.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Enviromental Needs
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Car Service Driver Timer Driver, I6 and I1.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Test Description
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+A reservation is simulated.
+ In this test is important to check the correct management of the expiration
+ time by the Timer Service in case of waiting of an ignition and in case
+ of park in a non safe area.
+ The System must also corretly send the invoices when the time expire or
+ the reservation end.
+ 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Testing Method
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Automated with JUnit and Mockito
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+I8
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features booktabs="true" tabularvalignment="middle" tabularwidth="60page%">
+<column alignment="left" valignment="top">
+<column alignment="left" valignment="top" width="40page%">
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Test Items
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Payment Service, User Service, Location Service
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Input Specification
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Informations about the user, ban/unban updates, Location Updates.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Output Specification
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Result of profile modification.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Enviromental Needs
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Payment Service Driver, User Service Driver, Location Driver and Web Application
+ and Server mock
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Test Description
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+In this test must be performed the profile managemet.
+ Check the behaviour of the system inserting both possible and unpossible
+ values.
+ Both Login and Profile Modification must be tested in this section.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Testing Method
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Automated with JUnit and Mockito
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+I9
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features booktabs="true" tabularvalignment="middle" tabularwidth="60page%">
+<column alignment="left" valignment="top">
+<column alignment="left" valignment="top" width="40page%">
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Test Items
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Web Application, Web Server –>Payment Service, User Service, Location Service
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Input Specification
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Informations about the user, ban/unban updates, Location Updates.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Output Specification
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Result of profile modification.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Enviromental Needs
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+SI1 and Web Application and Server completed
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Test Description
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+In this test must be performed the profile managemet.
+ Check the behaviour of the system inserting both possible and unpossible
+ values.
+ Both Login and Profile Modification must be tested in this section.
+ This time no components are simulated.
+ Since the Web Application is not simulated, must be tested also the web
+ interface and its correct behaviour.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Testing Method
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Automated with JUnit and manual testing (all combination of OS-Browser)
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+I10
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features booktabs="true" tabularvalignment="middle" tabularwidth="60page%">
+<column alignment="left" valignment="top">
+<column alignment="left" valignment="top" width="40page%">
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Test Items
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+All Services (Top Layer Simulated)
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Input Specification
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+All methods invoked by a simulated mobile application
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Output Specification
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Visual notification to inform the user about any usefull state or modification
+ in the system.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Enviromental Needs
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+I1, I2, I3, I7 and Mobile Application Mock
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Test Description
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Complete simulation of all functionalities of the Application.
+ Perform test on every kind of users, registered or not, banned or unbanned.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Testing Method
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Automated with JUnit and Mockito
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+I11
+\end_layout
+
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features booktabs="true" tabularvalignment="middle" tabularwidth="60page%">
+<column alignment="left" valignment="top">
+<column alignment="left" valignment="top" width="40page%">
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Test Items
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+All Services (no simulated layers)
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Input Specification
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+All methods invoked by a simulated mobile application
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Output Specification
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Visual notification to inform the user about any usefull state or modification
+ in the system.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Enviromental Needs
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+SI3 and Mobile Application
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Test Description
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Complete simulation of all functionalities of the Application.
+ Perform test on every kind of users, registered or not, banned or unbanned.
+ Since no layer are simulated, chec the correc behaviour of the application
+ on every device (IOs and Android), check that the visual presentation is
+ also correct.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Testing Method
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Automated with JUnit and manual testing (IOs and Android)
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
@@ -1167,16 +2749,34 @@ Identify all tools and test equipment needed to accomplish the integration.
 \end_layout
 
 \begin_layout Description
+Manual
+\begin_inset space \space{}
+\end_inset
+
+Testing On Board Computer: The most frequent interaction is between the
+ Application server and the On Board Computer in cars.
+ Is fundamental to simulate reservations in order to control the absence
+ of malfunctioning or errors in the interaction.
+ The test will cover all the possible situations that may happen during
+ a rent: reservation, cancel reservation, start the ride, end the ride,
+ park in a non safe area, ecc…
+\end_layout
+
+\begin_layout Description
 JUnit Before integration testing, tests on single components is necessary.
  This first part of testing is not covered in this document.
  Anyway, the main issue is to check the absence of bugs and problem in each
  part of the system, from the application to the all the Application Server
  components.
- JUnit is the most used framework for single components testing in java.
+ We choose JUnit to perform the components test basically because is the
+ most used framework for this specific; totally java dedicated, it combines
+ perfectly itself with the implementation choices described in the Design
+ Document and with the integration testing framework Arquillian.
  In particular, we are going to use it in order to verify that the correct
  objects are returned after a method invocation, that appropriate exceptions
  are raised when invalid parameters are passed to a method and other issues
  that may arise when components interact with each other.
+ 
 \end_layout
 
 \begin_layout Description
@@ -1196,12 +2796,15 @@ Mockito Mockito is an open-source test framework useful to generate mock
 Arquillian Arquillian is an integration testing framework for business objects
  that are executed inside a container or that interact with the container
  as a client.
- We choose it as framework because is widely used and is quite simple to
- work on.
+ Our choice falls on it because is widely used, in particular makes simple
+ the kind of testing we need, since we have different components grouped
+ inside one big application server.
+ Arquillian also integrates perfectly with JUnit, used in the single components
+ testing phase.
  It combines a unit testing framework (JUnit), and one or more sup- ported
  target containers (Java EE container, etc) to provide a simple, flexible
  and pluggable integration testing environment.
- Arquillian makes integration testing no more difficult than the bins testing.
+ Arquillian makes integration testing no more difficult than the beans testing.
  Specifically, we are going to use Arquillian to verify that the right component
 s are injected when dependency injection is specified, that the connections
  with the database are properly managed and similar containerlevel tests.
@@ -1224,8 +2827,109 @@ Program Stubs and Test Data Required
 \end_layout
 
 \begin_layout Standard
-Based on the testing strategy and test design, identify any program stubs
- or special test data required for each integration step.
+In order to perform integration testing without having developed the entire
+ system first, we need to use stubs and drivers to simulate the software
+ components that still donít exist and test the others.
+\end_layout
+
+\begin_layout Subsection
+Drivers
+\end_layout
+
+\begin_layout Paragraph
+Data Access Driver
+\end_layout
+
+\begin_layout Standard
+This testing module will invoke methods in order to test interaction between
+ DBMSs and Application Server's beans.
+ Since the Power Enjoy is structured in microservices, bin has access at
+ most to on specific DBMS.
+ This driver manages all the interaction of this kind, for all bins.
+\end_layout
+
+\begin_layout Paragraph
+Reservation Service Driver 
+\end_layout
+
+\begin_layout Standard
+this testing module will invoke the methods visible to the Reservation Service
+ subcomponent, in order to test its interaction with the Reservation database,
+ the User service, the Car Service and the Payment Service components.
+\end_layout
+
+\begin_layout Paragraph
+User Service Driver
+\end_layout
+
+\begin_layout Standard
+this testing module will invoke the methods visible to the User Service
+ subcomponent, in order to test its interaction with the User database,
+ the Reservation service, the Location Service and the Payment Service component
+s.
+\end_layout
+
+\begin_layout Paragraph
+Car Service Driver
+\end_layout
+
+\begin_layout Standard
+this testing module will invoke the methods visible to the Car Service subcompon
+ent, in order to test its interaction with the Car database, the Reservation
+ service, the Location Service and the Assistaance Service components.
+\end_layout
+
+\begin_layout Paragraph
+Location Service Driver
+\end_layout
+
+\begin_layout Standard
+this testing module will invoke the methods visible to the Location Service
+ subcomponent, in order to test its interaction with the Location database,
+ the User service and the Car Service.
+\end_layout
+
+\begin_layout Paragraph
+Assistance Service Driver
+\end_layout
+
+\begin_layout Standard
+this testing module will invoke the methods visible to the Assistance Service
+ subcomponent, in order to test its interaction with the Car Service component.
+\end_layout
+
+\begin_layout Paragraph
+Payment Service Driver 
+\end_layout
+
+\begin_layout Standard
+this testing module will invoke the methods visible to the Payment Service
+ subcomponent, in order to test its interaction with the Payment database,
+ the Reservation service and the User Service components.
+\end_layout
+
+\begin_layout Subsection
+Stubs
+\end_layout
+
+\begin_layout Standard
+Since we used a mixed approach, not purely bottom-up, stubs are necessary
+ to emulate the presence of not yet completed components.
+ A test DBMS must be filled with random values in order to test properly
+ the Software.
+ Each entity must appear in the test DBMS following the same ER diagram
+ designed in the Design Document.
+ Could be usefull to insert values may cause exceptions, to check the behaviour
+ of the system on limit situations.
+ Other stubs must reproduce the behaviour of external systems that interact
+ with the Power Enjoy software.
+ Must be emulated the communication between Payment System, Assistance System
+ and Car On Board System with the respective bins.
+ The test must evaluate also the efficiency of the user actions.
+ Will be usefull a Mock sender and receiver in order to collect all data
+ of an immaginary user.
+ A set of datas choosen ad hoc (also not real ones) is necessary to verify
+ the validity of the credential.
 \end_layout
 
 \begin_layout Section
