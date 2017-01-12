@@ -938,12 +938,16 @@ In this phase we'll test the Power Enjoy System as a whole.
 Sequence of Component/Function Integration
 \end_layout
 
+\begin_layout Subsubsection
+Software Integration Sequence
+\end_layout
+
 \begin_layout Standard
 In this section we’re going to formalize the order of integration (and integrati
 on testing) of the various components and subsystems presented in the previous
  section.
- Before diving in some words about the notation used.
- In the figures we will refer to an entity java bean contained in the applicatio
+ Before describing this process, we will clarify the notation used.
+ In the figures we will refer to an Entity Java Bean contained in the applicatio
 n layer as a 
 \begin_inset Flex Emph
 status open
@@ -980,10 +984,713 @@ to refer to External Systems (Payment System, Assistance System, Car-on-Board
  placed inside a dashed line box.
 \end_layout
 
+\begin_layout Subsubsection*
+External Systems
+\end_layout
+
+\begin_layout Paragraph*
+Payment 
+\end_layout
+
+\begin_layout Standard
+The first two elements to be integrated are the 
+\begin_inset Flex Emph
+status open
+
+\begin_layout Plain Layout
+Payment Service
+\end_layout
+
+\end_inset
+
+ and the
+\begin_inset Flex Emph
+status open
+
+\begin_layout Plain Layout
+ Payment System
+\end_layout
+
+\end_inset
+
+.
+ As explained above, it is important to start from the external systems
+ in order to signal any problems that involve third party software or APIs.
+ In this step we test if we're able to check if a user has a registered
+ account in the third payment system, regular payment functionalities (sending
+ a payment request, receiving payment confirmation) and the correct management
+ of payment logs.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename images/1payment.png
+	scale 70
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph*
+Assistance
+\end_layout
+
+\begin_layout Standard
+The second step in the integration process is to integrate the other external
+ system, the 
+\begin_inset Flex Emph
+status open
+
+\begin_layout Plain Layout
+Assistance System
+\end_layout
+
+\end_inset
+
+, for the same reasons mentioned above.
+ The latter has less priority because it's reasonable to assume that we
+ have more control over the Assistance System, since it's part of the company.
+ In this step we test if we're able to request assistance and receive the
+ confirmation when services are rendered.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename images/2Assistance.png
+	scale 70
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph*
+Car On Board System
+\end_layout
+
+\begin_layout Standard
+The last system to integrate is the Car on Board System.
+ In this step will make sure that the system itself works (correctly detects
+ car events such as door opening and closing, engine starting, ecc...) but
+ also that we're able to detect this events from inside our software and
+ controlling remotly the vehicle.
+ In this way, all the other services will only use the interface provided
+ by the 
+\begin_inset Flex Emph
+status open
+
+\begin_layout Plain Layout
+Car Service
+\end_layout
+
+\end_inset
+
+ forgetting about the actual Car on Board System.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename images/3Car.png
+	scale 70
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection*
+Reservation
+\end_layout
+
+\begin_layout Standard
+After making sure the boundaries of our system work correctly, the next
+ step in the integration process is to appropriately connect the services
+ that implement the reservation functionality.
+ This choice comes from the critical-module-first approach, because in a
+ car sharing service being able to reserve a car is the most important functiona
+lity.
+ As said before, it was not implemented first to avoid a big bang scenario,
+ where we have implemented high level functionalities that not reflect the
+ concrete situation of the car in the real world.
+ 
+\end_layout
+
+\begin_layout Standard
+Using a bottom-up approach, we are going to show which services must be
+ integrated together in order to implement this functionality.
+\end_layout
+
 \begin_layout Paragraph
-\begin_inset External
-	template PDFPages
-	filename /Users/nikolai/Desktop/2.4 Schema.pdf
+Location of Cars 
+\end_layout
+
+\begin_layout Standard
+First, we proceed by integrating the 
+\begin_inset Flex Emph
+status open
+
+\begin_layout Plain Layout
+Car Service
+\end_layout
+
+\end_inset
+
+ with the 
+\begin_inset Flex Emph
+status open
+
+\begin_layout Plain Layout
+Location Service
+\end_layout
+
+\end_inset
+
+.
+ We test if the location is correctly detected, if we're able to monitor
+ the car during a ride and if we're able to correctly detect a safe or an
+ unsafe park.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename images/4locationCar.png
+	scale 70
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Location of Power Users 
+\end_layout
+
+\begin_layout Standard
+Second, we integrate the location of user by simulating reservation request
+ from a user via Mobile App.
+ As a remainder, our system is mobile-first and the reservation of a vehicle
+ is only possibile via a mobile device, this allows us to reduce the scope
+ of the testing and forget about the web services which we'll be integrated
+ later.
+ In this step we test the 
+\begin_inset Quotes eld
+\end_inset
+
+Select Car
+\begin_inset Quotes erd
+\end_inset
+
+ use case (please refer to the RASD for more details) in which the user
+ selects a car on the map given an address or a (simulated) user position
+ and a range, the system performs the GridSearch Algorithm (please refer
+ to DD for more details on the implementation) and returns the list of available
+ cars.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename images/5locationUser.png
+	scale 70
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Start/Cancel Reservation 
+\end_layout
+
+\begin_layout Standard
+Finally, we have built all the necessary functionalities and we're able
+ to test the registration functionality.
+ We integrate the 
+\begin_inset Flex Emph
+status open
+
+\begin_layout Plain Layout
+Reservation Service
+\end_layout
+
+\end_inset
+
+ with the 
+\begin_inset Flex Emph
+status open
+
+\begin_layout Plain Layout
+Location Service
+\end_layout
+
+\end_inset
+
+ and the 
+\begin_inset Flex Emph
+status open
+
+\begin_layout Plain Layout
+Car Service
+\end_layout
+
+\end_inset
+
+.
+ In this step we test if a Power User can successfully reserve a car, unreserve
+ a car (without the 1hour limit for now) and can request to unlock the car
+ (with proximity check).
+ The user input is still simulated.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename images/6Reservation.png
+	scale 70
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Driving and Ending Reservation 
+\end_layout
+
+\begin_layout Standard
+To complete the reservation functionality we don't need to integrate any
+ but we need to make sure that the prototype of the system performs all
+ the actions required to stop the reservation.
+ In this step we test that the engine ignition triggers an active reservation
+ and that a reservation immediately stops as soon as a car is parked and
+ locked (both in a Safe/Unsafe Area for now).
+\end_layout
+
+\begin_layout Subsubsection*
+Other functionalities 
+\end_layout
+
+\begin_layout Standard
+Now that we have a stable prototype of the Power Enjoy Application we will
+ spread like wildfire, integrating other services that implements all the
+ other functionalities.
+\end_layout
+
+\begin_layout Paragraph
+Timing
+\end_layout
+
+\begin_layout Standard
+Our prototype doesn't consider the timing constraint that the reservation
+ imposes.
+ Moreover, we need to incorporate the following constrains:
+\end_layout
+
+\begin_layout Enumerate
+A Power User has 1 hour to request to unlock a vehicle once he/she has reserved
+ it
+\end_layout
+
+\begin_layout Enumerate
+A reserved car parked in an Unsafe Area, triggers a one hour countdown in
+ which the user needs to go back to the car to move it on a Safe Area.
+ As soon as the countdown expires the reservation expires as well.
+ The car is set unavailable and the Power User is charged for the extra
+ time as a refund for moving the car back in a Safe Area.
+ 
+\end_layout
+
+\begin_layout Standard
+In this step we integrate these functionalities, adding the
+\begin_inset Flex Emph
+status open
+
+\begin_layout Plain Layout
+ Timing Service
+\end_layout
+
+\end_inset
+
+ to the prototype.
+ In later figures this component we will be hidden for clarity, but a timer
+ icon will be added to the Reservation Service as a remainder.
+ We will test that countdown expiration causes the reservation to end and
+ that a user requesting to unlock a vehicle stops the timer (both for case
+ 1 and case 2)
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename images/7timing.png
+	scale 70
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Payment
+\end_layout
+
+\begin_layout Standard
+In this step we start moving towards the boundaries of our system.
+ We include the payment functionalities adding the 
+\begin_inset Flex Emph
+status open
+
+\begin_layout Plain Layout
+Payment Service
+\end_layout
+
+\end_inset
+
+ to the prototype.
+ We test that the end of a Reservation (in any case) triggers a payment
+ request.
+ 
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{adjustwidth*}{-0cm}{-3cm}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename images/8payment.png
+	scale 60
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{adjustwidth*}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+User & Profile Management 
+\end_layout
+
+\begin_layout Standard
+So far in the integration progress we have assumed that a simulated User
+ was already registered to the Power Enjoy System, logged and always allowed
+ to reserve a car.
+ Now it's time to introduce this additional checks and functionalities integrati
+ng the 
+\begin_inset Flex Emph
+status open
+
+\begin_layout Plain Layout
+User Service
+\end_layout
+
+\end_inset
+
+.
+ The new features to test involve:
+\end_layout
+
+\begin_layout Enumerate
+Login and Registering 
+\end_layout
+
+\begin_layout Enumerate
+Temporary Ban a Power User if it has a payment pending
+\end_layout
+
+\begin_layout Enumerate
+Unban as soon as a payment request is recieved 
+\end_layout
+
+\begin_layout Enumerate
+Editing Profile Info 
+\end_layout
+
+\begin_layout Enumerate
+Request Logs (Reservations, Payments)
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename images/9User.png
+	scale 60
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Assistance
+\end_layout
+
+\begin_layout Standard
+In this step we integrate the last componen of the Business tier, the 
+\begin_inset Flex Emph
+status open
+
+\begin_layout Plain Layout
+Assistance Service 
+\end_layout
+
+\end_inset
+
+.
+ We test that a malfunctioning event detected from the 
+\begin_inset Flex Emph
+status open
+
+\begin_layout Plain Layout
+Car Service 
+\end_layout
+
+\end_inset
+
+triggers and assistance request and the termination of the reservation.
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{adjustwidth*}{-3cm}{-3cm}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename images/10Assistance.png
+	scale 60
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{adjustwidth*}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Subsystem Integration Sequence
+\end_layout
+
+\begin_layout Standard
+Our prototype is working with the top layers simulated.
+ Now it's ready to integrate the real tiers into the system.
+ We can split the integration between the two parts: the web part and the
+ mobile part.
+ We first integrate the Web Part because it uses all parts of the prototype
+ already tested for the mobile and then the mobile should be straightforward
+ if the simulated mobile app was implemented mirroring the real app.
+\end_layout
+
+\begin_layout Subsubsection*
+Web Subsystem 
+\end_layout
+
+\begin_layout Standard
+In this step we need to make sure that all the functionalities expected
+ from the Website (Profile Management, Car Lookup and Payments) works accordingl
+y.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename images/11Web.png
+	scale 60
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection*
+Complete System
+\end_layout
+
+\begin_layout Standard
+Integrating the mobile application we're ready to deploy and test the entire
+ system.
+ In this phase we should perform an alpha test and check that a client can
+ successfully make a reservation from start to finish.
+ Different scenario might occur in a real non-simulated environment so it's
+ important to make sure that we haven't overlooked any plausible situation
+ that might cause unexpected behaviour of the system.
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename images/CompletedArchitecture.png
+	lyxscale 20
+	scale 40
 
 \end_inset
 
@@ -1002,10 +1709,13 @@ This chapter describes the individual test cases to be executed.
 \end_layout
 
 \begin_layout Standard
-Is not present the Database integration test and all relate tests because,
- since the architecture is composed by microservices, each DBMS is strictly
- related to the respective component and the tests were performed during
- the individual testing stage.
+The Database integration test and all related tests are not present because
+ our application is composed of microservices, each one with its own DBMS,
+ which is strictly related to the functionality expected from that component
+ .
+ The tests of the single databases and of the object relational mapping
+ were performed during the individual componenet testing stage (which is
+ not part of this document).
 \end_layout
 
 \begin_layout Subsection
@@ -2729,23 +3439,6 @@ Automated with JUnit and manual testing (IOs and Android)
 
 \begin_layout Section
 Tools and Test Equipment Required
-\end_layout
-
-\begin_layout Standard
-\begin_inset Flex Strong
-status open
-
-\begin_layout Plain Layout
-Identify all tools and test equipment needed to accomplish the integration.
- Refer to the tools presented during the lectures.
- Explain why and how you are going to use them.
- Note that you may also use manual testing for some part.
- Consider manual testing as one of the possible tools you have available.
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Description
