@@ -1,0 +1,262 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\begin_preamble
+\usepackage{changepage}
+\end_preamble
+\use_default_options true
+\begin_modules
+logicalmkup
+pdfform
+\end_modules
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\float_placement !tph
+\paperfontsize default
+\spacing single
+\use_hyperref true
+\pdf_title "Power Enjoy: Design Document"
+\pdf_author "Niccolo' Raspa, Matteo Marinelli"
+\pdf_bookmarks true
+\pdf_bookmarksnumbered false
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks false
+\pdf_pdfborder false
+\pdf_colorlinks false
+\pdf_backref false
+\pdf_pdfusetitle true
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation skip
+\defskip smallskip
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Apache Ofbiz 
+\begin_inset Newline newline
+\end_inset
+
+Code Ispection Document
+\end_layout
+
+\begin_layout Author
+Niccolo' Raspa, Matteo Marinelli
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename ../DD/images/polimi.png
+	scale 60
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+Software Engineering 2 Course Project
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section*
+ASSIGNMENT INFO
+\end_layout
+
+\begin_layout Standard
+The Integration Test Plan Document (ITPD) aims at describing how you plan
+ to accomplish the integration test.
+ This document is supposed to be written before the integration test really
+ happens.
+ Often it is written in parallel to the Design Document and takes the architectu
+ral description of the software system as a starting point.
+ This document needs to explain to the development team what to test, in
+ which sequence, which tools are needed for testing (if any), and which
+ stubs/drivers/oracles need to be developed.
+ The structure we suggest for this document is the following (if you introduce
+ changes to this structure, please provide a justification for this):
+\begin_inset Newpage pagebreak
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Introduction
+\end_layout
+
+\begin_layout Standard
+Apache OFBiz® is an open source product for the automation of enterprise
+ processes that includes framework components and business applications
+ for ERP (Enterprise Resource Planning), CRM (Customer Relationship Management),
+ E-Business / E-Commerce, SCM (Supply Chain Management), MRP (Manufacturing
+ Resource Planning), MMS/EAM (Maintenance Management System/Enterprise Asset
+ Management).
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://ofbiz.apache.org/documentation.html
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+../apache-ofbiz-16.11.01/specialpurpose/solr/src/main/java/org/apache/ofbiz/solr/Sol
+rProductSearch.java 
+\end_layout
+
+\begin_layout Section
+WHAT I CAN FIND
+\end_layout
+
+\begin_layout Standard
+https://cwiki.apache.org/confluence/display/OFBIZ/Search+Integration
+\end_layout
+
+\begin_layout Itemize
+OFBiz offers enhanced searching and finding based on integrated Apache Solr
+ features and functionalities.
+\end_layout
+
+\begin_layout Itemize
+SOLR belongs to the spcial purpose stack together with other secondary functions
+ suchs as (eBay Integration, Google Base Integration, Google Checkout Integratio
+n, POS System, Project Management and Scrum Management) but it's devoted
+ to search.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Section
+Effort Spent
+\end_layout
+
+\begin_layout Standard
+In this section you will include information about the number of hours each
+ group member has worked towards the fulfillment of this deadline.
+ 
+\end_layout
+
+\end_body
+\end_document
