@@ -237,6 +237,19 @@ n, POS System, Project Management and Scrum Management) but it's devoted
  to search.
 \end_layout
 
+\begin_layout Itemize
+What is Solr? Apache Solr is a fast open-source Java search server.
+ Solr enables you to easily create search engines which searches websites,
+ databases and files.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
 \begin_layout Section
 Effort Spent
 \end_layout

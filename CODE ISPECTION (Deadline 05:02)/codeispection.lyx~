@@ -75,8 +75,8 @@ pdfform
 \end_index
 \secnumdepth 3
 \tocdepth 3
-\paragraph_separation indent
-\paragraph_indentation default
+\paragraph_separation skip
+\defskip smallskip
 \quotes_language english
 \papercolumns 1
 \papersides 1
@@ -215,6 +215,50 @@ https://ofbiz.apache.org/documentation.html
 \begin_layout Standard
 ../apache-ofbiz-16.11.01/specialpurpose/solr/src/main/java/org/apache/ofbiz/solr/Sol
 rProductSearch.java 
+\end_layout
+
+\begin_layout Section
+WHAT I CAN FIND
+\end_layout
+
+\begin_layout Standard
+https://cwiki.apache.org/confluence/display/OFBIZ/Search+Integration
+\end_layout
+
+\begin_layout Itemize
+OFBiz offers enhanced searching and finding based on integrated Apache Solr
+ features and functionalities.
+\end_layout
+
+\begin_layout Itemize
+SOLR belongs to the spcial purpose stack together with other secondary functions
+ suchs as (eBay Integration, Google Base Integration, Google Checkout Integratio
+n, POS System, Project Management and Scrum Management) but it's devoted
+ to search.
+\end_layout
+
+\begin_layout Itemize
+What is Solr?
+\end_layout
+
+\begin_layout Itemize
+Apache Solr is a fast open-source Java search server.
+\end_layout
+
+\begin_layout Itemize
+Solr enables you to easily create search engines which searches websites,
+ databases and files.
+\end_layout
+
+\begin_layout Itemize
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section

@@ -19,3 +19,12 @@ https://issues.apache.org/jira/browse/OFBIZ-5042
 ## more
 
 https://cwiki.apache.org/confluence/display/OFBIZ/Search+Integration
+
+## solr tutotial 
+
+http://www.solrtutorial.com/index.html
+
+
+## searching in solr
+
+https://cwiki.apache.org/confluence/display/solr/Overview+of+Searching+in+Solr
