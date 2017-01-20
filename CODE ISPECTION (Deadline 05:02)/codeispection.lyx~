@@ -146,28 +146,6 @@ Software Engineering 2 Course Project
 
 \end_layout
 
-\begin_layout Section*
-ASSIGNMENT INFO
-\end_layout
-
-\begin_layout Standard
-The Integration Test Plan Document (ITPD) aims at describing how you plan
- to accomplish the integration test.
- This document is supposed to be written before the integration test really
- happens.
- Often it is written in parallel to the Design Document and takes the architectu
-ral description of the software system as a starting point.
- This document needs to explain to the development team what to test, in
- which sequence, which tools are needed for testing (if any), and which
- stubs/drivers/oracles need to be developed.
- The structure we suggest for this document is the following (if you introduce
- changes to this structure, please provide a justification for this):
-\begin_inset Newpage pagebreak
-\end_inset
-
-
-\end_layout
-
 \begin_layout Standard
 \begin_inset CommandInset toc
 LatexCommand tableofcontents
@@ -185,26 +163,139 @@ LatexCommand tableofcontents
 \end_layout
 
 \begin_layout Section
-Introduction
+Apache OFBiz
 \end_layout
 
 \begin_layout Standard
-Apache OFBiz® is an open source product for the automation of enterprise
- processes that includes framework components and business applications
- for ERP (Enterprise Resource Planning), CRM (Customer Relationship Management),
- E-Business / E-Commerce, SCM (Supply Chain Management), MRP (Manufacturing
- Resource Planning), MMS/EAM (Maintenance Management System/Enterprise Asset
- Management).
+The class to be inspected belongs to Apache OFBiz®, an open source product
+ for the automation of enterprise processes that includes framework components
+ and business applications for ERP (Enterprise Resource Planning), CRM (Customer
+ Relationship Management), E-Business / E-Commerce, etc.
  
 \end_layout
 
 \begin_layout Standard
-\begin_inset Flex URL
+It provides a suite of applications that are useful to integrate and automate
+ most business processes of an enterprise.
+\end_layout
+
+\begin_layout Subsection
+Class Assigned
+\end_layout
+
+\begin_layout Standard
+The assigned class is the following: 
+\end_layout
+
+\begin_layout Itemize
+SolrProductSearch.java 
+\end_layout
+
+\begin_layout Standard
+The class is located in the org.apache.ofbiz.solr package of the Apache OFBiz
+ project.
+ It belongs to the spcial purpose stack together with other secondary functions
+ suchs as eBay Integration, Google Base Integration, Google Checkout Integration
+, POS System, Project Management and Scrum Management) and it's devoted
+ to search.
+ 
+\end_layout
+
+\begin_layout Standard
+The solr component includes an OFBiz service-based wrapper layer to the
+ Apache Solr webapp queries as well as the native Apache Solr web interface
+ itself.
+\end_layout
+
+\begin_layout Subsection
+Documentation
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Apache Solr 
+\series default
+http://lucene.apache.org/solr/
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Apache OfBiz 
+\series default
+https://ofbiz.apache.org/documentation.html
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Integration of Solr in Ofbiz 
+\series default
+https://cwiki.apache.org/confluence/display/OFBIZ/Search+Integration
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Solr Overview!! 
+\series default
+https://cwiki.apache.org/confluence/display/solr/Overview+of+Documents%2C+Fields%2
+C+and+Schema+Design
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Java Doc 
+\series default
+https://ci.apache.org/projects/ofbiz/site/javadocs/org/ofbiz/solr/SolrProductSearc
+h.html
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Java Doc Bis 
+\series default
+https://lucene.apache.org/solr/4_2_1/solr-solrj/org/apache/solr/common/SolrDocumen
+t.html
+\end_layout
+
+\begin_layout Subsection
+Apache Solr
+\end_layout
+
+\begin_layout Standard
+This OFBiz component leverages Apache Solr indexing capabilities.
+ Apache Solr is a fast open-source Java search server.
+ Solr enables you to easily create search engines which searches websites,
+ databases and files.
+ Currently, the solr component focuses on Product data.
+\end_layout
+
+\begin_layout Subsubsection
+Data Indexing
+\end_layout
+
+\begin_layout Standard
+The solr component indexes data such as Products into the Apache Solr database
+ using services defined in the file: servicesdef/solrservices.xml The initial
+ indexing may need to be performed or scheduled manually, but subsequent
+ indexing may be partially or fully automated, though automated methods
+ are disabled by default and must be enabled.
+\end_layout
+
+\begin_layout Standard
+There are two methods for indexing data:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex Code
 status open
 
 \begin_layout Plain Layout
-
-https://ofbiz.apache.org/documentation.html
+* Index rebuilding service (rebuildSolrIndex):
 \end_layout
 
 \end_inset
@@ -213,45 +304,190 @@ https://ofbiz.apache.org/documentation.html
 \end_layout
 
 \begin_layout Standard
-../apache-ofbiz-16.11.01/specialpurpose/solr/src/main/java/org/apache/ofbiz/solr/Sol
-rProductSearch.java 
-\end_layout
-
-\begin_layout Section
-WHAT I CAN FIND
+The rebuildSolrIndex is the most important data import service.
+ It reindexes all OFBiz Products existing in the system into the solr index.
+ rebuildSolrIndex MUST be run AT LEAST once after installation and also
+ following any data load operation that loads new products.
 \end_layout
 
 \begin_layout Standard
-https://cwiki.apache.org/confluence/display/OFBIZ/Search+Integration
+Once the initial indexing has been performed, one can then use the Job Scheduler
+ to invoke rebuildSolrIndex on a regular basis (every hour, every midnight,
+ etc.) to update the Solr index.
 \end_layout
 
-\begin_layout Itemize
-OFBiz offers enhanced searching and finding based on integrated Apache Solr
- features and functionalities.
+\begin_layout Standard
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+* ECAs/SECAs (addToSolr, for Product data):
 \end_layout
 
-\begin_layout Itemize
-SOLR belongs to the spcial purpose stack together with other secondary functions
- suchs as (eBay Integration, Google Base Integration, Google Checkout Integratio
-n, POS System, Project Management and Scrum Management) but it's devoted
- to search.
+\end_inset
+
+
 \end_layout
 
-\begin_layout Itemize
-What is Solr?
+\begin_layout Standard
+Although the rebuildSolrIndex is always necessary for the initial data import,
+ one may also use ECAs and SECAs to import subsequent data changes automatically
+ at every individual data (e.g.
+ Product) update instead of running rebuildSolrIndex periodically.
+ This is done by defining ECAs or SECAs that trigger the addToSolr service.
 \end_layout
 
-\begin_layout Itemize
-Apache Solr is a fast open-source Java search server.
+\begin_layout Standard
+The addToSolr service simply accepts a single "instance" parameter, a GenericVal
+ue.
+ At the time of this writing, any entity value having a valid "productId"
+ field designating a Product value may be passed; this will trigger reindexing
+ for the specific product.
 \end_layout
 
-\begin_layout Itemize
-Solr enables you to easily create search engines which searches websites,
- databases and files.
+\begin_layout Subsubsection
+Data Querying
 \end_layout
 
-\begin_layout Itemize
+\begin_layout Standard
+Solr queries can be done using two methods:
+\end_layout
 
+\begin_layout Standard
+
+\series bold
+* Solr OFBiz services:
+\end_layout
+
+\begin_layout Standard
+Simply invoke (manually or in code) the query services found in the file:
+ servicesdef/solrservices.xml These include solrProductsSearch, solrKeywordSearch
+ and others.
+ Note that in general, solr services can only successfully run in contexts
+ where the solr webapp is loaded and accessible.
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+* Solr native admin webapp interface:
+\end_layout
+
+\begin_layout Standard
+One can also perform native Solr queries and diagnostics using the standard
+ admin interface, accessible as described under Configuration.
+ Please refer to the Apache Solr documentation for usage of this interface.
+\end_layout
+
+\begin_layout Subsection
+Functional role of assigned set of classes
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+* Adds product to solr, with product denoted by productId field in instance
+ attribute
+\end_layout
+
+\begin_layout Standard
+public static Map<String, Object> addToSolr(DispatchContext dctx, Map<String,
+ Object> context) throws GenericEntityException { 
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+* Adds product to solr index.
+ 
+\end_layout
+
+\begin_layout Standard
+public static Map<String, Object> addToSolrIndex(DispatchContext dctx, Map<Strin
+g, Object> context) throws GenericEntityException 
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+* Adds a List of products to the solr index.
+\end_layout
+
+\begin_layout Standard
+public static Map<String, Object> addListToSolrIndex(DispatchContext dctx,
+ Map<String, Object> context) throws GenericEntityException 
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+* Runs a query on the Solr Search Engine and returns the results.
+\end_layout
+
+\begin_layout Standard
+public static Map<String, Object> runSolrQuery(DispatchContext dctx, Map<String,
+ Object> context) 
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+* Performs solr products search.
+\end_layout
+
+\begin_layout Standard
+public static Map<String, Object> productsSearch(DispatchContext dctx, Map<Strin
+g, Object> context) 
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+* Performs keyword search.
+\end_layout
+
+\begin_layout Standard
+public static Map<String, Object> keywordSearch(DispatchContext dctx, Map<String
+, Object> context) 
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+* Returns a map of the categories currently available under the root element.
+ 
+\end_layout
+
+\begin_layout Standard
+public static Map<String, Object> getAvailableCategories(DispatchContext
+ dctx, Map<String, Object> context) 
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+* Return a map of the side deep categories.
+ 
+\end_layout
+
+\begin_layout Standard
+public static Map<String, Object> getSideDeepCategories(DispatchContext
+ dctx, Map<String, Object> context) 
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Rebuilds the solr index.
+\end_layout
+
+\begin_layout Standard
+public static Map<String, Object> rebuildSolrIndex(DispatchContext dctx,
+ Map<String, Object> context) throws GenericEntityException { 
+\end_layout
+
+\begin_layout Section
+Code Inspection
 \end_layout
 
 \begin_layout Standard

@@ -1,9 +1,5 @@
 #Lab Project Plan 
 
-##1. Introduction
-Purpose, scope, definition, references
-
-2 Methodologies, size estimation:
 
 ##2. Function Points ESTIMATION
 Understand the complexity 
