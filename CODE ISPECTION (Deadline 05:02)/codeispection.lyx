@@ -379,6 +379,16 @@ One can also perform native Solr queries and diagnostics using the standard
  Please refer to the Apache Solr documentation for usage of this interface.
 \end_layout
 
+\begin_layout Standard
+\begin_inset Graphics
+	filename images/2013-07-30 11 52 52.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Subsection
 Functional role of assigned set of classes
 \end_layout
