@@ -367,6 +367,11 @@ This OFBiz component leverages Apache Solr indexing capabilities.
  Solr enables you to easily create search engines which searches websites,
  databases and files.
  Currently, the solr component focuses on Product data.
+ The functions are logically grouped in two operations: indexing and querying.
+ Indexing operations allow a user to create an index document, which allows
+ to perform query to extrapolate informations.
+ The intended use it to create an index of product so that a user or the
+ administrator can query it to find the products he/she needs.
 \end_layout
 
 \begin_layout Subsubsection
@@ -401,8 +406,8 @@ status open
 \begin_layout Standard
 The rebuildSolrIndex is the most important data import service.
  It reindexes all OFBiz Products existing in the system into the solr index.
- rebuildSolrIndex MUST be run AT LEAST once after installation and also
- following any data load operation that loads new products.
+ It must be run once after installation and also following any data load
+ operation that loads new products.
 \end_layout
 
 \begin_layout Standard
@@ -426,18 +431,11 @@ status open
 
 \begin_layout Standard
 Although the rebuildSolrIndex is always necessary for the initial data import,
- one may also use ECAs and SECAs to import subsequent data changes automatically
- at every individual data (e.g.
+ one may also use ECAs (Event Condition Action) and SECAs (Service Event
+ Condition Action) to import subsequent data changes automatically at every
+ individual data (e.g.
  Product) update instead of running rebuildSolrIndex periodically.
  This is done by defining ECAs or SECAs that trigger the addToSolr service.
-\end_layout
-
-\begin_layout Standard
-The addToSolr service simply accepts a single "instance" parameter, a GenericVal
-ue.
- At the time of this writing, any entity value having a valid "productId"
- field designating a Product value may be passed; this will trigger reindexing
- for the specific product.
 \end_layout
 
 \begin_layout Subsubsection
@@ -455,11 +453,41 @@ Solr queries can be done using two methods:
 \end_layout
 
 \begin_layout Standard
-Simply invoke (manually or in code) the query services found in the file:
- servicesdef/solrservices.xml These include solrProductsSearch, solrKeywordSearch
- and others.
- Note that in general, solr services can only successfully run in contexts
- where the solr webapp is loaded and accessible.
+Invoke the functions productsSearch and keyword search.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+* productSearch:
+\end_layout
+
+\end_inset
+
+ Allows a user to search a product from an ID 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+* keywordSearch:
+\end_layout
+
+\end_inset
+
+ Return a list of products that match a given keywoard.
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -470,7 +498,7 @@ Simply invoke (manually or in code) the query services found in the file:
 
 \begin_layout Standard
 One can also perform native Solr queries and diagnostics using the standard
- admin interface, accessible as described under Configuration.
+ admin interface.
  Please refer to the Apache Solr documentation for usage of this interface.
 \end_layout
 
@@ -498,19 +526,18 @@ Functional role of assigned set of classes
 
 \begin_layout Standard
 public static Map<String, Object> addToSolr(DispatchContext dctx, Map<String,
- Object> context) throws GenericEntityException { 
+ Object> context) 
 \end_layout
 
 \begin_layout Standard
 
 \series bold
-* Adds product to solr index.
- 
+* Adds product to solr index
 \end_layout
 
 \begin_layout Standard
 public static Map<String, Object> addToSolrIndex(DispatchContext dctx, Map<Strin
-g, Object> context) throws GenericEntityException 
+g, Object> context) 
 \end_layout
 
 \begin_layout Standard
@@ -521,7 +548,18 @@ g, Object> context) throws GenericEntityException
 
 \begin_layout Standard
 public static Map<String, Object> addListToSolrIndex(DispatchContext dctx,
- Map<String, Object> context) throws GenericEntityException 
+ Map<String, Object> context) 
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+* Rebuilds the solr index.
+\end_layout
+
+\begin_layout Standard
+public static Map<String, Object> rebuildSolrIndex(DispatchContext dctx,
+ Map<String, Object> context) 
 \end_layout
 
 \begin_layout Standard
@@ -555,17 +593,6 @@ g, Object> context)
 \begin_layout Standard
 public static Map<String, Object> keywordSearch(DispatchContext dctx, Map<String
 , Object> context) 
-\end_layout
-
-\begin_layout Standard
-
-\series bold
-Rebuilds the solr index.
-\end_layout
-
-\begin_layout Standard
-public static Map<String, Object> rebuildSolrIndex(DispatchContext dctx,
- Map<String, Object> context) throws GenericEntityException { 
 \end_layout
 
 \begin_layout Standard
@@ -649,7 +676,7 @@ getAvailableCategories
 
  lines 
 \series bold
-L.521-528 
+L.520-528 
 \series default
 and in method 
 \begin_inset Flex Code
@@ -681,26 +708,26 @@ cat, catL, categories, catList
 
 \begin_deeper
 \begin_layout Itemize
-cat
+cat to siteCategories 
 \end_layout
 
 \begin_layout Itemize
-catL 
+catL to categoriesLenght
 \end_layout
 
 \begin_layout Itemize
-categories
+categories resultCategories
 \end_layout
 
 \begin_layout Itemize
-catList
+catList to categoriesList
 \end_layout
 
 \end_deeper
 \end_deeper
 \begin_layout Itemize
 Strings rappresenting errors are very long and either should be reduced
- or managed better.
+ or managed better using variables.
  
 \end_layout
 
@@ -775,11 +802,19 @@ Missing Indentation
 \end_layout
 
 \begin_layout Itemize
-L.572-612 should be indented
+
+\series bold
+L.572-612 
+\series default
+should be indented
 \end_layout
 
 \begin_layout Itemize
-L.335 should be indented
+
+\series bold
+L.335
+\series default
+ should be indented
 \end_layout
 
 \begin_layout Subsection
@@ -844,102 +879,152 @@ catch block
 
 \begin_deeper
 \begin_layout Itemize
+
+\series bold
 L99
 \end_layout
 
 \begin_layout Itemize
+
+\series bold
 L.102 
 \end_layout
 
 \begin_layout Itemize
+
+\series bold
 L.105 
 \end_layout
 
 \begin_layout Itemize
+
+\series bold
 L.153
 \end_layout
 
 \begin_layout Itemize
+
+\series bold
 L.157 
 \end_layout
 
 \begin_layout Itemize
+
+\series bold
 L.175 
 \end_layout
 
 \begin_layout Itemize
+
+\series bold
 L.183
 \end_layout
 
 \begin_layout Itemize
+
+\series bold
 L.225
 \end_layout
 
 \begin_layout Itemize
+
+\series bold
 L.229
 \end_layout
 
 \begin_layout Itemize
+
+\series bold
 L.247 
 \end_layout
 
 \begin_layout Itemize
+
+\series bold
 L.255 
 \end_layout
 
 \begin_layout Itemize
+
+\series bold
 L.357 
 \end_layout
 
 \begin_layout Itemize
+
+\series bold
 L.364 
 \end_layout
 
 \begin_layout Itemize
+
+\series bold
 L.406 
 \end_layout
 
 \begin_layout Itemize
+
+\series bold
 L.488 
 \end_layout
 
 \begin_layout Itemize
+
+\series bold
 L.541 
 \end_layout
 
 \begin_layout Itemize
+
+\series bold
 L.618 
 \end_layout
 
 \begin_layout Itemize
+
+\series bold
 L.681 
 \end_layout
 
 \begin_layout Itemize
+
+\series bold
 L.684 
 \end_layout
 
 \begin_layout Itemize
+
+\series bold
 L.700
 \end_layout
 
 \begin_layout Itemize
+
+\series bold
 L.703
 \end_layout
 
 \begin_layout Itemize
+
+\series bold
 L.706 
 \end_layout
 
 \begin_layout Itemize
+
+\series bold
 L.709 
 \end_layout
 
 \begin_layout Itemize
+
+\series bold
 L.712
 \end_layout
 
 \begin_layout Itemize
+
+\series bold
 L.719 
 \end_layout
 
@@ -950,18 +1035,26 @@ finally block
 
 \begin_deeper
 \begin_layout Itemize
+
+\series bold
 L.179
 \end_layout
 
 \begin_layout Itemize
+
+\series bold
 l.251
 \end_layout
 
 \begin_layout Itemize
+
+\series bold
 L.360
 \end_layout
 
 \begin_layout Itemize
+
+\series bold
 L.715
 \end_layout
 
@@ -972,6 +1065,8 @@ else block
 
 \begin_deeper
 \begin_layout Itemize
+
+\series bold
 L.604 
 \end_layout
 
@@ -987,58 +1082,86 @@ if statement without curly brackets:
 
 \begin_deeper
 \begin_layout Itemize
+
+\series bold
 L.557 
 \end_layout
 
 \begin_layout Itemize
+
+\series bold
 L.513 
 \end_layout
 
 \begin_layout Itemize
+
+\series bold
 L.503 
 \end_layout
 
 \begin_layout Itemize
+
+\series bold
 L.463 
 \end_layout
 
 \begin_layout Itemize
+
+\series bold
 L.434 
 \end_layout
 
 \begin_layout Itemize
+
+\series bold
 L.432 
 \end_layout
 
 \begin_layout Itemize
+
+\series bold
 L.430
 \end_layout
 
 \begin_layout Itemize
+
+\series bold
 L.428 
 \end_layout
 
 \begin_layout Itemize
+
+\series bold
 L.424 
 \end_layout
 
 \begin_layout Itemize
+
+\series bold
 L.393 
 \end_layout
 
 \begin_layout Itemize
+
+\series bold
 L.391 
 \end_layout
 
 \begin_layout Itemize
+
+\series bold
 L.389 
 \end_layout
 
 \begin_layout Itemize
+
+\series bold
 L.343 
 \end_layout
 
 \begin_layout Itemize
+
+\series bold
 L.334
 \end_layout
 
@@ -1049,10 +1172,14 @@ else statement without curly brackets:
 
 \begin_deeper
 \begin_layout Itemize
+
+\series bold
 L.345 
 \end_layout
 
 \begin_layout Itemize
+
+\series bold
 L.387
 \end_layout
 
@@ -1063,6 +1190,8 @@ for without curly brackets:
 
 \begin_deeper
 \begin_layout Itemize
+
+\series bold
 L.473
 \end_layout
 
@@ -1076,32 +1205,42 @@ Line Length
 \end_layout
 
 \begin_layout Standard
-1.
- Some lines are over 80 characters but it would 
-\end_layout
-
-\begin_layout Standard
-2.
- Many lines of code are not broken up properly and exceed the indicated
+Some lines are over 80 characters but it would be unpratical to break them
+ up but many lines of code are not broken up properly and exceed the indicated
  caps of 120 characters
 \end_layout
 
 \begin_layout Itemize
-L70 could be split before the throws keyword;
+
+\series bold
+L.70 
+\series default
+could be split before the throws keyword;
 \end_layout
 
 \begin_layout Itemize
-L121 could be split before the throws keyword;
+
+\series bold
+L.121
+\series default
+ could be split before the throws keyword;
 \end_layout
 
 \begin_layout Itemize
-L127 comments should be diveded in more rows 
+
+\series bold
+L.127
+\series default
+ comments should be diveded in more rows 
 \end_layout
 
 \begin_layout Itemize
-L150 could be split before the parameter UtilMisc.toMap(..) and the string
- "SolrFailureConnectingToSolrServerToCommitProductId" should be reduced
- to 
+
+\series bold
+L.150 
+\series default
+could be split before the parameter UtilMisc.toMap(..) and the string "SolrFailureC
+onnectingToSolrServerToCommitProductId" should be reduced to 
 \begin_inset Quotes eld
 \end_inset
 
@@ -1113,9 +1252,12 @@ ConnectionFailedDuringCommit
 \end_layout
 
 \begin_layout Itemize
-L159 could be split before the parameter UtilMisc.toMap(..) and the string
- "SolrFailureConnectingToSolrServerToCommitProductId" should be reduced
- to 
+
+\series bold
+L159 
+\series default
+could be split before the parameter UtilMisc.toMap(..) and the string "SolrFailureC
+onnectingToSolrServerToCommitProductId" should be reduced to 
 \begin_inset Quotes eld
 \end_inset
 
@@ -1127,57 +1269,103 @@ ConnectionFailedDuringCommit
 \end_layout
 
 \begin_layout Itemize
-L196 could be split before the throws keyword;
+
+\series bold
+L196
+\series default
+ could be split before the throws keyword;
 \end_layout
 
 \begin_layout Itemize
-L222 could be split before the parameter UtilMisc.toMap(..)
+
+\series bold
+L222
+\series default
+ could be split before the parameter UtilMisc.toMap(..)
 \end_layout
 
 \begin_layout Itemize
-L231 could be split before the parameter UtilMisc.toMap(..) and the string
- "SolrFailureConnectingToSolrServerToCommitProductList" should be reduced
- 
+
+\series bold
+L231
+\series default
+ could be split before the parameter UtilMisc.toMap(..) and the string "SolrFailure
+ConnectingToSolrServerToCommitProductList" should be reduced 
 \end_layout
 
 \begin_layout Itemize
-L266 comment should be diveded in more rows
+
+\series bold
+L266
+\series default
+ comment should be diveded in more rows
 \end_layout
 
 \begin_layout Itemize
-L516 could replace the : operator with an if to make the line shorter
+
+\series bold
+L516
+\series default
+ could replace the : operator with an if to make the line shorter
 \end_layout
 
 \begin_layout Itemize
-L518 could be split before the parameter (String) context.get(...)
+
+\series bold
+L518
+\series default
+ could be split before the parameter (String) context.get(...)
 \end_layout
 
 \begin_layout Itemize
-L560 could replace the : operator with an if to make the line shorter
+
+\series bold
+L560 
+\series default
+could replace the : operator with an if to make the line shorter
 \end_layout
 
 \begin_layout Itemize
-L578 could be split after keyword null
+
+\series bold
+L578
+\series default
+ could be split after keyword null
 \end_layout
 
 \begin_layout Itemize
-L628 could be split before the throws keyword;
+
+\series bold
+L628
+\series default
+ could be split before the throws keyword;
 \end_layout
 
 \begin_layout Itemize
-L664 it's already splitted but not correctly could be splitted after the
- parameter solrDocs
+
+\series bold
+L664
+\series default
+ it's already splitted but not correctly could be splitted after the parameter
+ solrDocs
 \end_layout
 
 \begin_layout Itemize
-L678 could be split before the parameter UtilMisc.toMap(..) and the string
- "SolrClearedSolrIndexAndReindexedDocuments" should be reduced or using
- a variable
+
+\series bold
+L678
+\series default
+ could be split before the parameter UtilMisc.toMap(..) and the string "SolrCleared
+SolrIndexAndReindexedDocuments" should be reduced or using a variable
 \end_layout
 
 \begin_layout Itemize
-L686 the string "SolrFailureConnectingToSolrServerToRebuildIndex" should
- be reduced or using a variable
+
+\series bold
+L686 
+\series default
+the string "SolrFailureConnectingToSolrServerToRebuildIndex" should be reduced
+ or using a variable
 \end_layout
 
 \begin_layout Subsection
@@ -1207,48 +1395,68 @@ There are some lines of code which are commented without a proper explanations:
 \end_layout
 
 \begin_layout Itemize
+
+\series bold
 L.324-332
 \end_layout
 
 \begin_layout Itemize
+
+\series bold
 L.279
 \end_layout
 
 \begin_layout Itemize
+
+\series bold
 L.341
 \end_layout
 
 \begin_layout Itemize
+
+\series bold
 L.596
 \end_layout
 
 \begin_layout Standard
 Some lines of code that refers to the verbose mode of the Debus are commented
- but it would be better to uncommented and have a VERBOSE_MODE option to
- select when running the programme.
+ but it would be better to uncomment them and have a VERBOSE_MODE option
+ to select when running the program.
 \end_layout
 
 \begin_layout Itemize
+
+\series bold
 L.79
 \end_layout
 
 \begin_layout Itemize
+
+\series bold
 L.134
 \end_layout
 
 \begin_layout Itemize
+
+\series bold
 L.530
 \end_layout
 
 \begin_layout Itemize
+
+\series bold
 L.539
 \end_layout
 
 \begin_layout Itemize
+
+\series bold
 L.578
 \end_layout
 
 \begin_layout Itemize
+
+\series bold
 L.595
 \end_layout
 
@@ -1282,16 +1490,114 @@ The code for the methods addToSolrIndex and the addListToSolrIndex is quite
 Initialization and Declarations
 \end_layout
 
-\begin_layout Subsection
-Method Calls
+\begin_layout Subsubsection*
+Declarations appear at the beginning of blocks
 \end_layout
 
-\begin_layout Subsection
-Object Comparison
+\begin_layout Standard
+Some lines of code are unproperly placed in the middle of a declarative
+ parts.
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+L.84-85
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+L.132-136
+\series default
+ 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+L.276
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+L.279 
+\end_layout
+
+\begin_layout Itemize
+in function runSolrQuery: 
+\series bold
+L301,306,334,355,400,401
+\end_layout
+
+\begin_layout Itemize
+in function keywoardSearch: 
+\series bold
+L440,441,443,453,461,462,468,469
 \end_layout
 
 \begin_layout Subsection
 Output Format
+\end_layout
+
+\begin_layout Subsubsection*
+Check that error messages are comprehensive and provide guidance as to how
+ to correct the problem.
+\end_layout
+
+\begin_layout Standard
+In the following lines only a line stating the error is printed without
+ any guidance on how to correct the problem:
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+L.157 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+L.169 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+L.174 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+L.179 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+L.229 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+L.241 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+L.246 
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+L.251
 \end_layout
 
 \begin_layout Subsection
@@ -1311,11 +1617,11 @@ Exceptions
 \end_layout
 
 \begin_layout Itemize
-L.182 No proper action is performed for the IOException
-\end_layout
 
-\begin_layout Subsection
-Flow of Control
+\series bold
+L.182
+\series default
+ No proper action is performed for the IOException
 \end_layout
 
 \begin_layout Standard
@@ -1331,8 +1637,15 @@ Effort Spent
 
 \begin_layout Standard
 In this section you will include information about the number of hours each
- group member has worked towards the fulfillment of this deadline.
- 
+ group member has worked towards the fulfillment of this deadline:
+\end_layout
+
+\begin_layout Itemize
+Niccolo' 10 Ore
+\end_layout
+
+\begin_layout Itemize
+Matteo 10 Ore
 \end_layout
 
 \end_body
