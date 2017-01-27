@@ -33,7 +33,7 @@ pdfform
 \output_sync 0
 \bibtex_command default
 \index_command default
-\float_placement !tph
+\float_placement H
 \paperfontsize default
 \spacing single
 \use_hyperref true
@@ -192,9 +192,43 @@ SolrProductSearch.java
 \end_layout
 
 \begin_layout Standard
-The class is located in the org.apache.ofbiz.solr package of the Apache OFBiz
- project.
- It belongs to the spcial purpose stack together with other secondary functions
+The class is located in the package:
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+org.apache.ofbiz.solr
+\end_layout
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+The path to the class is the following: 
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Flex Emph
+status open
+
+\begin_layout Plain Layout
+apache-ofbiz-16.11.01/specialpurpose/solr/src/main/java/org/apache/ofbiz/solr/Solr
+ProductSearch.java
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+It belongs to the spcial purpose stack together with other secondary functions
  suchs as eBay Integration, Google Base Integration, Google Checkout Integration
 , POS System, Project Management and Scrum Management) and it's devoted
  to search.
@@ -211,55 +245,116 @@ The solr component includes an OFBiz service-based wrapper layer to the
 Documentation
 \end_layout
 
-\begin_layout Itemize
+\begin_layout Standard
 
 \series bold
-Apache Solr 
+Apache Solr
+\begin_inset Newline newline
+\end_inset
+
+ 
 \series default
+
+\begin_inset Flex Emph
+status open
+
+\begin_layout Plain Layout
 http://lucene.apache.org/solr/
 \end_layout
 
-\begin_layout Itemize
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 
 \series bold
-Apache OfBiz 
+Apache OfBiz
+\begin_inset Newline newline
+\end_inset
+
+ 
 \series default
+
+\begin_inset Flex Emph
+status open
+
+\begin_layout Plain Layout
 https://ofbiz.apache.org/documentation.html
 \end_layout
 
-\begin_layout Itemize
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 
 \series bold
-Integration of Solr in Ofbiz 
+Integration of Solr in Ofbiz
+\begin_inset Newline newline
+\end_inset
+
+ 
 \series default
+
+\begin_inset Flex Emph
+status open
+
+\begin_layout Plain Layout
 https://cwiki.apache.org/confluence/display/OFBIZ/Search+Integration
 \end_layout
 
-\begin_layout Itemize
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 
 \series bold
-Solr Overview!! 
+Solr Overview
+\begin_inset Newline newline
+\end_inset
+
+
 \series default
+
+\begin_inset Flex Emph
+status open
+
+\begin_layout Plain Layout
 https://cwiki.apache.org/confluence/display/solr/Overview+of+Documents%2C+Fields%2
 C+and+Schema+Design
 \end_layout
 
-\begin_layout Itemize
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 
 \series bold
 Java Doc 
 \series default
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Flex Emph
+status open
+
+\begin_layout Plain Layout
 https://ci.apache.org/projects/ofbiz/site/javadocs/org/ofbiz/solr/SolrProductSearc
 h.html
 \end_layout
 
-\begin_layout Itemize
+\end_inset
 
-\series bold
-Java Doc Bis 
-\series default
-https://lucene.apache.org/solr/4_2_1/solr-solrj/org/apache/solr/common/SolrDocumen
-t.html
+
 \end_layout
 
 \begin_layout Subsection
@@ -382,7 +477,8 @@ One can also perform native Solr queries and diagnostics using the standard
 \begin_layout Standard
 \begin_inset Graphics
 	filename images/2013-07-30 11 52 52.png
-	scale 60
+	lyxscale 50
+	scale 50
 
 \end_inset
 
@@ -498,6 +594,720 @@ public static Map<String, Object> getSideDeepCategories(DispatchContext
 
 \begin_layout Section
 Code Inspection
+\end_layout
+
+\begin_layout Standard
+The following notations have been used to draw up this document: 
+\end_layout
+
+\begin_layout Itemize
+A specific line of code is referred as follows: 
+\series bold
+L.123 
+\end_layout
+
+\begin_layout Itemize
+An interval of lines of code is referred as follows: 
+\series bold
+L.123-456
+\end_layout
+
+\begin_layout Subsection
+Naming Conventions
+\end_layout
+
+\begin_layout Itemize
+Variable name: 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+dctx should be renamed to dispatchContext which is more meaningful (
+\series bold
+L.70 L.72 L.73 L.82 L.121 L.196 L.269 L.375 L.378 L.418 L.420 L.498 L.516 L.552 L.560 L.573
+ L.576 L.628 L.631 L.632 L.655
+\series default
+)
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Variable ambiguity:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+In method 
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+getAvailableCategories
+\end_layout
+
+\end_inset
+
+ lines 
+\series bold
+L.521-528 
+\series default
+and in method 
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+getSideDeepCategories
+\end_layout
+
+\end_inset
+
+in lines 
+\series bold
+L.579-589
+\series default
+ there is a lot of ambiguity regarding variables since 
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+cat, catL, categories, catList
+\end_layout
+
+\end_inset
+
+ are simultaneusly used.
+ We propose the following changes:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+cat
+\end_layout
+
+\begin_layout Itemize
+catL 
+\end_layout
+
+\begin_layout Itemize
+categories
+\end_layout
+
+\begin_layout Itemize
+catList
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Itemize
+Strings rappresenting errors are very long and either should be reduced
+ or managed better.
+ 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\series bold
+L.150 
+\series default
+"SolrDocumentForProductIdAddedToSolrIndex"
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+L.159 
+\series default
+"SolrFailureConnectingToSolrServerToCommitProductId
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+L222 
+\series default
+"SolrAddedDocumentsToSolrIndex"
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+L.231 
+\series default
+"SolrFailureConnectingToSolrServerToCommitProductList"
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+L.389 
+\series default
+"SolrMissingProductCategoryId"
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+L.679 
+\series default
+"SolrClearedSolrIndexAndReindexedDocuments"
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+L.687
+\series default
+ "SolrFailureConnectingToSolrServerToRebuildIndex"
+\end_layout
+
+\end_deeper
+\begin_layout Subsection
+Indentation
+\end_layout
+
+\begin_layout Subsubsection*
+Missing Indentation
+\end_layout
+
+\begin_layout Itemize
+L.572-612 should be indented
+\end_layout
+
+\begin_layout Itemize
+L.335 should be indented
+\end_layout
+
+\begin_layout Subsection
+Brackets
+\end_layout
+
+\begin_layout Subsubsection*
+Consistent bracing style 
+\end_layout
+
+\begin_layout Standard
+There is not consistent bracing style used, it's a mixture of the “Kernighan
+ and Ritchie” style and "one true brace style" (1TBS).
+ We reccomend using the K&R style which makes the code more readable:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename images/prima.png
+	lyxscale 50
+	scale 35
+
+\end_inset
+
+
+\begin_inset space \qquad{}
+\end_inset
+
+
+\begin_inset Graphics
+	filename images/dopo.png
+	lyxscale 50
+	scale 35
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The lines where to change the styles are the following:
+\end_layout
+
+\begin_layout Itemize
+catch block
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+L99
+\end_layout
+
+\begin_layout Itemize
+L.102 
+\end_layout
+
+\begin_layout Itemize
+L.105 
+\end_layout
+
+\begin_layout Itemize
+L.153
+\end_layout
+
+\begin_layout Itemize
+L.157 
+\end_layout
+
+\begin_layout Itemize
+L.175 
+\end_layout
+
+\begin_layout Itemize
+L.183
+\end_layout
+
+\begin_layout Itemize
+L.225
+\end_layout
+
+\begin_layout Itemize
+L.229
+\end_layout
+
+\begin_layout Itemize
+L.247 
+\end_layout
+
+\begin_layout Itemize
+L.255 
+\end_layout
+
+\begin_layout Itemize
+L.357 
+\end_layout
+
+\begin_layout Itemize
+L.364 
+\end_layout
+
+\begin_layout Itemize
+L.406 
+\end_layout
+
+\begin_layout Itemize
+L.488 
+\end_layout
+
+\begin_layout Itemize
+L.541 
+\end_layout
+
+\begin_layout Itemize
+L.618 
+\end_layout
+
+\begin_layout Itemize
+L.681 
+\end_layout
+
+\begin_layout Itemize
+L.684 
+\end_layout
+
+\begin_layout Itemize
+L.700
+\end_layout
+
+\begin_layout Itemize
+L.703
+\end_layout
+
+\begin_layout Itemize
+L.706 
+\end_layout
+
+\begin_layout Itemize
+L.709 
+\end_layout
+
+\begin_layout Itemize
+L.712
+\end_layout
+
+\begin_layout Itemize
+L.719 
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+finally block
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+L.179
+\end_layout
+
+\begin_layout Itemize
+l.251
+\end_layout
+
+\begin_layout Itemize
+L.360
+\end_layout
+
+\begin_layout Itemize
+L.715
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+else block
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+L.604 
+\end_layout
+
+\end_deeper
+\begin_layout Subsubsection*
+All if, while, do-while, try-catch, and for statements that have only one
+ statement to execute are surrounded by curly braces.
+\end_layout
+
+\begin_layout Itemize
+if statement without curly brackets: 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+L.557 
+\end_layout
+
+\begin_layout Itemize
+L.513 
+\end_layout
+
+\begin_layout Itemize
+L.503 
+\end_layout
+
+\begin_layout Itemize
+L.463 
+\end_layout
+
+\begin_layout Itemize
+L.434 
+\end_layout
+
+\begin_layout Itemize
+L.432 
+\end_layout
+
+\begin_layout Itemize
+L.430
+\end_layout
+
+\begin_layout Itemize
+L.428 
+\end_layout
+
+\begin_layout Itemize
+L.424 
+\end_layout
+
+\begin_layout Itemize
+L.393 
+\end_layout
+
+\begin_layout Itemize
+L.391 
+\end_layout
+
+\begin_layout Itemize
+L.389 
+\end_layout
+
+\begin_layout Itemize
+L.343 
+\end_layout
+
+\begin_layout Itemize
+L.334
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+else statement without curly brackets: 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+L.345 
+\end_layout
+
+\begin_layout Itemize
+L.387
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+for without curly brackets: 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+L.473
+\end_layout
+
+\end_deeper
+\begin_layout Subsection
+File Organization
+\end_layout
+
+\begin_layout Subsubsection*
+Line Length 
+\end_layout
+
+\begin_layout Standard
+1.
+ Some lines are over 80 characters but it would 
+\end_layout
+
+\begin_layout Standard
+2.
+ Many lines of code are not broken up properly and exceed the indicated
+ caps of 120 characters
+\end_layout
+
+\begin_layout Itemize
+L70 could be split before the throws keyword;
+\end_layout
+
+\begin_layout Itemize
+L121 could be split before the throws keyword;
+\end_layout
+
+\begin_layout Itemize
+L127 comments should be diveded in more rows 
+\end_layout
+
+\begin_layout Itemize
+L150 could be split before the parameter UtilMisc.toMap(..) and the string
+ "SolrFailureConnectingToSolrServerToCommitProductId" should be reduced
+ to 
+\begin_inset Quotes eld
+\end_inset
+
+ConnectionFailedDuringCommit
+\begin_inset Quotes erd
+\end_inset
+
+ or using a variable
+\end_layout
+
+\begin_layout Itemize
+L159 could be split before the parameter UtilMisc.toMap(..) and the string
+ "SolrFailureConnectingToSolrServerToCommitProductId" should be reduced
+ to 
+\begin_inset Quotes eld
+\end_inset
+
+ConnectionFailedDuringCommit
+\begin_inset Quotes erd
+\end_inset
+
+ or using a variable
+\end_layout
+
+\begin_layout Itemize
+L196 could be split before the throws keyword;
+\end_layout
+
+\begin_layout Itemize
+L222 could be split before the parameter UtilMisc.toMap(..)
+\end_layout
+
+\begin_layout Itemize
+L231 could be split before the parameter UtilMisc.toMap(..) and the string
+ "SolrFailureConnectingToSolrServerToCommitProductList" should be reduced
+ 
+\end_layout
+
+\begin_layout Itemize
+L266 comment should be diveded in more rows
+\end_layout
+
+\begin_layout Itemize
+L516 could replace the : operator with an if to make the line shorter
+\end_layout
+
+\begin_layout Itemize
+L518 could be split before the parameter (String) context.get(...)
+\end_layout
+
+\begin_layout Itemize
+L560 could replace the : operator with an if to make the line shorter
+\end_layout
+
+\begin_layout Itemize
+L578 could be split after keyword null
+\end_layout
+
+\begin_layout Itemize
+L628 could be split before the throws keyword;
+\end_layout
+
+\begin_layout Itemize
+L664 it's already splitted but not correctly could be splitted after the
+ parameter solrDocs
+\end_layout
+
+\begin_layout Itemize
+L678 could be split before the parameter UtilMisc.toMap(..) and the string
+ "SolrClearedSolrIndexAndReindexedDocuments" should be reduced or using
+ a variable
+\end_layout
+
+\begin_layout Itemize
+L686 the string "SolrFailureConnectingToSolrServerToRebuildIndex" should
+ be reduced or using a variable
+\end_layout
+
+\begin_layout Subsection
+Comments
+\end_layout
+
+\begin_layout Subsubsection*
+Comments are used to adequately explain what the class
+\end_layout
+
+\begin_layout Standard
+Comments are NOT used to adequately explain what the class, blocks of code
+ and methods do.
+ Comments are usually a single line which briefly explains what a function
+ does, but there is no explanation of the paramaters received in input and
+ the return type.
+ 
+\end_layout
+
+\begin_layout Subsubsection*
+Commented out code contains a reason for being commented out and a date
+ it can be removed from the source file if determined it is no longer needed.
+\end_layout
+
+\begin_layout Standard
+There are some lines of code which are commented without a proper explanations:
+\end_layout
+
+\begin_layout Itemize
+L.324-332
+\end_layout
+
+\begin_layout Itemize
+L.279
+\end_layout
+
+\begin_layout Itemize
+L.341
+\end_layout
+
+\begin_layout Itemize
+L.596
+\end_layout
+
+\begin_layout Standard
+Some lines of code that refers to the verbose mode of the Debus are commented
+ but it would be better to uncommented and have a VERBOSE_MODE option to
+ select when running the programme.
+\end_layout
+
+\begin_layout Itemize
+L.79
+\end_layout
+
+\begin_layout Itemize
+L.134
+\end_layout
+
+\begin_layout Itemize
+L.530
+\end_layout
+
+\begin_layout Itemize
+L.539
+\end_layout
+
+\begin_layout Itemize
+L.578
+\end_layout
+
+\begin_layout Itemize
+L.595
+\end_layout
+
+\begin_layout Subsection
+Java Source Files
+\end_layout
+
+\begin_layout Standard
+The Javadoc is complete but it's very superficial.
+ Every function should be better documented including more details about
+ the input details and the output specification.
+\end_layout
+
+\begin_layout Subsection
+Class and Interface Declarations
+\end_layout
+
+\begin_layout Subsubsection*
+Check that the code is free of duplicates
+\end_layout
+
+\begin_layout Standard
+The code for the methods addToSolrIndex and the addListToSolrIndex is quite
+ similar and it could better structured to avoid repetitions.
+ Since the second methods creates a solr document for every element of the
+ list it should be resonable that the second methods calls the first one
+ instead of having repetitions.
+\end_layout
+
+\begin_layout Subsection
+Initialization and Declarations
+\end_layout
+
+\begin_layout Subsection
+Method Calls
+\end_layout
+
+\begin_layout Subsection
+Object Comparison
+\end_layout
+
+\begin_layout Subsection
+Output Format
+\end_layout
+
+\begin_layout Subsection
+Computation, Comparisons and Assignments
+\end_layout
+
+\begin_layout Subsection
+Exceptions
+\end_layout
+
+\begin_layout Itemize
+L.182 No proper action is performed for the IOException
+\end_layout
+
+\begin_layout Subsection
+Flow of Control
 \end_layout
 
 \begin_layout Standard

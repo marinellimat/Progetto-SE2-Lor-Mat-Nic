@@ -59,7 +59,6 @@ import org.apache.ofbiz.service.ServiceValidationException;
 /**
  * Base class for OFBiz Test Tools test case implementations.
  */
-
 public abstract class SolrProductSearch {
 
     public static final String module = SolrProductSearch.class.getName();
