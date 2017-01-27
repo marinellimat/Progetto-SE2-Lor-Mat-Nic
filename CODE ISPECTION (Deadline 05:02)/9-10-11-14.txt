@@ -1,0 +1,17 @@
+33)	84-85 interrompono un blocco dichiarativo(?)
+	132-136 precedono un blocco dichiarativo(?)
+	276 precedono un blocco dichiarativo(?)
+	279 interrompe un blocco dichiarativo(?)
+	301,306,334,355,400,401,440,441,443,453,461,462,468,469 separata dal resto del blocco dichiarativo in cima
+	504-506,509-512,514-516,522-523 interrompono un blocco dichiarativo
+	558,562 interrompono un blocco dichiarativo
+	564 interrompe un blocco dichiarativo(?)
+	599 separata dal resto del blocco dichiarativo in cima
+	641 precedono un blocco dichiarativo
+	653,665,668 separata dal resto del blocco dichiarativo in cima
+
+36) tutti i metodi terminano con un return result, ma result non viene mai utilizzato all'interno della classe
+
+42) 157 169 174 179 229 241 246 251 messaggio di errore che segnala il tipo ma non come risolvere
+
+43) Bene gli spazi, non vedo cenni di accapo...sembra che corra tutto sulla stessa linea, controllare (basta controllare un solo messaggio, tutti gli alti sono uguali)
