@@ -578,8 +578,7 @@ Unit tests
 .
  Unit tests should have a minimum coverage of 90% of the lines of code and
  should be run automatically at each build using JUnit.
- (non necessariamente tutte, ma quelle piu importanti prima ed eventualmente
- simulare le altre durante il testing)
+ 
 \end_layout
 
 \begin_layout Itemize

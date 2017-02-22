@@ -1,0 +1,4972 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\begin_preamble
+\usepackage{changepage}
+\end_preamble
+\use_default_options true
+\begin_modules
+logicalmkup
+pdfform
+\end_modules
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\float_placement H
+\paperfontsize default
+\spacing single
+\use_hyperref true
+\pdf_title "Power Enjoy: Design Document"
+\pdf_author "Niccolo' Raspa, Matteo Marinelli"
+\pdf_bookmarks true
+\pdf_bookmarksnumbered false
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks false
+\pdf_pdfborder false
+\pdf_colorlinks false
+\pdf_backref false
+\pdf_pdfusetitle true
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation skip
+\defskip smallskip
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Power EnJoy 
+\begin_inset Newline newline
+\end_inset
+
+Requirement Analysis and Specification Document 
+\end_layout
+
+\begin_layout Author
+Niccolo' Raspa, Matteo Marinelli
+\end_layout
+
+\begin_layout Date
+February 2, 2017 (v1.1)
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename ../GitHub/Progetto/DD/images/polimi.png
+	scale 60
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+Software Engineering 2 Course Project
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Introduction
+\end_layout
+
+\begin_layout Subsection
+Purpose
+\end_layout
+
+\begin_layout Standard
+The purpose of this document is to describe all the requirements and the
+ specifications for the PowerEnjoy System.
+ It specifies goals of the software to be and all the functionalities expected.
+ We will also list all the non-functional requirements and assumptions we've
+ made.
+ We have included possible scenarios, use-cases and UML diagrams to help
+ clarify the scope of the system and gain a deeper undestanding of the software
+ to be.
+ This document is intended to be used by the members of the project team
+ that will implement and verify the correct functioning of the system.
+\end_layout
+
+\begin_layout Subsection
+Scope
+\end_layout
+
+\begin_layout Standard
+PowerEnjoy is a digital management system for a car-sharing service that
+ exclusively employs electric cars.
+ It allows registered clients (Power Users) to use a vehicle paying only
+ on the basis of the actual use during each individual rental.
+ In addition to the classic functionalities expected on a car sharing service,
+ it will also incentivize environment-friendly and virtuous behaviours of
+ the Power Users, providing discounts on the regular ride fee.
+ PowerEnjoy employs a single model of electric car which comes with pre-installe
+d sensors that can be used to monitor the car status (battery level, location,
+ etc..) at any given time.
+ The car can be picked up from a safe areas or from a Power Enjoy Charging
+ Stations, and should be left in another safe area.
+ 
+\end_layout
+
+\begin_layout Standard
+The Power User will be charged only for the time he has rented the car,
+ there are no subscritions or additional prices to use the service.
+\end_layout
+
+\begin_layout Standard
+Our system interacts with two external services: 
+\end_layout
+
+\begin_layout Itemize
+A Payment Service 
+\end_layout
+
+\begin_layout Itemize
+An Assistance Service 
+\end_layout
+
+\begin_layout Standard
+The role of this two systems and the interaction will be cover in the next
+ chapter.
+\end_layout
+
+\begin_layout Subsection
+Goals
+\end_layout
+
+\begin_layout Enumerate
+Allows USER to register providing credentials and payment informations 
+\end_layout
+
+\begin_layout Enumerate
+Allows USER to login to the system 
+\end_layout
+
+\begin_layout Enumerate
+Allows POWER USER to modify its personal informations 
+\end_layout
+
+\begin_layout Enumerate
+Allows POWER USER to see locations and battery levels of available CARs
+ within a specific distance from a location (eg.
+ POWER USER location or specified address) 
+\end_layout
+
+\begin_layout Enumerate
+Allows POWER USER to reserve one AVAILABLE CAR in a SAFE AREA.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Allows POWER USER to cancel a CAR RESERVATION 
+\end_layout
+
+\begin_layout Enumerate
+Allows POWER USER to unlock his RESERVED CAR when he is nearby (less than
+ 5 meters) 
+\end_layout
+
+\begin_layout Enumerate
+CAR RESERVATION expires after one hour 
+\end_layout
+
+\begin_layout Enumerate
+CAR RESERVATION expiration causes 1€ charge to the POWER USER 
+\end_layout
+
+\begin_layout Enumerate
+Allows POWER USER to know the current RIDE FEE at any time through a screen
+ in the RESERVED CAR 
+\end_layout
+
+\begin_layout Enumerate
+The FINAL FEE will be calculated applying discounts/fines to the RIDE FEE
+ according to the power enjoy policy 
+\end_layout
+
+\begin_layout Enumerate
+POWER USER will be charged of the FINAL FEE after he exits the RESERVED
+ CAR.
+ 
+\end_layout
+
+\begin_layout Enumerate
+CARs are automatically locked when parked and the POWER USERS gets out 
+\end_layout
+
+\begin_layout Enumerate
+POWER USER with pending payments can’t reserve cars
+\end_layout
+
+\begin_layout Subsection
+Definitions, Acronyms, Abbreviation
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+USER A person who is not authenticated to the system.
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+POWER USER Main user of the application, he’s a registered user who can
+ can reserve cars.
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+RENT Interval of time in which a car can be used from a Power User which
+ has previously reserved it.
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+MALFUNCTIONING
+\begin_inset space \space{}
+\end_inset
+
+CAR A car that fails to function normally and requires assistance.
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+BATTERY Refers to the residual battery level of a Car.
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+RESERVATION Interval of time necessary for the Power User to reach and ignite
+ his selected car.
+ It can last up to 1 hour.
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+RIDE Time interval from the ignition of the motor until the driver and all
+ the passengers exit the vehicle.
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+SHARED
+\begin_inset space \space{}
+\end_inset
+
+RIDE Percentage of RIDE with at least 2 other passengers on board.
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+PASSENGER A person inside the car other than the driver, not necessarly
+ registered to the system.
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+CAR
+\begin_inset space \space{}
+\end_inset
+
+/
+\begin_inset space \space{}
+\end_inset
+
+ELECTRIC
+\begin_inset space \space{}
+\end_inset
+
+CAR A specific model of an electric car which can be rented from Power Users.
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+CAR
+\begin_inset space \space{}
+\end_inset
+
+DISPLAY It’s a display pre-installed inside the car, where the user can
+ see the RIDE FEE.
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+AVAILABLE
+\begin_inset space \space{}
+\end_inset
+
+CAR A car parked in a safe area which can be rented.
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+RESERVED
+\begin_inset space \space{}
+\end_inset
+
+CAR It’s a car currently unavailable because a Power User made a reservation.
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+CHARGING
+\begin_inset space \space{}
+\end_inset
+
+STATION It’s a station owned by Power Enjoy where cars can be re-charged
+ and picked up from Power Users.
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+SAFE
+\begin_inset space \space{}
+\end_inset
+
+AREA A predifined set of parking areas where we can assume a car can be
+ safely parked without getting fines.
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+ASSISTANCE
+\begin_inset space \space{}
+\end_inset
+
+SERVICE / AS An external service that provides assistance to cars in case
+ of malfunctioning.
+ It also charges cars on site and brings cars from unsafe areas to safe
+ areas.
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+PAYMENT
+\begin_inset space \space{}
+\end_inset
+
+SERVICE / PS An external service that handles payments from Power Users.
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+RIDE
+\begin_inset space \space{}
+\end_inset
+
+FEE It’s a variable amount of money proportional to the lenght of the Ride.
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+FINAL
+\begin_inset space \space{}
+\end_inset
+
+FEE It's the amount of money that the Power User is charged after the rent
+ is over.
+ It includes discounts and fines.
+\end_layout
+
+\begin_layout Subsection
+Text Assumption and Policies
+\end_layout
+
+\begin_layout Subsubsection
+Text Assumptions
+\end_layout
+
+\begin_layout Standard
+The text doesn't specify what should happen if a user parks in a unsafe
+ area.
+ Since it's really restrictive to prevent this situation from happening
+ we've decided the following: 
+\end_layout
+
+\begin_layout Itemize
+As soon as a Power Uses turns the engine off, it will be notified through
+ the car display if he has parked in an unsafe area.
+ 
+\end_layout
+
+\begin_layout Itemize
+If he decide nevertheless to exit the vehicle, the rent will not stop and
+ the user will continue to be charged.
+\end_layout
+
+\begin_layout Itemize
+If the car is left in the same unsafe area for more than 1 hour, the rent
+ will eventually end.
+\end_layout
+
+\begin_layout Itemize
+The car will become unavailable.
+ 
+\end_layout
+
+\begin_layout Itemize
+The AS will be notified to take the car back to a safe area.
+ 
+\end_layout
+
+\begin_layout Itemize
+User will be charged for the extra time to cover the costs.
+ 
+\end_layout
+
+\begin_layout Itemize
+Fines may still apply.
+\end_layout
+
+\begin_layout Standard
+The text doesn't specify how payments should be handled, we supposed there
+ is an external payment service (e.g.
+ Paypal) that takes care of processing payments.
+\end_layout
+
+\begin_layout Subsubsection
+Discount Policy 
+\end_layout
+
+\begin_layout Standard
+As said earlier Power Enjoy not only allows to use a vehicle paying only
+ on the basis of the actual use during each individual rental but also incentivi
+zes virtuos behaviour providing discounts to the regular ride fee.
+ The discounts offered are the following: 
+\end_layout
+
+\begin_layout Enumerate
+If a Power User takes at least two other passengers onto the car, the system
+ applies a discount of 10% for the shared ride.
+ 
+\end_layout
+
+\begin_layout Enumerate
+If a car is left with more than 50% of the battery, the system applies a
+ discount of 20% on the last ride.
+ 
+\end_layout
+
+\begin_layout Enumerate
+If a car is left at Power Enjoy Charging Station where they can be recharged
+ and the user takes care of plugging the car into the power grid, the system
+ applies a discount of 30% on the last ride.
+\end_layout
+
+\begin_layout Standard
+In addition:
+\end_layout
+
+\begin_layout Itemize
+Discounts are only applied if a car is parked in a safe area.
+ 
+\end_layout
+
+\begin_layout Itemize
+To qualify for a Shared Ride discount a Power User must take 2 passengers
+ for at least the 90% of the Ride lenght.
+ 
+\end_layout
+
+\begin_layout Itemize
+Discounts are comulative except for discounts 2.
+ and 3.
+ 
+\end_layout
+
+\begin_layout Itemize
+This means that if a user recharges a car with more than 50% of residual
+ battery, the final discount applied is 30%.
+ This is to avoid early recharges and guarantee a better distribution of
+ the cars.
+\end_layout
+
+\begin_layout Subsubsection
+Fines Policy 
+\end_layout
+
+\begin_layout Standard
+To provide a fair and equal car sharing among all customers, Power Enjoy
+ penalizes unfair usage of the service: 
+\end_layout
+
+\begin_layout Enumerate
+If a car is left at more than 3 KM from the nearest Power Enjoy Charging
+ Station or with less than 20%, the system charges 30% more on the last
+ ride to compensate for the cost required to re- charge the car on-site.
+\end_layout
+
+\begin_layout Standard
+If a ride qualifies for both a discount and a fine, only the fine will be
+ applied.
+\end_layout
+
+\begin_layout Subsubsection
+Legal Policy 
+\end_layout
+
+\begin_layout Standard
+The system must require his users the permission to get his position and
+ to manage sensible data respecting the privacy law.
+ To provide financial protection against physical damage and/or bodily injury
+ resulting from traffic collisions and against any liability every Power
+ Enjoy Vehicle has stipulate a full insurance.
+ To avoid legal problems when registering the user acknowledges that to
+ be covered by the insurance the driver must always be the same person whose
+ account has been used to reserve the car.
+ In case this is not true and for all the cases not covered by our insurance
+ the Power User will take full responsibility of any third party actions.
+ In other words, Power Enjoy doesn't prevent a Power User from delegating
+ some else as the driver but only the Power User would be held responsible
+ for any possible damage caused.
+ In any case, the following conditions always hold: 
+\end_layout
+
+\begin_layout Itemize
+Any driver must be in possession of a valid driving license 
+\end_layout
+
+\begin_layout Itemize
+The vehicle is to be driven in full compliance with the Highway Code, the
+ Civil Code, the Penal Code and in general with maximum diligence 
+\end_layout
+
+\begin_layout Itemize
+Any financial penalties for violation of the legal rules relating to the
+ movement of vehicles will be notified to the Power User who undertakes
+ to pay the fines 
+\end_layout
+
+\begin_layout Itemize
+Vehicles must not be stolen or parked in private areas
+\end_layout
+
+\begin_layout Subsection
+Reference Documents
+\end_layout
+
+\begin_layout Standard
+This document refers to the following documents:
+\end_layout
+
+\begin_layout Itemize
+Project rules of the Software Engineering 2 project 
+\end_layout
+
+\begin_layout Subsection
+Document Structure
+\end_layout
+
+\begin_layout Standard
+This document is structured in five parts: 
+\end_layout
+
+\begin_layout Description
+Chapter
+\begin_inset space \space{}
+\end_inset
+
+1:
+\begin_inset space \space{}
+\end_inset
+
+ This section provides general information about the RASD document and the
+ system to be developed.
+ 
+\end_layout
+
+\begin_layout Description
+Chapter
+\begin_inset space \space{}
+\end_inset
+
+2:
+\begin_inset space \space{}
+\end_inset
+
+ provides an overall description of the system, analyzing both the surroundings
+ of the system and the domain in which is implemented.
+ We provide an high level view of the system to be and a summary of its
+ expected functionalities.
+\end_layout
+
+\begin_layout Description
+Chapter
+\begin_inset space \space{}
+\end_inset
+
+3: focus on the functional requirements.
+ We list them following the order of the use cases introduced in the previous
+ chapter.
+ We will also provide a traceability matrix to emphasize the correctness
+ of our requirements and to ease the trace of the deriving process.
+ 
+\end_layout
+
+\begin_layout Description
+Chapter
+\begin_inset space \space{}
+\end_inset
+
+4:
+\begin_inset space \space{}
+\end_inset
+
+ will discuss the non-functional requirements and their impact on the overall
+ quality of the system.
+\end_layout
+
+\begin_layout Description
+Chapter
+\begin_inset space \space{}
+\end_inset
+
+5:
+\begin_inset space \space{}
+\end_inset
+
+ will provide a formal specification of the system in Alloy.
+ We will test the correctness of our model and we present the world we've
+ generated.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Overall description
+\end_layout
+
+\begin_layout Standard
+This section will provide an overall description of the whole system.
+ First, we start by describing the enviroment and its surrounding: we list
+ all the domain properties and the external services we need to interact
+ with.
+ In the second part we start identifying actors and descrive simple scenarios.
+ Finally, we generalize providing both the usecase diagram and the class
+ diagram.
+\end_layout
+
+\begin_layout Subsection
+Domain Properties
+\end_layout
+
+\begin_layout Enumerate
+GPS always gives the correct position 
+\end_layout
+
+\begin_layout Enumerate
+Every car has an always available GPS.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Cars are able to determine the number of passengers currently on board.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Cars are able to detect current battery level.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Cars are always able to detect and signal to the system if they are malfunctioni
+ng.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Every car is equipped with an onboard display.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Cars with locked door cannot be opened from the outside 
+\end_layout
+
+\begin_layout Enumerate
+System knows the car status at any time.
+ 
+\end_layout
+
+\begin_layout Enumerate
+The car notifies the system when the engine has been ignited/turned off.
+ 
+\end_layout
+
+\begin_layout Enumerate
+The system has remote control of the cars.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Every power user can be geolocalized.
+ 
+\end_layout
+
+\begin_layout Enumerate
+The set of safe areas and power grid stations is predefined 
+\end_layout
+
+\begin_layout Enumerate
+The system knows when a car has been plugged for recharge 
+\end_layout
+
+\begin_layout Enumerate
+The system is able to verify user and payment credentials
+\end_layout
+
+\begin_layout Subsection
+External Services
+\end_layout
+
+\begin_layout Standard
+As we said earlier our system interacts with two external services.
+ In this section we describe such system in details and their expected functiona
+lities.
+\end_layout
+
+\begin_layout Subsubsection
+Payment Service 
+\end_layout
+
+\begin_layout Standard
+Every Power Enjoy user, in order to use our service, is required to have
+ an account registered to a third party payment service, with a valid payment
+ method.
+ Power Enjoy will calculate for any renting the final fee but the actual
+ payment will be handled by the payment service (PS).
+ The PS will be notified of the amount of money owed from which Power User
+ and we will be informed when such payment occurs.
+ A user with a pending payment will not be able to reserve any car.
+ 
+\end_layout
+
+\begin_layout Paragraph
+Payment Service Assumptions
+\end_layout
+
+\begin_layout Standard
+15.
+ There exists an third party payment service for processing payments 
+\end_layout
+
+\begin_layout Standard
+16.
+ Every user is registered with a valid payment method to the external payment
+ service.
+ 
+\end_layout
+
+\begin_layout Standard
+17.
+ Payment service takes care of the payment process and notifies when the
+ payments occur 
+\end_layout
+
+\begin_layout Subsubsection
+Assistance Service 
+\end_layout
+
+\begin_layout Standard
+Power Enjoy is in charge of the management of the car-sharing system.
+ 
+\end_layout
+
+\begin_layout Standard
+All the secondary functionalities are handled by an assistance service,
+ which is responsible for: 
+\end_layout
+
+\begin_layout Itemize
+Ordinary Maintenance of the vehicles 
+\end_layout
+
+\begin_layout Itemize
+Cleaning of the vehicles 
+\end_layout
+
+\begin_layout Itemize
+Repairing malfunction vehicles 
+\end_layout
+
+\begin_layout Itemize
+Recharging vehicles onsite 
+\end_layout
+
+\begin_layout Itemize
+Move cars from unsafe area to safe areas
+\end_layout
+
+\begin_layout Paragraph
+Assistance Service Assumptions
+\end_layout
+
+\begin_layout Standard
+18.
+ AS automatically takes care of fixing malfunctioning cars 
+\end_layout
+
+\begin_layout Standard
+19.
+ AS automatically takes care of recharging of site cars with less than 20%
+ of Battery 
+\end_layout
+
+\begin_layout Standard
+20.
+ AS automatically dispatches employees to bring cars from unsafe areas back
+ to safe areas 
+\end_layout
+
+\begin_layout Standard
+21.
+ AS notifies when car are available again providing, eventually, new location
+ and battery status 
+\end_layout
+
+\begin_layout Subsection
+Actors
+\end_layout
+
+\begin_layout Standard
+Our system has to interact mainly with 5 actors.
+ 
+\end_layout
+
+\begin_layout Itemize
+User
+\end_layout
+
+\begin_layout Itemize
+Power User 
+\end_layout
+
+\begin_layout Itemize
+Car
+\end_layout
+
+\begin_layout Itemize
+Assistance Service
+\end_layout
+
+\begin_layout Itemize
+Payment Service
+\end_layout
+
+\begin_layout Subsection
+Hardware Constrains (Electric Car)
+\end_layout
+
+\begin_layout Standard
+PowerEnjoy service employs a single model of electric car in the first release,
+ but the system is designed to allow any electric vehicle as long as is
+ provides the minimum functionality needed: 
+\end_layout
+
+\begin_layout Itemize
+Weight sensors to detect the number of people inside 
+\end_layout
+
+\begin_layout Itemize
+Ignition sensors 
+\end_layout
+
+\begin_layout Itemize
+Battery Level sensors 
+\end_layout
+
+\begin_layout Itemize
+Global Positioning System (GPS) 
+\end_layout
+
+\begin_layout Itemize
+Automatic keyless entry 
+\end_layout
+
+\begin_layout Itemize
+Remote control 
+\end_layout
+
+\begin_layout Itemize
+Lcd touchscreen 
+\end_layout
+
+\begin_layout Itemize
+Internet connectivity 
+\end_layout
+
+\begin_layout Standard
+Other models should also consider this non functional requirements that
+ will highly affect the quality of the service we provide:
+\end_layout
+
+\begin_layout Itemize
+Battery Lenght 
+\end_layout
+
+\begin_layout Itemize
+Charging Time 
+\end_layout
+
+\begin_layout Itemize
+Safety 
+\end_layout
+
+\begin_layout Itemize
+Comfort 
+\end_layout
+
+\begin_layout Itemize
+Performance 
+\end_layout
+
+\begin_layout Itemize
+Navigation System
+\end_layout
+
+\begin_layout Standard
+The car of our system is a Tesla Model 3.
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename img/tesla.png
+	lyxscale 50
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+It was provided by Flavio, and it has: 
+\end_layout
+
+\begin_layout Itemize
+5 Seats 
+\end_layout
+
+\begin_layout Itemize
+215 miles Range 
+\end_layout
+
+\begin_layout Itemize
+Fast Charging 
+\end_layout
+
+\begin_layout Itemize
+High Safety 
+\end_layout
+
+\begin_layout Standard
+The car also has a Display which shows to the user important informations:
+ 
+\end_layout
+
+\begin_layout Itemize
+Lenght of the ride 
+\end_layout
+
+\begin_layout Itemize
+Current cost of the ride (before discounts) 
+\end_layout
+
+\begin_layout Itemize
+Battery Level 
+\end_layout
+
+\begin_layout Standard
+It will (optionally) show: 
+\end_layout
+
+\begin_layout Itemize
+Map 
+\end_layout
+
+\begin_layout Itemize
+Location of the charging stations 
+\end_layout
+
+\begin_layout Itemize
+Set of safe areas
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename img/tesla2.png
+	lyxscale 50
+	scale 30
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The car itself provides some handy functionalities: 
+\end_layout
+
+\begin_layout Itemize
+The car automatically notifies the user when the battery is low 
+\end_layout
+
+\begin_layout Itemize
+The car automatically notifies the user when he/she parks on an unsafe area
+ 
+\end_layout
+
+\begin_layout Itemize
+The car automatically sends to the server constant updates on his status
+ 
+\end_layout
+
+\begin_layout Itemize
+The car automatically notifies both the system and the user when a malfunction
+ occurs 
+\end_layout
+
+\begin_layout Subsection
+Car State and State Diagram
+\end_layout
+
+\begin_layout Standard
+The Car during his lifetime evolves following these states: 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+
+\series bold
+Available
+\series default
+: a car can be reserved from a Power User.
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+
+\series bold
+Reserved
+\series default
+: is a car selected by a Power User to exploit the service.
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+
+\series bold
+InUse
+\series default
+: is car ignited at least one time after a reservation.
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+
+\series bold
+Unavailable
+\series default
+: is a car who needs assistance.
+ 
+\end_layout
+
+\begin_layout Standard
+There are few additional states:
+\end_layout
+
+\begin_layout Description
+Lock: a car with car doors locked which prevents people to access it 
+\end_layout
+
+\begin_layout Description
+Unlock: a car with car doors unlocked 
+\end_layout
+
+\begin_layout Description
+Charging: a car currently charging on a Charging Station.
+ 
+\end_layout
+
+\begin_layout Standard
+A car can not be charging if it is “InUse” or “Reserved and Unlock”.
+ The car, in fact, deny the unlock if it is linked to a plug.
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename img/uc.png
+	lyxscale 50
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Scenarios 
+\end_layout
+
+\begin_layout Standard
+In this section we provide some common scenarios that may occur during an
+ instance of the usage of the system.
+ It will provide an informal but yet real feel of the system to be.
+ 
+\end_layout
+
+\begin_layout Paragraph
+Scenario 1: Registration 
+\end_layout
+
+\begin_layout Standard
+Is Friday morning.
+ Alice want to try the Power Enjoy service, she takes hers smartphone and
+ downloads the app.
+ To use the app is needed a registration.
+ In the registration process, Alice need to insert hers personal informations
+ (name, surname, driving licence number...) and a payment service.
+ Alice fills all the fields with valid informations.
+ Alice receive a mail that confirms the registration and the password.
+ Another mail is stent to explain all the correct behaviours to use Power
+ Enjoy system.
+ Bob want to use Power Enjoy as well, but during the registration makes
+ a mistake inserting the driving license number.
+ Bob try to submit the form but the system recognize the mistake.
+ The problem is notified to Bob and a new form is send.
+\end_layout
+
+\begin_layout Paragraph
+Scenario 1: Discount Policies 
+\end_layout
+
+\begin_layout Standard
+Carl is a Power Enjoy registered user.
+ Carl is late for the Software Engieering 2 cass, because at 8:30 in the
+ morning is quite hard to be in time, and decide to use a Power Enjoy car
+ to reach the university quickly.
+ Carl insert his username and his password correctly.
+ Carl decide to search a car in a range of 150m from his position.
+ Carl select the nearest car and reach the university.
+ At the end of the rent, the is in a safe area with 18% battery.
+ According to the discount policies, 30% of the total fee is added to the
+ final fee that is send to Carl.
+ The following day Carl faces the same situation, but with him there are
+ two friends.
+ The selected car is leaved in the same conditions, so the 30% of the total
+ fee is added to the final fee, but 10% of the total fee is subtracted to
+ the final fee according to the discount policies.
+\end_layout
+
+\begin_layout Paragraph
+Scenario 3: Edit Profile 
+\end_layout
+
+\begin_layout Standard
+Donald want to modify his Power Enjoy profile.
+ Donald execute the login and select the modifying option.
+ A form equal to the registration form is sent to him.
+ Donald fill all the fields correctly and submit the form.
+ A mail is sent to Donald to confirm the new dates.
+ Elisabeth need to modify hers profile too.
+ Inserting the informations, Elisabeth write incorrectly her new mail address.
+ After the submission, the realize the mail is not valid, so it will not
+ change any information about Elisabeth.
+ The form is send again t Elisabeth with the notification of the problem.
+ 
+\end_layout
+
+\begin_layout Paragraph
+Scenario 4: Normal Utilization 
+\end_layout
+
+\begin_layout Standard
+Flavio is a business man.
+ His hyper luxurious car break down without any reason.
+ Flavio choose to use Power Enjoy, service he financed, to reach his destination.
+ Flavio execute the login and search a car in the range of 278m from his
+ position.
+ Flavio select a car and reach it in 20 minutes.
+ Flavio unlock successfully the car because is exactly near it, so the ride
+ can start.
+ Flavio knows very well the discount policies, so park the car with 49%
+ battery in a safe area not so far from a Power Enjoy grid station, unfortunatel
+y full.
+ No discounts are applied and the final fee is sent to Flavio.
+ George had already selected a car.
+ The selected car is quite far from him, so George can’t reach it in one
+ hour.
+ When he realize he will not arrive in time, George try to cancel the reservatio
+n, but his mobile lost the connection and the time expire with the reservation
+ still active.
+ The system cancel the reservation and charge George of a fee of 1€.
+ 
+\end_layout
+
+\begin_layout Paragraph
+Scenario 6: Open and Not Switch On.
+ 
+\end_layout
+
+\begin_layout Standard
+Harry have to reach the Leaky Cauldron to meet his friends.
+ Harry reserve a car ad reach it quickly.
+ Harry open the car when he is less than 5m far from it and enter inside.
+ Before he can switch on the car, his friend Ronald tells him that the meeting
+ is cancelled.
+ Harry send a curse on his friends and leave the car.
+ The hour is not expired yet, so Harry cancel the reservation and no fee
+ will be charged to his payment service.
+ Ronald is basically in the same situation of Harry, but he forgot to cancel
+ the reservation so, after one hour, the system will cancel the it by himself
+ and charge Ronald of 1€ fee.
+ 
+\end_layout
+
+\begin_layout Paragraph
+Scenario 7: Car Run Out of Battery 
+\end_layout
+
+\begin_layout Standard
+Ines is driving a Power Enjoy car.
+ Ines, even if the car show its battery level, doesn’t realize the car is
+ running out of battery, and the battery level reach the zero.
+ The car inevitably stops in an unsafe area.
+ According to the Power Enjoy policies, if a car is parked in an unsafe
+ area, the reservation will continue for an hour, and this will happen to
+ the Ines reservation.
+ After one hour the system will close the reservation and ask to the assistance
+ service to fix the problematic car.
+ Louis is driving a Power Enjoy car.
+ Like Ines, he doesn’t realize the battery level is really low, so the car
+ run out of battery.
+ Louis has great drive skills so is able to bring the car in a safe area
+ before the wheels stops definitively.
+ Since the car is stopped in a safe area, the reservation will end normally.
+ The system will call the assistance to recharge the car.
+ 
+\end_layout
+
+\begin_layout Paragraph
+Scenario 8: Park in a Non Safe Area 
+\end_layout
+
+\begin_layout Standard
+Matteo is driving a Power Enjoy car.
+ He is not able to find a free place in a save area so park his car in a
+ non safe area, conscious that he will pay an additional hour.
+ The rent of the car is still ongoing, but the system ability Matteo to
+ unlock the car again.
+ After he leaved the car, Matteo see a free place in a surely Safe Area,
+ so he unlock the car and park in a safe area.
+ When he leaves the car, the rent will end normally.
+ Niccolò is with two friends on a Power Enjoy car.
+ Niccolò is the Power User who rented the car.
+ Niccolò park the car in a non safe area because he is out of Milan.
+ Even if he has two passengers, a 10% will not be applied because the policy
+ don’t allows discounts in non safe areas.
+\end_layout
+
+\begin_layout Subsection
+Use Case Diagram
+\end_layout
+
+\begin_layout Standard
+In this section we try to generalize from the scenarios before and list
+ all the use cases.
+ In the next chapter we will follow the order of the use cases to derive
+ all the necessary requirement for the system.
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename img/usecases.png
+	lyxscale 50
+	scale 45
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Class Diagram
+\end_layout
+
+\begin_layout Standard
+In this last section we use a class diagram to give a static global view
+ of the whole system and the domain modeling we implemented.
+ We choose a UML Class Diagram with an Entity-Control-Boundary Pattern (ECB).
+ Where: 
+\end_layout
+
+\begin_layout Description
+Entities: Objects representing system data, often from the domain model.
+ 
+\end_layout
+
+\begin_layout Description
+Boundaries: Objects that interface with system actors (e.g.
+ a user or external service).
+ 
+\end_layout
+
+\begin_layout Description
+Controls: Objects that mediate between boundaries and entities.
+ 
+\end_layout
+
+\begin_layout Standard
+These serve as the glue between boundary elements and entity elements, implement
+ing the logic required to manage the various elements and their interactions.
+\end_layout
+
+\begin_layout Standard
+We choose this pattern for several reason:
+\end_layout
+
+\begin_layout Itemize
+To clearly separate what happens in the boundary from what happens "inside"
+ our system 
+\end_layout
+
+\begin_layout Itemize
+Comparing the Use Case Diagram and the Class Diagram should be clear how
+ the two are releated 
+\end_layout
+
+\begin_layout Itemize
+It facilite the analysis of cause / effects relations between phenomena
+ in the world and in the machine (and viceversa) 
+\end_layout
+
+\begin_layout Itemize
+It will serve as reference for the next section where we analyze in details
+ the single use cases
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{adjustwidth*}{-2cm}{-2cm}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename img/ClassDiagram.png
+	lyxscale 20
+	scale 50
+	rotateOrigin center
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{adjustwidth*}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Functional Requirements 
+\end_layout
+
+\begin_layout Subsection
+Use Case 1 [UC1]: Registration 
+\end_layout
+
+\begin_layout Description
+Participating
+\begin_inset space \space{}
+\end_inset
+
+Actors: User
+\end_layout
+
+\begin_layout Description
+Entry
+\begin_inset space \space{}
+\end_inset
+
+Condition: A user notifies he wants to register to the system.
+\end_layout
+
+\begin_layout Description
+Flow
+\begin_inset space \space{}
+\end_inset
+
+of
+\begin_inset space \space{}
+\end_inset
+
+Events: 
+\end_layout
+
+\begin_layout Itemize
+User selects Registration.
+ 
+\end_layout
+
+\begin_layout Itemize
+The system asks him to insert payment informations and credentials.
+ 
+\end_layout
+
+\begin_layout Itemize
+The User inserts required data.
+ 
+\end_layout
+
+\begin_layout Itemize
+The system checks validity of the data.
+ 
+\end_layout
+
+\begin_layout Itemize
+The system generates an account for the User, associates given informations
+ to the account, generates a password and gives it back to the User.
+\end_layout
+
+\begin_layout Description
+Exit
+\begin_inset space \space{}
+\end_inset
+
+Condition: This use case terminates when registration is successfully completed
+ and the generated password is given back to the User.
+\end_layout
+
+\begin_layout Description
+Exceptions: 
+\end_layout
+
+\begin_layout Itemize
+If the payment information or the credentials are not validated the registration
+ can’t proceed, the User is notified the informations he provided aren’t
+ valid and is asked to provide them again.
+ 
+\end_layout
+
+\begin_layout Itemize
+Modifying credential and payment information is a particular case of registratio
+n, available only after the Login (UC2) by power users.
+\end_layout
+
+\begin_layout Description
+Special
+\begin_inset space \space{}
+\end_inset
+
+Requirements: Once the User has given his informations the System must reply
+ within 5 minutes.
+\end_layout
+
+\begin_layout Description
+Requirements: 
+\end_layout
+
+\begin_layout Itemize
+System has a registration mechanism that allow users to insert their credentials.
+ 
+\end_layout
+
+\begin_layout Itemize
+The system checks for duplicate users.
+ 
+\end_layout
+
+\begin_layout Itemize
+The system checks for valid credential.
+ 
+\end_layout
+
+\begin_layout Itemize
+The system has a modifying option that allow user to modify their credentials.
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename img/usecases/uc1.png
+	lyxscale 50
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Use Case 2 [UC2]: Login
+\end_layout
+
+\begin_layout Description
+Participating
+\begin_inset space \space{}
+\end_inset
+
+Actors: User
+\end_layout
+
+\begin_layout Description
+Entry
+\begin_inset space \space{}
+\end_inset
+
+Condition: User selects the Login functionality
+\end_layout
+
+\begin_layout Description
+Flow
+\begin_inset space \space{}
+\end_inset
+
+of
+\begin_inset space \space{}
+\end_inset
+
+Events: 
+\end_layout
+
+\begin_layout Itemize
+The System requests the User to input his login informations.
+ 
+\end_layout
+
+\begin_layout Itemize
+User inputs his login informations.
+ 
+\end_layout
+
+\begin_layout Itemize
+The System executes a check and if the given informations are valid autenticate
+ the User.
+\end_layout
+
+\begin_layout Description
+Exit
+\begin_inset space \space{}
+\end_inset
+
+Condition: User is authenticated (User become PowerUser).
+\end_layout
+
+\begin_layout Description
+Exceptions: 
+\end_layout
+
+\begin_layout Itemize
+If the data provided by the user are not valid he is asked to input them
+ again.
+\end_layout
+
+\begin_layout Description
+Special
+\begin_inset space \space{}
+\end_inset
+
+Requirements: 
+\end_layout
+
+\begin_layout Itemize
+Once the User has given his informations the System must reply within 5
+ minutes.
+\end_layout
+
+\begin_layout Description
+Requirements: 
+\end_layout
+
+\begin_layout Itemize
+System has a registration mechanism that allow users to insert their credentials.
+ 
+\end_layout
+
+\begin_layout Itemize
+The system checks for duplicate users.
+ 
+\end_layout
+
+\begin_layout Itemize
+The system checks for valid credential.
+ 
+\end_layout
+
+\begin_layout Itemize
+The system has a modifying option that allow user to modify their credentials.
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename img/usecases/uc2.png
+	lyxscale 50
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Use Case 3 [UC3]: Select Car
+\end_layout
+
+\begin_layout Description
+Participating
+\begin_inset space \space{}
+\end_inset
+
+Actors: Power User
+\end_layout
+
+\begin_layout Description
+Entry
+\begin_inset space \space{}
+\end_inset
+
+Condition: A service requires the user to select a car.
+\end_layout
+
+\begin_layout Description
+Flow
+\begin_inset space \space{}
+\end_inset
+
+of
+\begin_inset space \space{}
+\end_inset
+
+Events: 
+\end_layout
+
+\begin_layout Itemize
+The system checks the power user doesn’t have pending payments.
+ 
+\end_layout
+
+\begin_layout Itemize
+The system asks the power user to select an address or to provide his gps
+ location and to select a distance range.
+ 
+\end_layout
+
+\begin_layout Itemize
+The power user inputs the required data.
+ 
+\end_layout
+
+\begin_layout Itemize
+The system computes the list of all the available cars within the range
+ from the given location and shows it to the user.
+ 
+\end_layout
+
+\begin_layout Itemize
+The power user is shown for each car the distance from the user given location,
+ the level of battery and whether or not it is charging.
+ 
+\end_layout
+
+\begin_layout Itemize
+The power user selects a specific car and the identifier of the car is given
+ back to the system.
+\end_layout
+
+\begin_layout Description
+Exit
+\begin_inset space \space{}
+\end_inset
+
+Condition: 
+\end_layout
+
+\begin_layout Itemize
+The identifier of the selected car is given back to the system.
+ 
+\end_layout
+
+\begin_layout Itemize
+The power user selects no cars.
+\end_layout
+
+\begin_layout Description
+Exceptions: 
+\end_layout
+
+\begin_layout Itemize
+If no such a car is available no car will be shown to the user.
+ 
+\end_layout
+
+\begin_layout Itemize
+If there are pending payment on the power user, the system will ask to pay
+ the debt (UC6).
+\end_layout
+
+\begin_layout Description
+Requirements: 
+\end_layout
+
+\begin_layout Itemize
+Power User must be able to specify a position and a distance range.
+ 
+\end_layout
+
+\begin_layout Itemize
+System must be able to compute the distance between two positions.
+ 
+\end_layout
+
+\begin_layout Itemize
+System must show a list of the suggested CARs that qualify as "AVAILABLE"
+ and are in the specified range.
+ 
+\end_layout
+
+\begin_layout Itemize
+System must allow the user to select a car from the “suggested car" list.
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename img/usecases/uc3.png
+	lyxscale 50
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename img/usecases/uc3b.png
+	lyxscale 50
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Use Case 4 [UC4]: Reserve Car
+\end_layout
+
+\begin_layout Description
+Participating
+\begin_inset space \space{}
+\end_inset
+
+Actors: Power User, Car
+\end_layout
+
+\begin_layout Description
+Entry
+\begin_inset space \space{}
+\end_inset
+
+Condition: A Power User selects a Car
+\end_layout
+
+\begin_layout Description
+Flow
+\begin_inset space \space{}
+\end_inset
+
+of
+\begin_inset space \space{}
+\end_inset
+
+Events: 
+\end_layout
+
+\begin_layout Itemize
+The selected car is marked as reserved and a 1 hour timer is set.
+ 
+\end_layout
+
+\begin_layout Itemize
+The system waits for the user to select the unlock option.
+ 
+\end_layout
+
+\begin_layout Itemize
+When the power user selects the unlock option the system asks for his gps
+ data.
+ 
+\end_layout
+
+\begin_layout Itemize
+The system computes the distance between user gps data and the reserved
+ car gps data.
+ 
+\end_layout
+
+\begin_layout Itemize
+If this distance is below 5 meters the system sends an unlock command to
+ the car.
+\end_layout
+
+\begin_layout Description
+Exit
+\begin_inset space \space{}
+\end_inset
+
+Condition: 
+\end_layout
+
+\begin_layout Itemize
+The user starts the engine of the car.
+\end_layout
+
+\begin_layout Description
+Exceptions: 
+\end_layout
+
+\begin_layout Itemize
+If no such a car is available no car will be shown to the user.
+ 
+\end_layout
+
+\begin_layout Itemize
+If there are pending payment on the power user, the system will ask to pay
+ the debt (UC6).
+\end_layout
+
+\begin_layout Description
+Special
+\begin_inset space \space{}
+\end_inset
+
+Requirements: 
+\end_layout
+
+\begin_layout Itemize
+POWER USER can’t have more than one reservation pending.
+\end_layout
+
+\begin_layout Description
+Requirements: 
+\end_layout
+
+\begin_layout Itemize
+The system should offer an option to the user to cancel the pending reservation.
+ Reservations expire after one hour.
+ 
+\end_layout
+
+\begin_layout Itemize
+The system should unlock the car only if the power user is within a certain
+ distance.
+ 
+\end_layout
+
+\begin_layout Itemize
+POWER User must be able to signal he wants the car he has reserved to be
+ unlocked.
+ 
+\end_layout
+
+\begin_layout Itemize
+When a reservation expires the POWER user who had it is charged 1 EUR 
+\end_layout
+
+\begin_layout Itemize
+The system should track the reservation time
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename img/usecases/uc4.png
+	lyxscale 50
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename img/usecases/uc4b.png
+	lyxscale 50
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Use Case 5 [UC5]: Drive Car
+\end_layout
+
+\begin_layout Description
+Participating
+\begin_inset space \space{}
+\end_inset
+
+Actors: Power User, Car
+\end_layout
+
+\begin_layout Description
+Entry
+\begin_inset space \space{}
+\end_inset
+
+Condition: The car is ignited by the Power user
+\end_layout
+
+\begin_layout Description
+Flow
+\begin_inset space \space{}
+\end_inset
+
+of
+\begin_inset space \space{}
+\end_inset
+
+Events: 
+\end_layout
+
+\begin_layout Itemize
+The system put the car in “in use” state and starts the calculation of the
+ fee (1€ per min).
+ 
+\end_layout
+
+\begin_layout Itemize
+The car starts/restart the shared ride calculation every time and until
+ the passengers are two or more.
+ 
+\end_layout
+
+\begin_layout Itemize
+The power user starts driving.
+ 
+\end_layout
+
+\begin_layout Itemize
+The power user turn off the car.
+ 
+\end_layout
+
+\begin_layout Itemize
+The power user and all passengers leave the car.
+ 
+\end_layout
+
+\begin_layout Itemize
+The car check (by sensors) that nobody is in the car.
+ 
+\end_layout
+
+\begin_layout Itemize
+The system lock the car when nobody is inside.
+ 
+\end_layout
+
+\begin_layout Itemize
+The system check that the car is parked in a safe area.
+ 
+\end_layout
+
+\begin_layout Itemize
+The system stops the calculation of the fee.
+ 
+\end_layout
+
+\begin_layout Itemize
+The car send the shared ride value to the system.
+\end_layout
+
+\begin_layout Itemize
+The system waits 5 minutes.
+ 
+\end_layout
+
+\begin_layout Itemize
+The system applies discounts according to its policies.
+ 
+\end_layout
+
+\begin_layout Itemize
+The system comunicate the total fee to pay to the power user.
+ 
+\end_layout
+
+\begin_layout Itemize
+The state of the car changes from “in use” to “available”.
+ 
+\end_layout
+
+\begin_layout Itemize
+The system starts the payment procedure (UC6).
+\end_layout
+
+\begin_layout Description
+Exit
+\begin_inset space \space{}
+\end_inset
+
+Condition: 
+\end_layout
+
+\begin_layout Itemize
+The system starts the payment procedure (UC6).
+\end_layout
+
+\begin_layout Description
+Exceptions: 
+\end_layout
+
+\begin_layout Itemize
+The car is parked and switched off in an unsafe area, the system maintain
+ an “in use”state linked to the power user, the car will be locked when
+ nobody is inside.
+ The power user will have again the possibility to open the car (restart
+ the use case).
+ One hour after the engine stop, the system will close normally the rent.
+\end_layout
+
+\begin_layout Description
+Special
+\begin_inset space \space{}
+\end_inset
+
+Requirements: 
+\end_layout
+
+\begin_layout Itemize
+The RIDE FEE for the ride must be constantly displayed in the car.
+ 
+\end_layout
+
+\begin_layout Itemize
+The RIDE FEE is computed in real time on a per minute base
+\end_layout
+
+\begin_layout Description
+Requirements: 
+\end_layout
+
+\begin_layout Itemize
+The RIDE FEE is computed in real time on a per minute base.
+ 
+\end_layout
+
+\begin_layout Itemize
+The system must lock a car with no passenger inside and engine off.
+ 
+\end_layout
+
+\begin_layout Itemize
+FINAL FEE will be calculated applying discounts/fines to the RIDE FEE according
+ to the power enjoy discount policy.
+ 
+\end_layout
+
+\begin_layout Itemize
+System notify the user of the FINAL FEE.
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename img/usecases/uc5b.png
+	lyxscale 50
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{adjustwidth*}{-2cm}{-2cm}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename img/usecases/uc5.png
+	lyxscale 20
+	scale 50
+	rotateOrigin center
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{adjustwidth*}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{adjustwidth*}{-2cm}{-2cm}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename img/usecases/uc5c.png
+	lyxscale 20
+	scale 50
+	rotateOrigin center
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{adjustwidth*}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Use Case 6 [UC6]: Payment
+\end_layout
+
+\begin_layout Description
+Participating
+\begin_inset space \space{}
+\end_inset
+
+Actors: Payment Service
+\end_layout
+
+\begin_layout Description
+Entry
+\begin_inset space \space{}
+\end_inset
+
+Condition: The system has intention to charge a client.
+\end_layout
+
+\begin_layout Description
+Flow
+\begin_inset space \space{}
+\end_inset
+
+of
+\begin_inset space \space{}
+\end_inset
+
+Events: 
+\end_layout
+
+\begin_layout Itemize
+The account of the user is set having a pending payment.
+ 
+\end_layout
+
+\begin_layout Itemize
+The System sends to the payment service a charge for the given amount and
+ the user’s payment informations.
+ 
+\end_layout
+
+\begin_layout Itemize
+The payment service signals that the payment has been accomplished.
+ 
+\end_layout
+
+\begin_layout Itemize
+The system sets the user as not having pending payments.
+\end_layout
+
+\begin_layout Description
+Exit
+\begin_inset space \space{}
+\end_inset
+
+Condition: 
+\end_layout
+
+\begin_layout Itemize
+The user is set to not having pending payments.
+\end_layout
+
+\begin_layout Description
+Exceptions: 
+\end_layout
+
+\begin_layout Itemize
+If, for any reason, the payment can’t be completed, the user will stay in
+ a condition with a pending payment.
+ A user with a pending peyment can only modify his profile (Exceptions UC1)
+ and try again to pay the debt.
+\end_layout
+
+\begin_layout Description
+Requirements: 
+\end_layout
+
+\begin_layout Itemize
+POWER USERS should be prevented from reserving cars if they have pending
+ payments 
+\end_layout
+
+\begin_layout Itemize
+System should ask the payment service to process the power user payment
+ 
+\end_layout
+
+\begin_layout Itemize
+System should add a pending peyment 
+\end_layout
+
+\begin_layout Itemize
+System should notify the user of the pending payment.
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename img/usecases/uc6.png
+	lyxscale 50
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Use Case 7 [UC7]: Require Assistance
+\end_layout
+
+\begin_layout Description
+Participating
+\begin_inset space \space{}
+\end_inset
+
+Actors: Car, Assistance Service
+\end_layout
+
+\begin_layout Description
+Entry
+\begin_inset space \space{}
+\end_inset
+
+Condition:
+\end_layout
+
+\begin_layout Itemize
+The car has any kind of malfunctioning 
+\end_layout
+
+\begin_layout Itemize
+The car need to be brought back into a safe area.
+ 
+\end_layout
+
+\begin_layout Itemize
+The car need to be put on charge (less than 20% of the battery).
+\end_layout
+
+\begin_layout Description
+Flow
+\begin_inset space \space{}
+\end_inset
+
+of
+\begin_inset space \space{}
+\end_inset
+
+Events: 
+\end_layout
+
+\begin_layout Itemize
+The car signals the need of assistance to the system.
+ 
+\end_layout
+
+\begin_layout Itemize
+The system makes the car unavailable.
+ 
+\end_layout
+
+\begin_layout Itemize
+The system signals the need of assistance, requested by the car, to the
+ assistance service.
+ 
+\end_layout
+
+\begin_layout Itemize
+The assistance service solve the problem, according to the entry condition.
+ 
+\end_layout
+
+\begin_layout Itemize
+The assistance service notifies the system when the job is done.
+ 
+\end_layout
+
+\begin_layout Itemize
+The system updates the car informations (location and battery).
+ 
+\end_layout
+
+\begin_layout Itemize
+The system tags the car as available.
+\end_layout
+
+\begin_layout Description
+Exit
+\begin_inset space \space{}
+\end_inset
+
+Condition: 
+\end_layout
+
+\begin_layout Itemize
+The car is available
+\end_layout
+
+\begin_layout Description
+Exceptions: 
+\end_layout
+
+\begin_layout Itemize
+If, for any reason, the payment can’t be completed, the user will stay in
+ a condition with a pending payment.
+ A user with a pending peyment can only modify his profile (Exceptions UC1)
+ and try again to pay the debt.
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename img/usecases/uc7.png
+	lyxscale 50
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Traceability Matrix
+\end_layout
+
+\begin_layout Subsubsection*
+User Goals 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex Strong
+status open
+
+\begin_layout Plain Layout
+G1.
+ USER can register to the system with valid credentials 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+D16 Every user is registered with a valid payment method to the external
+ payment service.
+ 
+\end_layout
+
+\begin_layout Description
+D14 The system is able to verify user credentials and external payment credentia
+ls 
+\end_layout
+
+\begin_layout Description
+1.
+ System has a registration mechanism that allow user to insert their credentials
+ 
+\end_layout
+
+\begin_layout Description
+2.
+ The system checks for duplicate users 
+\end_layout
+
+\begin_layout Description
+3.
+ The system sends a password to access the system
+\end_layout
+
+\begin_layout Description
+\begin_inset Flex Strong
+status open
+
+\begin_layout Plain Layout
+G2.
+ Only USER which are registered can login to the system 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+1.
+ System has a login functionality that allows users to enter their login
+ informations 
+\end_layout
+
+\begin_layout Description
+2.
+ If provided information is correct, the system allows the user to access
+ the service.
+\end_layout
+
+\begin_layout Subsubsection*
+Power User Goals 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex Strong
+status open
+
+\begin_layout Plain Layout
+G3.
+ POWER USER can modify its personal informations 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+D14 The system is able to verify user credentials and external payment credentia
+ls 
+\end_layout
+
+\begin_layout Description
+1.
+ System should allow POWER User to modify only their personal credentials
+ 
+\end_layout
+
+\begin_layout Description
+2.
+ The system accepts the new credentials after validation
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex Strong
+status open
+
+\begin_layout Plain Layout
+G4.
+ POWER USER can see locations and battery levels of available CARs within
+ a specific distance from a location (eg.
+ POWER USER location or specified address) 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+D1.
+ GPS always gives the correct position 
+\end_layout
+
+\begin_layout Description
+D2.
+ Every car has an always available GPS.
+ 
+\end_layout
+
+\begin_layout Description
+D4.
+ Cars are able to detect current battery level.
+ 
+\end_layout
+
+\begin_layout Description
+D8.
+ System knows the car status at any time.
+ 
+\end_layout
+
+\begin_layout Description
+D11.
+ Every power user can be geolocalized.
+ 
+\end_layout
+
+\begin_layout Description
+1.
+ POWER User must be able to specify a position and a distance range 
+\end_layout
+
+\begin_layout Description
+2.
+ System must be able to compute the distance between two positions 
+\end_layout
+
+\begin_layout Description
+3.
+ System must show a list of the CARs that qualify as "AVAILABLE" and are
+ in the specified range
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex Strong
+status open
+
+\begin_layout Plain Layout
+G5.
+ POWER USER can reserve one available CAR.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+D8.
+ System knows the car status at any time.
+ 
+\end_layout
+
+\begin_layout Description
+1.
+ System must allow the user to select a car from the list above 
+\end_layout
+
+\begin_layout Description
+2.
+ POWER USER can’t have more than one reservation pending
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex Strong
+status open
+
+\begin_layout Plain Layout
+G6.
+ POWER USER can cancel a CAR RESERVATION within an hour before unlocking
+ the car 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+D8.
+ System knows the car status at any time.
+ 
+\end_layout
+
+\begin_layout Description
+1.
+ The system should offer an option to the user to cancel the pending reservation
+ 
+\end_layout
+
+\begin_layout Description
+2.
+ Reservations expire after one hour
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex Strong
+status open
+
+\begin_layout Plain Layout
+G7.
+ POWER USER can unlock his RENTED CAR 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+D1.
+ GPS always gives the correct position 
+\end_layout
+
+\begin_layout Description
+D2.
+ Every car has an always available GPS.
+ 
+\end_layout
+
+\begin_layout Description
+D7 Cars with locked doors cannot be opened from the outside 
+\end_layout
+
+\begin_layout Description
+D8.
+ System knows the car status at any time.
+ 
+\end_layout
+
+\begin_layout Description
+D10.
+ The system has remote control of the cars.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex Strong
+status open
+
+\begin_layout Plain Layout
+G10.
+ POWER USER knows the current RIDE FEE 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+D6 Every car is equipped with an onboard display.
+ 
+\end_layout
+
+\begin_layout Description
+D9.
+ The system knows when the engine of a car has been ignited.
+ 
+\end_layout
+
+\begin_layout Description
+D8.
+ System knows the car status at any time.
+ 
+\end_layout
+
+\begin_layout Description
+1.
+ The RIDE FEE is computed in real time on a per minute base 
+\end_layout
+
+\begin_layout Description
+2.
+ The RIDE FEE for the ride must be constantly displayed in the car
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex Strong
+status open
+
+\begin_layout Plain Layout
+G11.
+ POWER USER knows the FINAL FEE 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+D2.
+ Every car has an always available GPS.
+ 
+\end_layout
+
+\begin_layout Description
+D3.
+ Cars are able to determine the number of passengers currently on board.
+ 
+\end_layout
+
+\begin_layout Description
+D4.
+ Cars are able to detect current battery level.
+ 
+\end_layout
+
+\begin_layout Description
+D12.
+ The set of safe areas and power grid stations is predefined 
+\end_layout
+
+\begin_layout Description
+D13.
+ The system knows when a car has been plugged for recharge 
+\end_layout
+
+\begin_layout Description
+1.
+ System notify the user of the FINAL FEE 
+\end_layout
+
+\begin_layout Description
+2.
+ FINAL FEE will be calculated applying discounts/fines to the RIDE FEE according
+ to the power enjoy discount policy
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex Strong
+status open
+
+\begin_layout Plain Layout
+G13.
+ CARs are automatically locked when parked and the POWER USERS gets out
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+D3.
+ Cars are able to determine the number of passengers currently on board.
+ 
+\end_layout
+
+\begin_layout Description
+D10.
+ The system has remote control of the cars.
+ 
+\end_layout
+
+\begin_layout Description
+D9.
+ The system knows when the engine of a car has been ignited/turned off.
+ 
+\end_layout
+
+\begin_layout Description
+D8.
+ System knows the car status at any time.
+ 
+\end_layout
+
+\begin_layout Description
+1.
+ The system must lock a car with no passenger inside and engine off.
+ 
+\end_layout
+
+\begin_layout Subsubsection*
+Payment Goals 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex Strong
+status open
+
+\begin_layout Plain Layout
+G8-G9.
+ If a car is not picked-up within one hour from the reservation the user
+ pays a FEE of 1 EUR.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+D16.
+ Every user is registered with a valid payment method to the external payment
+ service.
+ 
+\end_layout
+
+\begin_layout Description
+D17.
+ Payment service takes care of the payment process and notifies when the
+ payments occur 
+\end_layout
+
+\begin_layout Description
+1.
+ System should keep track of the reservation time
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex Strong
+status open
+
+\begin_layout Plain Layout
+G12.
+ POWER USER is charged of the FINAL FEE 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+D19.
+ Payment service takes care of the payment process and notifies when the
+ payments occur 
+\end_layout
+
+\begin_layout Description
+1.
+ System should ask the PS to process the POWER USER payment 
+\end_layout
+
+\begin_layout Description
+2.
+ System should add a pending payment 
+\end_layout
+
+\begin_layout Description
+3.
+ System should notify the user of the pending payment
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex Strong
+status open
+
+\begin_layout Plain Layout
+G14.
+ POWER USER with pending payments can’t reserve cars 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+D16.
+ Every user is registered with a valid payment method to the external payment
+ service.
+ 
+\end_layout
+
+\begin_layout Description
+D17.
+ Payment service takes care of the payment process and notifies when the
+ payments occur 
+\end_layout
+
+\begin_layout Description
+1.
+ POWER USERS should be prevented from reserving cars if the have pending
+ payments
+\end_layout
+
+\begin_layout Section
+Non Functional Requirements 
+\end_layout
+
+\begin_layout Description
+Privacy: the system should guarantee the privacy of all the user’s informations,
+ nobody out of the system can collect informations that are stored in the
+ Power Enjoy company database.
+ 
+\end_layout
+
+\begin_layout Description
+Security: the system is able to protect himself from hacking attacks.
+ 
+\end_layout
+
+\begin_layout Description
+Portability: various version of the app were released.
+ The purpose is to makes the Power Enjoy service available from any kind
+ of portable device with the internet access and a GPS system.
+ 
+\end_layout
+
+\begin_layout Description
+Usability: the understanding of the app, and each section of it, is easy
+ and intuitive.
+ 
+\end_layout
+
+\begin_layout Description
+Accessibility: the app give to the user the possibilità to select language.
+ The main language is english; italian, french, spanish, german, russian,
+ chinese and japanese are also available.
+ 
+\end_layout
+
+\begin_layout Description
+Availability: The system will be available constantly to guarantee the power
+ enjoy constantly.
+ Manutention sections are exceptions and should be preventively notified.
+ 
+\end_layout
+
+\begin_layout Description
+Scalability: the system should guarantee notable performances with a growing
+ number of active users.
+ • The system should receive, process and send messages to guarantee certain
+ performances.
+\end_layout
+
+\begin_layout Section
+Alloy
+\end_layout
+
+\begin_layout Subsection
+Code
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{adjustwidth*}{-2cm}{-2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+open util/boolean
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+sig Position {} 
+\end_layout
+
+\begin_layout Plain Layout
+
+sig Credential {} 
+\end_layout
+
+\begin_layout Plain Layout
+
+sig Payment_Info {}
+\end_layout
+
+\begin_layout Plain Layout
+
+sig LicensePlate {} 
+\end_layout
+
+\begin_layout Plain Layout
+
+sig Plug {}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+one sig SafeArea {  
+\end_layout
+
+\begin_layout Plain Layout
+
+	position: some Position 
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+sig ChargingStation { 	
+\end_layout
+
+\begin_layout Plain Layout
+
+	position: one Position, 	
+\end_layout
+
+\begin_layout Plain Layout
+
+	plugs: some Plug
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+sig PowerUser {		
+\end_layout
+
+\begin_layout Plain Layout
+
+	credential: Credential, 
+\end_layout
+
+\begin_layout Plain Layout
+
+	payment_info: Payment_Info, 
+\end_layout
+
+\begin_layout Plain Layout
+
+	position: one Position, 	
+\end_layout
+
+\begin_layout Plain Layout
+
+	pendingPayment: one Bool, 
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+abstract sig CarState {} 
+\end_layout
+
+\begin_layout Plain Layout
+
+one sig AVAILABLE extends CarState {} 
+\end_layout
+
+\begin_layout Plain Layout
+
+one sig RESERVED extends CarState {} 
+\end_layout
+
+\begin_layout Plain Layout
+
+one sig IN_USE extends CarState {} 
+\end_layout
+
+\begin_layout Plain Layout
+
+one sig UNAVAILABLE extends CarState {}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+sig Car { 	
+\end_layout
+
+\begin_layout Plain Layout
+
+	batteryLevel: Int, 	
+\end_layout
+
+\begin_layout Plain Layout
+
+	peopleInside: Int, 	
+\end_layout
+
+\begin_layout Plain Layout
+
+	motorIgnited: Bool,
+\end_layout
+
+\begin_layout Plain Layout
+
+	malfunctioning: Bool,
+\end_layout
+
+\begin_layout Plain Layout
+
+	license: one LicensePlate, 
+\end_layout
+
+\begin_layout Plain Layout
+
+	position: one Position, 
+\end_layout
+
+\begin_layout Plain Layout
+
+	locked: one Bool, 
+\end_layout
+
+\begin_layout Plain Layout
+
+	charging: lone Plug, 
+\end_layout
+
+\begin_layout Plain Layout
+
+	state: one CarState  
+\end_layout
+
+\begin_layout Plain Layout
+
+} 
+\end_layout
+
+\begin_layout Plain Layout
+
+{	 	
+\end_layout
+
+\begin_layout Plain Layout
+
+	batteryLevel >= 0 
+\end_layout
+
+\begin_layout Plain Layout
+
+	batteryLevel <= 100 
+\end_layout
+
+\begin_layout Plain Layout
+
+	peopleInside >= 0 
+\end_layout
+
+\begin_layout Plain Layout
+
+	peopleInside <=5 
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+sig Reservation { 
+\end_layout
+
+\begin_layout Plain Layout
+
+	user: one PowerUser,
+\end_layout
+
+\begin_layout Plain Layout
+
+	selectedCar: one Car, 
+\end_layout
+
+\begin_layout Plain Layout
+
+	invoice: lone Invoice,
+\end_layout
+
+\begin_layout Plain Layout
+
+	expired: one Bool,
+\end_layout
+
+\begin_layout Plain Layout
+
+	cancelled: one Bool
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+{	 
+\end_layout
+
+\begin_layout Plain Layout
+
+	expired = True implies 
+\end_layout
+
+\begin_layout Plain Layout
+
+		(no r: Ride | r.user = user and r.selectedCar = selectedCar)
+\end_layout
+
+\begin_layout Plain Layout
+
+	cancelled = True implies 
+\end_layout
+
+\begin_layout Plain Layout
+
+		(no r: Ride | r.user = user and r.selectedCar = selectedCar)
+\end_layout
+
+\begin_layout Plain Layout
+
+	expired = True <=> invoice != none 	
+\end_layout
+
+\begin_layout Plain Layout
+
+	invoice != none implies invoice.user = user 
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+sig Invoice{
+\end_layout
+
+\begin_layout Plain Layout
+
+	user: one PowerUser,
+\end_layout
+
+\begin_layout Plain Layout
+
+	discount: lone Int,
+\end_layout
+
+\begin_layout Plain Layout
+
+	fine: lone Int,
+\end_layout
+
+\begin_layout Plain Layout
+
+	paid: one Bool}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+sig Ride {
+\end_layout
+
+\begin_layout Plain Layout
+
+	user: one PowerUser,
+\end_layout
+
+\begin_layout Plain Layout
+
+	selectedCar: one Car, 
+\end_layout
+
+\begin_layout Plain Layout
+
+	invoice: lone Invoice,
+\end_layout
+
+\begin_layout Plain Layout
+
+	completed: Bool,
+\end_layout
+
+\begin_layout Plain Layout
+
+	sharedRide: Bool 
+\end_layout
+
+\begin_layout Plain Layout
+
+} 
+\end_layout
+
+\begin_layout Plain Layout
+
+{	 
+\end_layout
+
+\begin_layout Plain Layout
+
+	sharedRide = True <=> selectedCar.peopleInside >= 3 	
+\end_layout
+
+\begin_layout Plain Layout
+
+	completed = False implies invoice.discount = none
+\end_layout
+
+\begin_layout Plain Layout
+
+	completed = False implies invoice.fine = none
+\end_layout
+
+\begin_layout Plain Layout
+
+	completed = True <=> invoice != none
+\end_layout
+
+\begin_layout Plain Layout
+
+	invoice != none implies invoice.user = user 
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+// USER FACTS  
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+fact userFacts { 
+\end_layout
+
+\begin_layout Plain Layout
+
+	all u1, u2: PowerUser | u1 != u2 <=> u1.credential != u2.credential
+\end_layout
+
+\begin_layout Plain Layout
+
+	all u1, u2: PowerUser | u1 != u2 <=> u1.payment_info != 
+\end_layout
+
+\begin_layout Plain Layout
+
+		u2.payment_info 	PowerUser.payment_info=Payment_Info
+\end_layout
+
+\begin_layout Plain Layout
+
+	PowerUser.credential = Credential 
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+// USER WITH PAYMENT PENDING  
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+fact PaymentPendingUser { 
+\end_layout
+
+\begin_layout Plain Layout
+
+	all u: PowerUser | u.pendingPayment = True <=> 
+\end_layout
+
+\begin_layout Plain Layout
+
+		one i: Invoice | i.user = u && i.paid = False 
+\end_layout
+
+\begin_layout Plain Layout
+
+	all u: PowerUser | u.pendingPayment = True implies 
+\end_layout
+
+\begin_layout Plain Layout
+
+		(no r: Reservation | r.user = u && r.expired = False && 
+\end_layout
+
+\begin_layout Plain Layout
+
+		r.cancelled = False) 
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+// INVOICES 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+fact ValidInvoices { 
+\end_layout
+
+\begin_layout Plain Layout
+
+	no disjoint r1, r2: Ride | r1.invoice = r2.invoice 	
+\end_layout
+
+\begin_layout Plain Layout
+
+	no disjoint r1, r2: Reservation | r1.invoice = r2.invoice 
+\end_layout
+
+\begin_layout Plain Layout
+
+	all i: Invoice | i != none implies (one r: Reservation | r.invoice = i)
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+		or (one rr: Ride | rr.invoice = i)   
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+// CAR  
+\end_layout
+
+\begin_layout Plain Layout
+
+fact carLicenseUnique { 
+\end_layout
+
+\begin_layout Plain Layout
+
+	all c1, c2: Car | (c1 != c2) => c1.license != c2.license 	
+\end_layout
+
+\begin_layout Plain Layout
+
+	#LicensePlate = #Car.license  
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+fact carPositionUnique { 
+\end_layout
+
+\begin_layout Plain Layout
+
+	all c1, c2: Car | (c1 != c2) => c1.position != c2.position
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+fact carLockedWhenNoOneInside {
+\end_layout
+
+\begin_layout Plain Layout
+
+	all c: Car | c.peopleInside = 0 implies c.locked = True 
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+fact motorIgnitedOnlyWithPeopleInside {
+\end_layout
+
+\begin_layout Plain Layout
+
+	all c: Car | c.motorIgnited = True implies c.peopleInside > 0 
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+fact motorIgnitedImpliesRide {
+\end_layout
+
+\begin_layout Plain Layout
+
+	all c: Car | c.motorIgnited = True implies (one r: Ride | r.selectedCar =
+ c) 
+\end_layout
+
+\begin_layout Plain Layout
+
+	all c: Car | c.motorIgnited = True implies c.state = IN_USE 
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+// CAR STATES 
+\end_layout
+
+\begin_layout Plain Layout
+
+fact carAvailableState {
+\end_layout
+
+\begin_layout Plain Layout
+
+	all c: Car | c.state = AVAILABLE implies c.batteryLevel >= 20
+\end_layout
+
+\begin_layout Plain Layout
+
+	all c: Car | c.state = AVAILABLE implies c.motorIgnited = False
+\end_layout
+
+\begin_layout Plain Layout
+
+	all c: Car | c.state = AVAILABLE implies c.peopleInside = 0
+\end_layout
+
+\begin_layout Plain Layout
+
+	all c: Car | c.state = AVAILABLE implies (one s: SafeArea | c.position in
+ s.position) 
+\end_layout
+
+\begin_layout Plain Layout
+
+		or (one ch: ChargingStation | c.position = ch.position) 
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+fact carReservedState {
+\end_layout
+
+\begin_layout Plain Layout
+
+	all c: Car | c.state = RESERVED => one r: Reservation | r.selectedCar = c
+ 	
+\end_layout
+
+\begin_layout Plain Layout
+
+	all c: Car | c.state = RESERVED implies no r: Ride | r.selectedCar = c
+\end_layout
+
+\begin_layout Plain Layout
+
+	all c: Car | c.state = RESERVED implies c.malfunctioning = False
+\end_layout
+
+\begin_layout Plain Layout
+
+	all c: Car | c.state = RESERVED implies c.motorIgnited = False 
+\end_layout
+
+\begin_layout Plain Layout
+
+	all c: Car | c.state = RESERVED implies c.batteryLevel >= 20
+\end_layout
+
+\begin_layout Plain Layout
+
+	all c: Car | c.state = RESERVED implies 
+\end_layout
+
+\begin_layout Plain Layout
+
+		(one s: SafeArea | c.position in s.position) or 
+\end_layout
+
+\begin_layout Plain Layout
+
+		(one ch: ChargingStation | c.position = ch.position) 
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+fact carInUseState { 	
+\end_layout
+
+\begin_layout Plain Layout
+
+	all c: Car | c.state = IN_USE <=> one r: Ride | r.selectedCar = c 
+\end_layout
+
+\begin_layout Plain Layout
+
+	all c: Car | c.state = IN_USE implies one r: Reservation | r.selectedCar
+ = c && 
+\end_layout
+
+\begin_layout Plain Layout
+
+		r.expired = False && r.cancelled = False 
+\end_layout
+
+\begin_layout Plain Layout
+
+	all c: Car | c.state = IN_USE implies c.peopleInside > 0 
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+fact carUnavailable { 
+\end_layout
+
+\begin_layout Plain Layout
+
+	all c: Car | c.state = UNAVAILABLE implies no r: Reservation | r.selectedCar
+ = c 
+\end_layout
+
+\begin_layout Plain Layout
+
+	all c: Car | c.state = UNAVAILABLE implies c.locked = True
+\end_layout
+
+\begin_layout Plain Layout
+
+	all c: Car | c.state = UNAVAILABLE <=> c.malfunctioning = True
+\end_layout
+
+\begin_layout Plain Layout
+
+	all c: Car | c.state = UNAVAILABLE <=> c.batteryLevel <= 20 && 
+\end_layout
+
+\begin_layout Plain Layout
+
+		c.motorIgnited = False && c.peopleInside = 0
+\end_layout
+
+\begin_layout Plain Layout
+
+	all c: Car | c.state = UNAVAILABLE <=> c.batteryLevel = 0 
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+// RESERVATION
+\end_layout
+
+\begin_layout Plain Layout
+
+fact oneReservationPerUser{ 
+\end_layout
+
+\begin_layout Plain Layout
+
+	no disjoint r1, r2: Reservation | r1.user = r2.user 
+\end_layout
+
+\begin_layout Plain Layout
+
+} 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+fact oneReservationPerCar { 
+\end_layout
+
+\begin_layout Plain Layout
+
+	no disjoint r1, r2: Reservation | r1.selectedCar = r2.selectedCar 
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+fact ReservationNotCompletedAndExpired { 
+\end_layout
+
+\begin_layout Plain Layout
+
+	no r: Reservation | r.expired = True && r.cancelled = True  
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+// RIDE  
+\end_layout
+
+\begin_layout Plain Layout
+
+fact NoRideWithoutActiveReservation {
+\end_layout
+
+\begin_layout Plain Layout
+
+	all r: Ride, c: Car | r.selectedCar = c implies 
+\end_layout
+
+\begin_layout Plain Layout
+
+		one rr: Reservation | rr.user = r.user and 
+\end_layout
+
+\begin_layout Plain Layout
+
+		rr.selectedCar = r.selectedCar and 
+\end_layout
+
+\begin_layout Plain Layout
+
+		rr.expired = False && rr.cancelled = False 
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+fact onlyOneReservationPerCar {
+\end_layout
+
+\begin_layout Plain Layout
+
+	 no disjoint r1, r2: Reservation | r1.selectedCar = r2.selectedCar  
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+// CHARGING STATION
+\end_layout
+
+\begin_layout Plain Layout
+
+fact ChargingStationAreSafeArea { 	
+\end_layout
+
+\begin_layout Plain Layout
+
+	all ch: ChargingStation | ch.position in SafeArea.position  
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+fact carsCannotBePluggedInTheSamePlug {
+\end_layout
+
+\begin_layout Plain Layout
+
+	no disjoint c1, c2: Car | c1.charging = c2.charging 
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+fact ChargingStationUniquePosition {
+\end_layout
+
+\begin_layout Plain Layout
+
+	no disjoint c1, c2: ChargingStation | c1.position = c2.position  
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+fact noChargingVehicle {
+\end_layout
+
+\begin_layout Plain Layout
+
+	all c: Car | c.motorIgnited = True implies c.charging = none
+\end_layout
+
+\begin_layout Plain Layout
+
+	all c: Car | c.locked = False implies c.charging = none
+\end_layout
+
+\begin_layout Plain Layout
+
+	all c: Car | c.peopleInside > 0 implies c.charging = none 
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+fact plugBelongsToAChargingStation { 
+\end_layout
+
+\begin_layout Plain Layout
+
+	all p: Plug | p != none implies (one c: ChargingStation | p in c.plugs)
+\end_layout
+
+\begin_layout Plain Layout
+
+	no disjoint c1, c2: ChargingStation | c1.plugs & c2.plugs != none
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+fact carsChargingSamePositionOfChargingStation{ 
+\end_layout
+
+\begin_layout Plain Layout
+
+	all c: Car | c.charging != none implies 
+\end_layout
+
+\begin_layout Plain Layout
+
+		(one cs: ChargingStation | c.position = cs.position) 
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+fact carsChargingAssignedToAPlug{ 
+\end_layout
+
+\begin_layout Plain Layout
+
+	all c: Car | c.charging != none implies 
+\end_layout
+
+\begin_layout Plain Layout
+
+		(one cs: ChargingStation | c.charging in cs.plugs) 
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+// discount 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+fact reservationInvoiceHaveNoDiscount {
+\end_layout
+
+\begin_layout Plain Layout
+
+	all r: Reservation | r.invoice.fine = none and r.invoice.discount = none 
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+fact NoDiscountIfFine { 
+\end_layout
+
+\begin_layout Plain Layout
+
+	all r: Ride | r.invoice.fine != none implies r.invoice.discount = none 
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+fact discount { 
+\end_layout
+
+\begin_layout Plain Layout
+
+	all r: Ride | r.completed = True && r.selectedCar.state = IN_USE 
+\end_layout
+
+\begin_layout Plain Layout
+
+		&& r.sharedRide = True implies r.invoice.discount = 10
+\end_layout
+
+\begin_layout Plain Layout
+
+	all r: Ride | r.completed = True && r.selectedCar.state = IN_USE 
+\end_layout
+
+\begin_layout Plain Layout
+
+		&& r.selectedCar.batteryLevel > 50 implies r.invoice.discount = 20 
+\end_layout
+
+\begin_layout Plain Layout
+
+	all r: Ride | r.completed = True && r.selectedCar.state = IN_USE 
+\end_layout
+
+\begin_layout Plain Layout
+
+		&& r.selectedCar.charging != none implies r.invoice.discount = 30 
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+fact fines { 
+\end_layout
+
+\begin_layout Plain Layout
+
+	all r: Ride | r.completed = True && r.selectedCar.state = IN_USE
+\end_layout
+
+\begin_layout Plain Layout
+
+		&& r.selectedCar.batteryLevel <= 20 implies r.invoice.fine = 20 
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+// ASSERTs
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+assert noRideForUserWithDebts {
+\end_layout
+
+\begin_layout Plain Layout
+
+	all r: Ride | r.completed = False and r.user.pendingPayment = False 
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+check noRideForUserWithDebts
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+assert allCompletedRidesHaveInvoice { 
+\end_layout
+
+\begin_layout Plain Layout
+
+	all r: Ride | r.completed = True and r.invoice != none 
+\end_layout
+
+\begin_layout Plain Layout
+
+} 
+\end_layout
+
+\begin_layout Plain Layout
+
+check allCompletedRidesHaveInvoice
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+assert allRunningCarsHaveActiveRide { 
+\end_layout
+
+\begin_layout Plain Layout
+
+	no c: Car | c.state = IN_USE and (no r: Ride | r.selectedCar = c 
+\end_layout
+
+\begin_layout Plain Layout
+
+		and r.selectedCar.state = IN_USE) 
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+check allRunningCarsHaveActiveRide
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+assert noUserWithMoreThanOneReservation { 
+\end_layout
+
+\begin_layout Plain Layout
+
+	no disjoint r1, r2: Reservation | r1.user = r2.user 
+\end_layout
+
+\begin_layout Plain Layout
+
+} 
+\end_layout
+
+\begin_layout Plain Layout
+
+check noUserWithMoreThanOneReservation
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+assert noCarReservedMoreThanOnce {
+\end_layout
+
+\begin_layout Plain Layout
+
+	no disjoint r1, r2: Reservation | r1.selectedCar = r2.selectedCar 
+\end_layout
+
+\begin_layout Plain Layout
+
+} 
+\end_layout
+
+\begin_layout Plain Layout
+
+check noCarReservedMoreThanOnce
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+assert noUnreservedCarInReservation { 
+\end_layout
+
+\begin_layout Plain Layout
+
+	all r: Reservation | r.selectedCar.state = RESERVED 
+\end_layout
+
+\begin_layout Plain Layout
+
+} 
+\end_layout
+
+\begin_layout Plain Layout
+
+check noUnreservedCarInReservation
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+pred show () {}
+\end_layout
+
+\begin_layout Plain Layout
+
+run show for 2 but 10 Int
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{adjustwidth*}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Asserts
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename img/asserts.png
+	lyxscale 50
+	scale 70
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Worlds Generated
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{adjustwidth*}{-2cm}{-2cm}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename img/alloy1.png
+	lyxscale 20
+	scale 50
+	rotateOrigin center
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{adjustwidth*}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{adjustwidth*}{-2cm}{-2cm}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename img/alloy2.png
+	lyxscale 20
+	scale 40
+	rotateOrigin center
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{adjustwidth*}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{adjustwidth*}{-2cm}{-2cm}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename img/alloy3.png
+	lyxscale 20
+	scale 40
+	rotateOrigin center
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{adjustwidth*}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Effort Spent
+\end_layout
+
+\begin_layout Itemize
+Niccolo' Raspa 30 Hours
+\end_layout
+
+\begin_layout Itemize
+Matteo Marinelli 25 Hours 
+\end_layout
+
+\end_body
+\end_document

@@ -75,8 +75,8 @@ pdfform
 \end_index
 \secnumdepth 3
 \tocdepth 3
-\paragraph_separation indent
-\paragraph_indentation default
+\paragraph_separation skip
+\defskip smallskip
 \quotes_language english
 \papercolumns 1
 \papersides 1
@@ -95,7 +95,7 @@ Power EnJoy
 \begin_inset Newline newline
 \end_inset
 
-Design Document 
+Requirement Analysis and Specification Document 
 \end_layout
 
 \begin_layout Author
@@ -103,7 +103,7 @@ Niccolo' Raspa, Matteo Marinelli
 \end_layout
 
 \begin_layout Date
-December 11, 2016 (v1.0)
+February 2, 2017 (v1.1)
 \end_layout
 
 \begin_layout Standard
@@ -175,16 +175,16 @@ Purpose
 \end_layout
 
 \begin_layout Standard
-This is the Design Document for the Power Enjoy Service.
- It's aim is to provide a functional description of the main architectural
- components, their interfaces and their interactions, together with the
- algorithms to implement and the User Interface Design.
- Using UML standards, this document will show the structure of the system
- and the relationships between the modules.
- This document is written for project managers, developers, testers and
- Quality Assurance.
- It can be used for a structural overview to help maintenance and further
- development.
+The purpose of this document is to describe all the requirements and the
+ specifications for the PowerEnjoy System.
+ It specifies goals of the software to be and all the functionalities expected.
+ We will also list all the non-functional requirements and assumptions we've
+ made.
+ We have included possible scenarios, use-cases and UML diagrams to help
+ clarify the scope of the system and gain a deeper undestanding of the software
+ to be.
+ This document is intended to be used by the members of the project team
+ that will implement and verify the correct functioning of the system.
 \end_layout
 
 \begin_layout Subsection
@@ -196,26 +196,111 @@ PowerEnjoy is a digital management system for a car-sharing service that
  exclusively employs electric cars.
  It allows registered clients (Power Users) to use a vehicle paying only
  on the basis of the actual use during each individual rental.
- For a more detail description of the domain and the requirements please
- refer to the Requirement and Specification Document.
+ In addition to the classic functionalities expected on a car sharing service,
+ it will also incentivize environment-friendly and virtuous behaviours of
+ the Power Users, providing discounts on the regular ride fee.
+ PowerEnjoy employs a single model of electric car which comes with pre-installe
+d sensors that can be used to monitor the car status (battery level, location,
+ etc..) at any given time.
+ The car can be picked up from a safe areas or from a Power Enjoy Charging
+ Stations, and should be left in another safe area.
  
 \end_layout
 
 \begin_layout Standard
-The software system is divided into four layers, which will be presented
- in the document.
- The architecture has to be easily extensible and maintainable in order
- to provide new functionalities.
- Every component must be conveniently thin and must encapsulate a single
- functionality (high cohesion).
- The dependency between components has to be unidirectional and coupling
- must be avoided in order to increase the reusability of the modules.
+The Power User will be charged only for the time he has rented the car,
+ there are no subscritions or additional prices to use the service.
 \end_layout
 
 \begin_layout Standard
-Futhermore, to increase cohesion and decoupling as much individual components
- must not include too many unrelated functionalities and reduce interdependencie
-s.
+Our system interacts with two external services: 
+\end_layout
+
+\begin_layout Itemize
+A Payment Service 
+\end_layout
+
+\begin_layout Itemize
+An Assistance Service 
+\end_layout
+
+\begin_layout Standard
+The role of this two systems and the interaction will be cover in the next
+ chapter.
+\end_layout
+
+\begin_layout Subsection
+Goals
+\end_layout
+
+\begin_layout Enumerate
+Allows USER to register providing credentials and payment informations 
+\end_layout
+
+\begin_layout Enumerate
+Allows USER to login to the system 
+\end_layout
+
+\begin_layout Enumerate
+Allows POWER USER to modify its personal informations 
+\end_layout
+
+\begin_layout Enumerate
+Allows POWER USER to see locations and battery levels of available CARs
+ within a specific distance from a location (eg.
+ POWER USER location or specified address) 
+\end_layout
+
+\begin_layout Enumerate
+Allows POWER USER to reserve one AVAILABLE CAR in a SAFE AREA.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Allows POWER USER to cancel a CAR RESERVATION 
+\end_layout
+
+\begin_layout Enumerate
+Allows POWER USER to unlock his RESERVED CAR when he is nearby (less than
+ 5 meters) 
+\end_layout
+
+\begin_layout Enumerate
+CAR RESERVATION expires after one hour 
+\end_layout
+
+\begin_layout Enumerate
+CAR RESERVATION expiration causes 1€ charge to the POWER USER 
+\end_layout
+
+\begin_layout Enumerate
+Allows POWER USER to know the current RIDE FEE at any time through a screen
+ in the RESERVED CAR 
+\end_layout
+
+\begin_layout Enumerate
+RIDE FEE will be calculated with per-minute price from the moment of the
+ engine ignition until the moment in which the POWER USER leaves the car
+ 
+\end_layout
+
+\begin_layout Enumerate
+The FINAL FEE will be calculated applying discounts/fines to the RIDE FEE
+ according to the power enjoy policy 
+\end_layout
+
+\begin_layout Enumerate
+POWER USER will be charged of the FINAL FEE after he exits the RESERVED
+ CAR.
+ 
+\end_layout
+
+\begin_layout Enumerate
+CARs are automatically locked when parked and the POWER USERS gets out 
+\end_layout
+
+\begin_layout Enumerate
+POWER USER with pending payments can’t reserve cars
 \end_layout
 
 \begin_layout Subsection
@@ -224,71 +309,357 @@ Definitions, Acronyms, Abbreviation
 
 \begin_layout Labeling
 \labelwidthstring 00.00.0000
-RASD: Requirements Analysis and Specification Document.
+USER A person who is not authenticated to the system.
  
 \end_layout
 
 \begin_layout Labeling
 \labelwidthstring 00.00.0000
-DD: Design Document.
+POWER USER Main user of the application, he’s a registered user who can
+ can reserve cars.
  
 \end_layout
 
 \begin_layout Labeling
 \labelwidthstring 00.00.0000
-DBMS: Relational Data Base Management System.
+RENT Interval of time in which a car can be used from a Power User which
+ has previously reserved it.
  
 \end_layout
 
 \begin_layout Labeling
 \labelwidthstring 00.00.0000
-DB: Database layer,
-\end_layout
+MALFUNCTIONING
+\begin_inset space \space{}
+\end_inset
 
-\begin_layout Labeling
-\labelwidthstring 00.00.0000
-UI: User Interface.
+CAR A car that fails to function normally and requires assistance.
  
 \end_layout
 
 \begin_layout Labeling
 \labelwidthstring 00.00.0000
-AS: Assistance Service
-\end_layout
-
-\begin_layout Labeling
-\labelwidthstring 00.00.0000
-PS: Payment Service.
+BATTERY Refers to the residual battery level of a Car.
  
 \end_layout
 
 \begin_layout Labeling
 \labelwidthstring 00.00.0000
-SOA: Service Oriented Architecture.
+RESERVATION Interval of time necessary for the Power User to reach and ignite
+ his selected car.
+ It can last up to 1 hour.
  
 \end_layout
 
 \begin_layout Labeling
 \labelwidthstring 00.00.0000
-JDBC: Java DataBase Connectivity.
+RIDE Time interval from the ignition of the motor until the driver and all
+ the passengers exit the vehicle.
  
 \end_layout
 
 \begin_layout Labeling
 \labelwidthstring 00.00.0000
-JPA: Java Persistence API.
+SHARED
+\begin_inset space \space{}
+\end_inset
+
+RIDE Percentage of RIDE with at least 2 other passengers on board.
  
 \end_layout
 
 \begin_layout Labeling
 \labelwidthstring 00.00.0000
-EJB: Enterprise JavaBean.
+PASSENGER A person inside the car other than the driver, not necessarly
+ registered to the system.
  
 \end_layout
 
 \begin_layout Labeling
 \labelwidthstring 00.00.0000
-ACID: Atomicity, Consistency, Integrity and Durability.
+CAR
+\begin_inset space \space{}
+\end_inset
+
+/
+\begin_inset space \space{}
+\end_inset
+
+ELECTRIC
+\begin_inset space \space{}
+\end_inset
+
+CAR A specific model of an electric car which can be rented from Power Users.
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+CAR
+\begin_inset space \space{}
+\end_inset
+
+DISPLAY It’s a display pre-installed inside the car, where the user can
+ see the RIDE FEE.
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+AVAILABLE
+\begin_inset space \space{}
+\end_inset
+
+CAR A car parked in a safe area which can be rented.
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+RESERVED
+\begin_inset space \space{}
+\end_inset
+
+CAR It’s a car currently unavailable because a Power User made a reservation.
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+CHARGING
+\begin_inset space \space{}
+\end_inset
+
+STATION It’s a station owned by Power Enjoy where cars can be re-charged
+ and picked up from Power Users.
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+SAFE
+\begin_inset space \space{}
+\end_inset
+
+AREA A predifined set of parking areas where we can assume a car can be
+ safely parked without getting fines.
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+ASSISTANCE
+\begin_inset space \space{}
+\end_inset
+
+SERVICE / AS An external service that provides assistance to cars in case
+ of malfunctioning.
+ It also charges cars on site and brings cars from unsafe areas to safe
+ areas.
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+PAYMENT
+\begin_inset space \space{}
+\end_inset
+
+SERVICE / PS An external service that handles payments from Power Users.
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+RIDE
+\begin_inset space \space{}
+\end_inset
+
+FEE It’s a variable amount of money proportional to the lenght of the Ride.
+ 
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+FINAL
+\begin_inset space \space{}
+\end_inset
+
+FEE It's the amount of money that the Power User is charged after the rent
+ is over.
+ It includes discounts and fines.
+\end_layout
+
+\begin_layout Subsection
+Text Assumption and Policies
+\end_layout
+
+\begin_layout Subsubsection
+Text Assumptions
+\end_layout
+
+\begin_layout Standard
+The text doesn't specify what should happen if a user parks in a unsafe
+ area.
+ Since it's really restrictive to prevent this situation from happening
+ we've decided the following: 
+\end_layout
+
+\begin_layout Itemize
+As soon as a Power Uses turns the engine off, it will be notified through
+ the car display if he has parked in an unsafe area.
+ 
+\end_layout
+
+\begin_layout Itemize
+If he decide nevertheless to exit the vehicle, the rent will not stop and
+ the user will continue to be charged.
+\end_layout
+
+\begin_layout Itemize
+If the car is left in the same unsafe area for more than 1 hour, the rent
+ will eventually end.
+\end_layout
+
+\begin_layout Itemize
+The car will become unavailable.
+ 
+\end_layout
+
+\begin_layout Itemize
+The AS will be notified to take the car back to a safe area.
+ 
+\end_layout
+
+\begin_layout Itemize
+User will be charged for the extra time to cover the costs.
+ 
+\end_layout
+
+\begin_layout Itemize
+Fines may still apply.
+\end_layout
+
+\begin_layout Standard
+The text doesn't specify how payments should be handled, we supposed there
+ is an external payment service (e.g.
+ Paypal) that takes care of processing payments.
+\end_layout
+
+\begin_layout Subsubsection
+Discount Policy 
+\end_layout
+
+\begin_layout Standard
+As said earlier Power Enjoy not only allows to use a vehicle paying only
+ on the basis of the actual use during each individual rental but also incentivi
+zes virtuos behaviour providing discounts to the regular ride fee.
+ The discounts offered are the following: 
+\end_layout
+
+\begin_layout Enumerate
+If a Power User takes at least two other passengers onto the car, the system
+ applies a discount of 10% for the shared ride.
+ 
+\end_layout
+
+\begin_layout Enumerate
+If a car is left with more than 50% of the battery, the system applies a
+ discount of 20% on the last ride.
+ 
+\end_layout
+
+\begin_layout Enumerate
+If a car is left at Power Enjoy Charging Station where they can be recharged
+ and the user takes care of plugging the car into the power grid, the system
+ applies a discount of 30% on the last ride.
+\end_layout
+
+\begin_layout Standard
+In addition:
+\end_layout
+
+\begin_layout Itemize
+Discounts are only applied if a car is parked in a safe area.
+ 
+\end_layout
+
+\begin_layout Itemize
+To qualify for a Shared Ride discount a Power User must take 2 passengers
+ for at least the 90% of the Ride lenght.
+ 
+\end_layout
+
+\begin_layout Itemize
+Discounts are comulative except for discounts 2.
+ and 3.
+ 
+\end_layout
+
+\begin_layout Itemize
+This means that if a user recharges a car with more than 50% of residual
+ battery, the final discount applied is 30%.
+ This is to avoid early recharges and guarantee a better distribution of
+ the cars.
+\end_layout
+
+\begin_layout Subsubsection
+Fines Policy 
+\end_layout
+
+\begin_layout Standard
+To provide a fair and equal car sharing among all customers, Power Enjoy
+ penalizes unfair usage of the service: 
+\end_layout
+
+\begin_layout Enumerate
+If a car is left at more than 3 KM from the nearest Power Enjoy Charging
+ Station or with less than 20%, the system charges 30% more on the last
+ ride to compensate for the cost required to re- charge the car on-site.
+\end_layout
+
+\begin_layout Standard
+If a ride qualifies for both a discount and a fine, only the fine will be
+ applied.
+\end_layout
+
+\begin_layout Subsubsection
+Legal Policy 
+\end_layout
+
+\begin_layout Standard
+The system must require his users the permission to get his position and
+ to manage sensible data respecting the privacy law.
+ To provide financial protection against physical damage and/or bodily injury
+ resulting from traffic collisions and against any liability every Power
+ Enjoy Vehicle has stipulate a full insurance.
+ To avoid legal problems when registering the user acknowledges that to
+ be covered by the insurance the driver must always be the same person whose
+ account has been used to reserve the car.
+ In case this is not true and for all the cases not covered by our insurance
+ the Power User will take full responsibility of any third party actions.
+ In other words, Power Enjoy doesn't prevent a Power User from delegating
+ some else as the driver but only the Power User would be held responsible
+ for any possible damage caused.
+ In any case, the following conditions always hold: 
+\end_layout
+
+\begin_layout Itemize
+Any driver must be in possession of a valid driving license 
+\end_layout
+
+\begin_layout Itemize
+The vehicle is to be driven in full compliance with the Highway Code, the
+ Civil Code, the Penal Code and in general with maximum diligence 
+\end_layout
+
+\begin_layout Itemize
+Any financial penalties for violation of the legal rules relating to the
+ movement of vehicles will be notified to the Power User who undertakes
+ to pay the fines 
+\end_layout
+
+\begin_layout Itemize
+Vehicles must not be stolen or parked in private areas
 \end_layout
 
 \begin_layout Subsection
@@ -301,10 +672,6 @@ This document refers to the following documents:
 
 \begin_layout Itemize
 Project rules of the Software Engineering 2 project 
-\end_layout
-
-\begin_layout Itemize
-Requirement Analysis and Specification Document (from the previous delivery)
 \end_layout
 
 \begin_layout Subsection
@@ -324,8 +691,7 @@ Chapter
 \begin_inset space \space{}
 \end_inset
 
-Introduction.
- This section provides general information about the DD document and the
+ This section provides general information about the RASD document and the
  system to be developed.
  
 \end_layout
@@ -339,14 +705,10 @@ Chapter
 \begin_inset space \space{}
 \end_inset
 
-Architectural
-\begin_inset space \space{}
-\end_inset
-
-Design.
- This section shows the main components of the systems with their subcomponents
- and their relationships, along with their static and dynamic design.
- This section will also focus on design choices, styles, patterns and paradigms.
+ provides an overall description of the system, analyzing both the surroundings
+ of the system and the domain in which is implemented.
+ We provide an high level view of the system to be and a summary of its
+ expected functionalities.
 \end_layout
 
 \begin_layout Description
@@ -354,17 +716,12 @@ Chapter
 \begin_inset space \space{}
 \end_inset
 
-3:
-\begin_inset space \space{}
-\end_inset
-
-Algorithm
-\begin_inset space \space{}
-\end_inset
-
-Design.
- This section will present and discuss the main algorithms for the core
- functions of the system, independently from their concrete implementation.
+3: focus on the functional requirements.
+ We list them following the order of the use cases introduced in the previous
+ chapter.
+ We will also provide a traceability matrix to emphasize the correctness
+ of our requirements and to ease the trace of the deriving process.
+ 
 \end_layout
 
 \begin_layout Description
@@ -376,17 +733,8 @@ Chapter
 \begin_inset space \space{}
 \end_inset
 
-User
-\begin_inset space \space{}
-\end_inset
-
-Interface
-\begin_inset space \space{}
-\end_inset
-
-Design.
- This section shows how the user interface will look like and behave, by
- means of concept graphics and UX modeling.
+ will discuss the non-functional requirements and their impact on the overall
+ quality of the system.
 \end_layout
 
 \begin_layout Description
@@ -398,12 +746,9 @@ Chapter
 \begin_inset space \space{}
 \end_inset
 
-Requirements
-\begin_inset space \space{}
-\end_inset
-
-Traceability This section shows how the requirements in the RASD are satisfied
- by the design choices, and which compontents will implement them.
+ will provide a formal specification of the system in Alloy.
+ We will test the correctness of our model and we present the world we've
+ generated.
 \end_layout
 
 \begin_layout Standard
@@ -414,2604 +759,172 @@ Traceability This section shows how the requirements in the RASD are satisfied
 \end_layout
 
 \begin_layout Section
-Architectural Design
+Overall description
+\end_layout
+
+\begin_layout Standard
+This section will provide an overall description of the whole system.
+ First, we start by describing the enviroment and its surrounding: we list
+ all the domain properties and the external services we need to interact
+ with.
+ In the second part we start identifying actors and descrive simple scenarios.
+ Finally, we generalize providing both the usecase diagram and the class
+ diagram.
 \end_layout
 
 \begin_layout Subsection
-Overview
+Domain Properties
 \end_layout
 
-\begin_layout Standard
-This chapter provides a comprehensive view over the system components, both
- at a physical and at a logical level.
- This description will follow a top-down approach, starting with the description
- of the high-level components and their relations and interactions.
- We will then reason and describe the single components and the functionalities
- they must implement.
- We will especially focus on the components that implement the core logic
- of our application and using sequence diagrams we will describe the runtime
- behaviour of the system.
+\begin_layout Enumerate
+GPS always gives the correct position 
+\end_layout
+
+\begin_layout Enumerate
+Every car has an always available GPS.
  
 \end_layout
 
-\begin_layout Standard
-We will also include deployment diagrams to show the physical implementation
- of the system.
+\begin_layout Enumerate
+Cars are able to determine the number of passengers currently on board.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Cars are able to detect current battery level.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Cars are always able to detect and signal to the system if they are malfunctioni
+ng.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Every car is equipped with an onboard display.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Cars with locked door cannot be opened from the outside 
+\end_layout
+
+\begin_layout Enumerate
+System knows the car status at any time.
+ 
+\end_layout
+
+\begin_layout Enumerate
+The car notifies the system when the engine has been ignited/turned off.
+ 
+\end_layout
+
+\begin_layout Enumerate
+The system has remote control of the cars.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Every power user can be geolocalized.
+ 
+\end_layout
+
+\begin_layout Enumerate
+The set of safe areas and power grid stations is predefined 
+\end_layout
+
+\begin_layout Enumerate
+The system knows when a car has been plugged for recharge 
+\end_layout
+
+\begin_layout Enumerate
+The system is able to verify user and payment credentials
 \end_layout
 
 \begin_layout Subsection
-High Level Components 
+External Services
 \end_layout
 
 \begin_layout Standard
-Before describing the actual system architecture we introduce the high level
- components of our application.
- Following the requirements and the specification listed on the RASD, we
- identify what components are needed in order to implement them and only
- after we have detected them, we will focus on the architecture and explain
- our architectural decision and the technologies chosen.
- It's important to follow this process to generalize our design as much
- as possibile and abstract from implementation details, in this way we are
- able to describe only the essence of our system.
- 
-\end_layout
-
-\begin_layout Standard
-The starting point to detect the main components is the Class Diagram described
- in the RASD.
- 
-\end_layout
-
-\begin_layout Standard
-\align center
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\align center
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{adjustwidth*}{-2cm}{0cm}
-\end_layout
-
-\end_inset
-
-
-\begin_inset Graphics
-	filename images/ClassDiagram.png
-	lyxscale 20
-	scale 50
-	rotateOrigin center
-
-\end_inset
-
-
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{adjustwidth*}
-\end_layout
-
-\end_inset
-
-
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-Class Diagram presented in RASD
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-From the diagram we can identify the following high level components:
-\end_layout
-
-\begin_layout Description
-Client
-\begin_inset space \space{}
-\end_inset
-
-and
-\begin_inset space \space{}
-\end_inset
-
-External
-\begin_inset space \space{}
-\end_inset
-
-Services The boundaries of the Class Diagram shows the normal users of the
- application (User and Power User) and the External Services who interacts
- with the control object to provide additional functionalities.
-\end_layout
-
-\begin_layout Description
-Application
-\begin_inset space \space{}
-\end_inset
-
-Server: The control object is implemented in this component.
- It contains all the logic for the system application.
- It will implement all the required functionalities and communicate both
- with the clients and the external services.
- 
-\end_layout
-
-\begin_layout Description
-Database: This component is responsible for data storage and retrieval of
- all the entities rapresented in the top part of the diagram.
- It will not implement any logic but it stores all the information needed
- for the correct functioning of our service.
- It must guarantee ACID properties and be accessible from the Application
- Server.
-\begin_inset Newpage pagebreak
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-In the figure above we rapresent all the components listed before in a layered
- fashion, highlighting the relations among the different parts.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\align center
-\begin_inset Graphics
-	filename images/highlevel.png
-	lyxscale 20
-	scale 35
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-High Level Components 
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsection
-Component View
-\end_layout
-
-\begin_layout Standard
-In this subsection we will look inside every single component and describe
- all the internal subcomponents.
- It's important to identify the relevant modules without increasing granularity
- to much.
- This will allow to have an efficient load balance in the present and it
- will be easy to integrate new functionalities in the future.
-\end_layout
-
-\begin_layout Standard
-In a divide-and-conquer fashion for every component we will specify the
- implementation chosen and at the end we will how to connect the single
- components.
+As we said earlier our system interacts with two external services.
+ In this section we describe such system in details and their expected functiona
+lities.
 \end_layout
 
 \begin_layout Subsubsection
-Application Server
-\end_layout
-
-\begin_layout Standard
-This components implements the logic of the Power Enjoy Application, it's
- the core of our business and in this part of the document we'll explore
- the subcomponents inside.
- To provide a natural continuation from the RASD, we will start from the
- Class Diagram, and we will focus on the control object.
- We will look at the singles control functions, logically group them in
- cohesive groups and map them in modules of our system.
- 
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-\align center
-\begin_inset Graphics
-	filename images/ControlComponents.png
-	lyxscale 60
-	scale 50
-
-\end_inset
-
-
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-Mapping of control function to subcomponents of our system
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-A brief desription of the functionalities expected from each module:
-\end_layout
-
-\begin_layout Description
-User
-\begin_inset space \space{}
-\end_inset
-
-Component This module provides the logic for a User and a Power User regarding
- all the user management features, namely: user login, user registration,
- user deletion, user profile editing.
- It will perform all the validation of the credentials received before inserting
- them into the system.
-\end_layout
-
-\begin_layout Description
-Location
-\begin_inset space \space{}
-\end_inset
-
-Component This module handles the position of each car and user of the system.
- It's used to show cars on the map and to perform proximity checks to unlock
- vehicles.
- It also stores location of Safe Areas and Charging Stations.
-\end_layout
-
-\begin_layout Description
-Reservation
-\begin_inset space \space{}
-\end_inset
-
-Component This module is responsible to manage all the current reservation
- and to accept new reservations from Power Users.
- and for avoiding undesiderable behaviours (reservation of an unavailable
- car, double-booking and multiple reservations).
- It's strongly connected to the Car Event Component.
- This module keeps track of all the ride informations.
- 
-\end_layout
-
-\begin_layout Description
-Car
-\begin_inset space \space{}
-\end_inset
-
-Event
-\begin_inset space \space{}
-\end_inset
-
-Component This modules interfaces with the API of the car on board system.
- It's a 
-\begin_inset Quotes eld
-\end_inset
-
-low level
-\begin_inset Quotes erd
-\end_inset
-
- component that collects all the car data for other components to use and
- can be used to remotly control the vehicle.
- It will signal to the interested component all the events of the car (car
- locking/unlocking, motor ignition, malfunctioning).
-\end_layout
-
-\begin_layout Description
-Payment
-\begin_inset space \space{}
-\end_inset
-
-Component This modules interfaces with the API of the Payment Service to
- request payments and receive confirmations.
- It will not perform the fee calculation but it will receive the final price
- and check for price variations via other components It will also flag/unflag
- users as banned in case of Pending Payment.
-\end_layout
-
-\begin_layout Description
-Assistance
-\begin_inset space \space{}
-\end_inset
-
-Component This modules interfaces with the API of the Assistance Service
- to request assistance (recharge on site, fix malfunctions, bring car back
- from unsafe to safe areas) and receive confirmations once the assistance
- is provided.
- Once a car is fixed it will update the car informations (e.g.
- new position, new battery level).
-\end_layout
-
-\begin_layout Description
-Time
-\begin_inset space \space{}
-\end_inset
-
-Component This is an utility component, it will be responsible for timing
- features such as expiration of the reservation and unsafe park timing.
- This helps to avoid the necessity of introducing stateful components.
-\end_layout
-
-\begin_layout Subsubsection*
-Implementation Choice
-\end_layout
-
-\begin_layout Standard
-This component will be implemented using:
-\end_layout
-
-\begin_layout Itemize
-Jave Enterprise Edition 7 (JEE7) - the platform incorporates a design based
- largely on modular components running on an application server which is
- a natural consequence from the description above.
- It also provides support for large-scale, multi-tiered, scalable, reliable,
- and secure network applications.
- This modularity helps to handle such complex system and it make easy to
- insert the functionalities in the future.
-\end_layout
-
-\begin_layout Itemize
-Enterprise JavaBeans (EJB) to encapsulate all the business logic of the
- modules described above.
-\end_layout
-
-\begin_layout Itemize
-GlassFish as the Application Server - the server provides services such
- as security, transaction support, load balancing and supports the JEE7
- platform.
-\end_layout
-
-\begin_layout Standard
-The next figure will show the Application Component implemented as session
- beans logically grouped in EJBContainers.
- 
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\align center
-\begin_inset Graphics
-	filename images/Beans.png
-	lyxscale 60
-	scale 35
-
-\end_inset
-
-
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-Application Component as Java Entity Beans
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-For the sake of clarity some information have been hidden from the diagram
- aboce but can be found in the next sections.
- 
-\end_layout
-
-\begin_layout Standard
-In Section 2.5 we will provide more details on the interfaces of each module.
- 
-\end_layout
-
-\begin_layout Standard
-In Section 2.7 using UML Sequence Diagrams we highlight the relationship
- between each component showing the runtime behaviour of our system.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Newpage pagebreak
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsubsection
-Database
-\end_layout
-
-\begin_layout Standard
-To design the DBMS is auspicable to start from the Class Diagram proposed
- in the RASD.
- The upper section of the diagram, Power Enjoy excluded, describe the informatio
-n the system need to process to guarantee a correct and efficient service.
- Is clear that this set of informations must be persistent.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-\align center
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
-
-\begin_inset Graphics
-	filename images/Entities.png
-	lyxscale 20
-	scale 40
-
-\end_inset
-
-
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
-
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-Entities in the class Diagram
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-The DBMS must guarantee the correct functioning of concurrent transactions
- and the ACID properties; a relational DBMS is sufficient to handle the
- data storage required by the application.
- The database structure will be here described by a ER Diagram.
- 
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\align center
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{adjustwidth*}{-2cm}{-2cm}
-\end_layout
-
-\end_inset
-
-
-\begin_inset Graphics
-	filename images/ER.png
-	lyxscale 20
-	scale 40
-
-\end_inset
-
-
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{adjustwidth*}
-\end_layout
-
-\end_inset
-
-
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-ER Diagram
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Class Diagram suggests eight main entities: User, Invoice, Vehicle, ElectricCar,
- Safe Area, Charging Station, Reservation, Ride.
- The division between Vehicle and ElectricCar was added to give the possibility
- to add, in the future, different types of Vehicles.
- As for the Application Server, the division of reservation and ride is
- redundant and only one entity will be created.
- 
-\end_layout
-
-\begin_layout Standard
-In addition to the class Diagram we've added the entity Position which stores
- the position of Users, Vehicles and Safe Areas.
-\end_layout
-
-\begin_layout Subsubsection*
-Implementation Choice
-\end_layout
-
-\begin_layout Standard
-This component will be implemented using:
-\end_layout
-
-\begin_layout Itemize
-MySQL as the relational DBMS.
- It was chosen for its Scalability, Flexibility, High Performance and High
- Availability.
-\end_layout
-
-\begin_layout Itemize
-MySQL also provides connectors and drivers (JDBC) that allow all forms of
- applications to make use of MySQL as a preferred data management server.
-\end_layout
-
-\begin_layout Itemize
-The Java Persistence API (JPA) will be used inside the Application Server
- as an interface with the database to perform object-relation mapping and
- Database access.
-\end_layout
-
-\begin_layout Subsubsection
-External Services 
-\end_layout
-
-\begin_layout Standard
-In this section we focus on the components which are not part of our system
- but with which the system depends to implement some functionalities (please
- refer to the RASD for a more detailed description).
-\end_layout
-
-\begin_layout Paragraph
-Car
-\begin_inset space \space{}
-\end_inset
-
-On
-\begin_inset space \space{}
-\end_inset
-
-Board
-\begin_inset space \space{}
-\end_inset
-
-System 
-\end_layout
-
-\begin_layout Standard
-Every Power Enjoy vehicle comes with a pre-installed embedded system which
- registers and notifies all the car activity.
- This components provides an API to monitor and remotly control every vehicle.
- This component implements some logic and it's connected over GSM to the
- Car Bean of the Application Server.
- The main functionalities that provides are the following:
-\end_layout
-
-\begin_layout Enumerate
-Provides an interface to access every relevant information of the car (e.g.
- battery level, position)
-\end_layout
-
-\begin_layout Enumerate
-Automatically signals relevant events to the Car Bean (e.g.
- engine ignition, parking, malfunctioning).
-\end_layout
-
-\begin_layout Enumerate
-Automatically shows/updates the price on the screen.
-\end_layout
-
-\begin_layout Enumerate
-Automatically locks the car when the car is parked with no people inside.
-\end_layout
-
-\begin_layout Enumerate
-Calculates the lenght of every ride (from ignition to parking).
-\end_layout
-
-\begin_layout Enumerate
-For every ride it calculates the lenght of a shared ride.
- Everytime at least 3 weight sensors in the car seats are on, the car increases
- this time counter
-\end_layout
-
-\begin_layout Standard
-The communication will be implemented via RESTful APIs.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Separator plain
-\end_inset
-
-
-\end_layout
-
-\begin_layout Paragraph
-Assistance Service 
-\end_layout
-
-\begin_layout Standard
-Power Enjoy is in charge of the management of the car-sharing system.
- All the secondary functionalities (recharging vehicles onsite, bringing
- cars back from unsafe areas and fixing malfunctions) are handled by an
- assistance service.
- This components provides an API to handle all the assistance request.
-\end_layout
-
-\begin_layout Standard
-The interaction between Application Server and Assistance Service will be
- bidirectional: the application server sends the information about a malfunction
-ing car and the type of assistance required and the Assistance service must
- notify the application server when the assistance is provided.
-\end_layout
-
-\begin_layout Standard
-The communication will be implemented via RESTful APIs.
-\end_layout
-
-\begin_layout Paragraph
-Payment Service
+Payment Service 
 \end_layout
 
 \begin_layout Standard
 Every Power Enjoy user, in order to use our service, is required to have
  an account registered to a third party payment service, with a valid payment
  method.
- This components provides an API to handle all the payments functionalities.
- The interaction with such system is standard: the Payment Bean requests
- a payment specifying the fee and the user account, the Payment System will
- manage the payment process (including debt collection in case of negligent
- users) and will notify the Payment Bean when the payment was executed.
- A user with a pending payment will be prevented to reserve another vehicle.
+ Power Enjoy will calculate for any renting the final fee but the actual
+ payment will be handled by the payment service (PS).
+ The PS will be notified of the amount of money owed from which Power User
+ and we will be informed when such payment occurs.
+ A user with a pending payment will not be able to reserve any car.
+ 
+\end_layout
+
+\begin_layout Paragraph
+Payment Service Assumptions
 \end_layout
 
 \begin_layout Standard
-The communication will be implemented via RESTful APIs.
+15.
+ There exists an third party payment service for processing payments 
+\end_layout
+
+\begin_layout Standard
+16.
+ Every user is registered with a valid payment method to the external payment
+ service.
+ 
+\end_layout
+
+\begin_layout Standard
+17.
+ Payment service notifies as soon as a payment occur
 \end_layout
 
 \begin_layout Subsubsection
-Client
+Assistance Service 
 \end_layout
 
 \begin_layout Standard
-In this subsection we'll focus the client component.
- Power Enjoy is a car sharing service therefore it must be implemented with
- mobility in mind.
- Since the majority of the mobile devices have a GPS module and we need
- to have access to the user position for our application, it makes sense
- to require that the main user has our mobile application installed.
+Power Enjoy is in charge of the management of the car-sharing system.
  
 \end_layout
 
 \begin_layout Standard
-Mobile application can handle all the functionalities required by the applicatio
-n server alone but to have a more efficient service, adding a Web Page seems
- to be an optimal strategy to provide more visibility and accessability.
- The Web Page become an optimized platform to manage all the side functionalitie
-s, in particular the profile informations management and all the payment
- informations.
- 
-\end_layout
-
-\begin_layout Standard
-This suggests a modification of the architecture, introducing a new tier
- with a Web Server Layer who is a bridge between Web Page and Application
- Server.
- Separating Application Server and Web Server improves scalability as we
- expect Power Enjoy usage to grow in differents regions and in this way
- we are able to separate task and optimize each layer individually to support
- increasing loads.
- 
-\end_layout
-
-\begin_layout Standard
-In conclusion, the subcomponents are the following:
-\end_layout
-
-\begin_layout Description
-Web
-\begin_inset space \space{}
-\end_inset
-
-Browser: Using a web browser the user is able to communicate with the Web
- Server to obtain the required web pages.
- 
-\end_layout
-
-\begin_layout Description
-Web
-\begin_inset space \space{}
-\end_inset
-
-Server: This component does not contain any application logic, it's used
- to provide a web interface interface to the user.
- It helps to separate presentation from logic.
- 
-\end_layout
-
-\begin_layout Description
-Mobile
-\begin_inset space \space{}
-\end_inset
-
-Application: This component is used by a Power User to use all the functionaliti
-es of the Power Enjoy Service.
- It's a really thin client that interacts with the Application Servier.
-\end_layout
-
-\begin_layout Paragraph
-Implementation Choice Web Server
+All the secondary functionalities are handled by an assistance service,
+ which is responsible for: 
 \end_layout
 
 \begin_layout Itemize
-WebServer runs on Glassfish with JavaServer Pages (JSP), this was done to
- provide consistency with the Application Component.
+Ordinary Maintenance of the vehicles 
 \end_layout
 
 \begin_layout Itemize
-The communication to the Application Server will be done using JAX-RS (in
- the Application side) to implement proper RESTful APIs.
-\end_layout
-
-\begin_layout Paragraph
-Implementation Choice Mobile App
+Cleaning of the vehicles 
 \end_layout
 
 \begin_layout Itemize
-The mobile app will be written with Cordova which is a mobile application
- development framework which is free, open source and it allows to target
- multiple platforms with one code base (with access to Access native device
- APIs).
- This will allow to have reusable code across platforms abstracting from
- different platforms.
- It's the best cost-effective solution to target nearly every phone or tablet
- on the market today and publish to their app stores directly.
- 
-\end_layout
-
-\begin_layout Subsection
-Component Interfaces 
-\end_layout
-
-\begin_layout Standard
-This sections includes further details on the interfaces between different
- components of the system.
- Also, last part of the section is devoted to illustrate some relevant details
- about the interfaces needed to use and interact with each component of
- the Application Server, accessible both by other Application Server components
- and by other components of the system.
-\end_layout
-
-\begin_layout Paragraph
-Database - Application Server
-\end_layout
-
-\begin_layout Standard
-The Application Server is the only one that can access the Database directly;
- this is done through the Java Persistence API mapping between objects and
- actual relations.
- Each Bn in fact access to his related DBMS by proper Object Relation Mapping.
-\end_layout
-
-\begin_layout Paragraph
-Application Server - Web Server and Clients
-\end_layout
-
-\begin_layout Standard
-The communication between Application Server and clients, both direct and
- via the Web Server, must happen via RESTful APIs provided by the Application
- Server itself and implemented using JAX-RS.
-\end_layout
-
-\begin_layout Paragraph
-Application Server - External Systems 
-\end_layout
-
-\begin_layout Standard
-The Application Server must connect with three types of external systems:
- 
+Repairing malfunction vehicles 
 \end_layout
 
 \begin_layout Itemize
-A Maintenance System, to which the Application Server must offer an interface
- API in order to provide access to data needed for maintenance interventions;
- 
+Recharging vehicles onsite 
 \end_layout
 
 \begin_layout Itemize
-One or more Payment Handlers, that provide the interface APIs to which the
- Application server itself must adapt in order to perform payments of any
- kind.
- 
-\end_layout
-
-\begin_layout Itemize
-Car's board computers, to which the application server must provide API
- to allow exchange of informations about the reservation and the car conditions.
-\end_layout
-
-\begin_layout Paragraph
-Internal Interfaces for Application Server Components 
+Move cars from unsafe area to safe areas
 \end_layout
 
 \begin_layout Standard
-Following functions descriptions ar grouped by the appartenence bean.
-\end_layout
 
-\begin_layout Paragraph
-Location
-\end_layout
-
-\begin_layout Labeling
-\labelwidthstring 00.00.0000
-\begin_inset Flex Code
-status open
-
-\begin_layout Plain Layout
-FINDCARS(pos,r)
-\end_layout
-
-\end_inset
-
- provide an algorithm to search efficiently cars in a range (r) around a
- position (pos).
- It will return a list of cars that satisfy the request.
- Since it is probably the most complex, at least conceptually, function
- of the system, an accurate description and an outline of the code will
- be part of the Algorithm Design chapter.
-\end_layout
-
-\begin_layout Labeling
-\labelwidthstring 00.00.0000
-\begin_inset Flex Code
-status open
-
-\begin_layout Plain Layout
-UPDATEPOS(object,pos)
-\end_layout
-
-\end_inset
-
- update the position information of objects.
- Objects may be Users, Cars and Safe Areas.
-\end_layout
-
-\begin_layout Labeling
-\labelwidthstring 00.00.0000
-\begin_inset Flex Code
-status open
-
-\begin_layout Plain Layout
-MONITORCAR(carID)
-\end_layout
-
-\end_inset
-
- Reservation bean calls this function to ask Location bean to have a constant
- update of the position of the car (carID).
- This function starsts a loop of getGPSposition(carID) and UpdatePos(carID,pos)
- to realize the monitoring.
-\end_layout
-
-\begin_layout Labeling
-\labelwidthstring 00.00.0000
-\begin_inset Flex Code
-status open
-
-\begin_layout Plain Layout
-STOPMONITORINGCAR(carID)
-\end_layout
-
-\end_inset
-
- stops the loops triggered by monitorCar.
-\end_layout
-
-\begin_layout Paragraph
-Reservation
-\end_layout
-
-\begin_layout Labeling
-\labelwidthstring 00.00.0000
-\begin_inset Flex Code
-status open
-
-\begin_layout Plain Layout
-CREATERESERVATION()
-\end_layout
-
-\end_inset
-
- create a new istance in the relation Reservation and initialize all available
- field.
- The execution of this function determine the start of a reservation.
-\end_layout
-
-\begin_layout Labeling
-\labelwidthstring 00.00.0000
-\begin_inset Flex Code
-status open
-
-\begin_layout Plain Layout
-FINDACTIVERES(u)
-\end_layout
-
-\end_inset
-
- search in the active reservation list if there is a reservation made by
- the user (u).
- It return an error if no reservation are available or reservaton id if
- one reservation is found.
-\end_layout
-
-\begin_layout Labeling
-\labelwidthstring 00.00.0000
-\begin_inset Flex Code
-status open
-
-\begin_layout Plain Layout
-FINDACTIVERES(carID)
-\end_layout
-
-\end_inset
-
- search in the active reservation list if there is a reservation made of
- the specified car (carID).
- It return an error if no reservation are available or reservaton id if
- one reservation is found.
-\end_layout
-
-\begin_layout Labeling
-\labelwidthstring 00.00.0000
-\begin_inset Flex Code
-status open
-
-\begin_layout Plain Layout
-STARTRIDE(carID)
-\end_layout
-
-\end_inset
-
- is a function called by Car bean to notify the ignition and the consequent
- start of the ride.
-\end_layout
-
-\begin_layout Labeling
-\labelwidthstring 00.00.0000
-\begin_inset Flex Code
-status open
-
-\begin_layout Plain Layout
-ENDRIDE(carID,rideinfo)
-\end_layout
-
-\end_inset
-
- is called by Car bean to notify the end of the ride and to gather iformations
- about it.
- The execution of this function will start the process of the end of a reservati
-on.
-\end_layout
-
-\begin_layout Labeling
-\labelwidthstring 00.00.0000
-\begin_inset Flex Code
-status open
-
-\begin_layout Plain Layout
-STARTUNSAFEPARK(carID,rideinfo)
-\end_layout
-
-\end_inset
-
- is usefull to differntiate between a proper end of the reservation and
- an uncorrect one.
- Parking in an unsafe area is not allowed so the Application Serve must
- perform a different sequence of operation to handle this.
- StartUnsafePark trigger the proper sequence when is called by Car bean.
-\end_layout
-
-\begin_layout Paragraph
-Time
-\end_layout
-
-\begin_layout Labeling
-\labelwidthstring 00.00.0000
-\begin_inset Flex Code
-status open
-
-\begin_layout Plain Layout
-SETTIME(time,resID)
-\end_layout
-
-\end_inset
-
- start the countdown when is required.
- When the time expire a notification is return to the caller bean.
-\end_layout
-
-\begin_layout Labeling
-\labelwidthstring 00.00.0000
-\begin_inset Flex Code
-status open
-
-\begin_layout Plain Layout
-RESETTIME(resID)
-\end_layout
-
-\end_inset
-
- eliminate the countdown if it is not expired yet.
-\end_layout
-
-\begin_layout Paragraph
-Payment
-\end_layout
-
-\begin_layout Labeling
-\labelwidthstring 00.00.0000
-\begin_inset Flex Code
-status open
-
-\begin_layout Plain Layout
-CREATEINVOICE(user,carID,resID,ride_info)
-\end_layout
-
-\end_inset
-
- is called by Reservation bean to pass all informations required by the
- Payment bean to calculate the final price and create an invoice.
-\end_layout
-
-\begin_layout Labeling
-\labelwidthstring 00.00.0000
-\begin_inset Flex Code
-status open
-
-\begin_layout Plain Layout
-UPDATEINVOICE(carID,CHARGING)
-\end_layout
-
-\end_inset
-
- is called when a plug is connected with the car.
- This will provide a discount so the invoice might be updated.
- It is necessary because CreateInvoice is called immediately to avoid the
- possibility of multiple reservation.
-\end_layout
-
-\begin_layout Paragraph
-Assistance
-\end_layout
-
-\begin_layout Labeling
-\labelwidthstring 00.00.0000
-\begin_inset Flex Code
-status open
-
-\begin_layout Plain Layout
-ASKASSISTANCE(carID,malfunctioning)
-\end_layout
-
-\end_inset
-
- is called by the Car Bean as soon as the car notifies some malfunctoning.
- It will send an assistance request to the external assistance service specifyin
-g the carId and the type of malfunctioning to handle
-\end_layout
-
-\begin_layout Subsection
-Final System Architecture
-\end_layout
-
-\begin_layout Standard
-Starting from the Class Diagram at the beginning of the design process we
- had a three tiers client-server based architecture, but in the process
- of defining the single complement we introduce a Web Tier.
- This process triggered more modifications that led to the final architecture
- that will be presented in this section.
-\end_layout
-
-\begin_layout Subsubsection*
-From a Three Tier to a Four Tier Architecture
-\end_layout
-
-\begin_layout Standard
-In Section 2.3.4 we explain the necessity of introducing a Web Tier to improve
- scalability and to separete presentation from logic.
- The architecture will now include the following tiers:
-\end_layout
-
-\begin_layout Labeling
-\labelwidthstring 00.00.0000
-Client
-\begin_inset space \space{}
-\end_inset
-
-Tier This layer contains the mobile app and the web browser 
-\end_layout
-
-\begin_layout Labeling
-\labelwidthstring 00.00.0000
-Web
-\begin_inset space \space{}
-\end_inset
-
-Tier This layer contains contains the Web Server to provide a web interface
- interface to the user
-\end_layout
-
-\begin_layout Labeling
-\labelwidthstring 00.00.0000
-Application
-\begin_inset space \space{}
-\end_inset
-
-Tier This layer contains all the logic for the application
-\end_layout
-
-\begin_layout Labeling
-\labelwidthstring 00.00.0000
-Database
-\begin_inset space \space{}
-\end_inset
-
-Tier This layer contains all the persistent data
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\align center
-\begin_inset Graphics
-	filename images/4tier.png
-	lyxscale 20
-	scale 20
-
-\end_inset
-
-
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-Four Tier Architecture 
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsubsection*
-\begin_inset Newpage pagebreak
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsubsection*
-Moving to a Service Oriented Approach 
-\end_layout
-
-\begin_layout Standard
-The problem of our architecture is that the Application Server is the bottleneck
- of our system.
- Every other components is in relation with it, therefore it's performance
- is stricly related to the performance of our overall system.
- But since every components expects different functionalities from the Applicati
-on Server we can parallelize using threads and split the work load among
- different services.
- To exploit the benefits of a service-oriented architecture we have to split
- the database among the different components.
-\end_layout
-
-\begin_layout Standard
-The next figure shows which database table will each component manage.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\align center
-\begin_inset Graphics
-	filename images/microservices.png
-	lyxscale 20
-	scale 35
-
-\end_inset
-
-
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-Application Layer with Service Oriented Approach
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Paragraph*
-\begin_inset space \space{}
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-We believe this is a succesfull architecture for the following reasons:
-\end_layout
-
-\begin_layout Itemize
-It's a more clean architecture.
- Every component implements a service and provides an interface to all the
- other services.
- 
-\end_layout
-
-\begin_layout Itemize
-Changing/optimizing each module will not affect the whole system as long
- as we mantain the same interface for each component.
-\end_layout
-
-\begin_layout Itemize
-It's very flexibile, it's will be easy in the future to add new functionalities.
-\end_layout
-
-\begin_layout Itemize
-We can divide the databases among different regions (e.g.
- for the city of Milan we don't need to keep track of the cars in Turin)
-\end_layout
-
-\begin_layout Standard
-The next figure rapresent the whole system architecture:
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\align center
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{adjustwidth*}{-2cm}{-2cm}
-\end_layout
-
-\end_inset
-
-
-\begin_inset Graphics
-	filename images/CompletedArchitecture.png
-	lyxscale 20
-	scale 55
-
-\end_inset
-
-
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{adjustwidth*}
-\end_layout
-
-\end_inset
-
-
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-Application Layer with Service Oriented Approach
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Newpage pagebreak
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsection
-Deployment View
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\align center
-\begin_inset Graphics
-	filename images/Deployment.png
-	lyxscale 20
-	scale 37
-
-\end_inset
-
-
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-Deployment Diagram
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Newpage pagebreak
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsection
-Runtime View
-\end_layout
-
-\begin_layout Standard
-In this section we will describe the dynamic behaviour of the system.
- In particular, it will be shown how the software and logical components
- defined in section 2.3 interact one with another, using sequence diagrams
- for the more meaningful functionalities of the system.
- We decided not to represent the database in the sequence diagram, because
- the interaction with the database is totally abstracted by the entities
- via the Java Persistence API.
-\end_layout
-
-\begin_layout Subsubsection*
-Create Reservation
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\align center
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{adjustwidth*}{-3cm}{-3cm}
-\end_layout
-
-\end_inset
-
-
-\begin_inset Graphics
-	filename images/runtime/1.startRes.png
-	lyxscale 20
-	scale 55
-
-\end_inset
-
-
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{adjustwidth*}
-\end_layout
-
-\end_inset
-
-
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-Create Reservation - Runtime Diagram
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Newpage pagebreak
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsubsection*
-Cancel Reservation
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\align center
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{adjustwidth*}{-3cm}{-3cm}
-\end_layout
-
-\end_inset
-
-
-\begin_inset Graphics
-	filename images/runtime/2.cancelRes.png
-	lyxscale 20
-	scale 60
-
-\end_inset
-
-
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{adjustwidth*}
-\end_layout
-
-\end_inset
-
-
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-Cancel Reservation - Runtime Diagram
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Newpage pagebreak
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsubsection*
-Unlock Car
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\align center
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{adjustwidth*}{-3cm}{-3cm}
-\end_layout
-
-\end_inset
-
-
-\begin_inset Graphics
-	filename images/runtime/3.unlock.png
-	lyxscale 20
-	scale 60
-
-\end_inset
-
-
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{adjustwidth*}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\align center
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-Unlock Car - Runtime Diagram
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Newpage pagebreak
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsubsection*
-Start Ride
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\align center
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{adjustwidth*}{-2cm}{-3cm}
-\end_layout
-
-\end_inset
-
-
-\begin_inset Graphics
-	filename images/runtime/4.startRide.png
-	lyxscale 20
-	scale 60
-
-\end_inset
-
-
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{adjustwidth*}
-\end_layout
-
-\end_inset
-
-
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-Start Ride - Runtime Diagram
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Newpage pagebreak
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsubsection*
-End Ride (Safe Park)
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\align center
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{adjustwidth*}{-4cm}{-3cm}
-\end_layout
-
-\end_inset
-
-
-\begin_inset Graphics
-	filename images/runtime/5.endSafe.png
-	lyxscale 20
-	scale 44
-
-\end_inset
-
-
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{adjustwidth*}
-\end_layout
-
-\end_inset
-
-
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-End Ride in a Safe Area - Runtime Diagram
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Newpage pagebreak
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsubsection*
-End Ride (Unsafe Park)
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\align center
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{adjustwidth*}{-3cm}{-3cm}
-\end_layout
-
-\end_inset
-
-
-\begin_inset Graphics
-	filename images/runtime/6.endUnsafe.png
-	lyxscale 20
-	scale 55
-
-\end_inset
-
-
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{adjustwidth*}
-\end_layout
-
-\end_inset
-
-
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-End Ride in an Unsafe Area - Runtime Diagram
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Newpage pagebreak
-\end_inset
-
-
-\end_layout
-
-\begin_layout Section
-Algorithm Design
-\end_layout
-
-\begin_layout Standard
-In this section we give some guidelines for the programmers for the most
- crucial part of the application.
-\end_layout
-
-\begin_layout Paragraph*
-Object Relation Mapping and Searches
-\end_layout
-
-\begin_layout Standard
-In the runtime diagrams usually a component is asked to find a specific
- entity from an identifier, for example the Reservation Component needs
- to find active Reservation Entity from a User ID or a Car ID.
- In order to make this process more efficient we could introduce and HashMap
- to keep track of the active reservations.
- This will avoid going back to the database everytime and will result into
- a faster information retrieval and a overall better system performance.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\align center
-\begin_inset Graphics
-	filename images/algorithms/hashMap.png
-	lyxscale 20
-	scale 56
-
-\end_inset
-
-
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-HashMap of Reservation Entities
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Paragraph
-Searching Car on a Map
-\end_layout
-
-\begin_layout Standard
-The location component as a method called 
-\begin_inset Flex Code
-status open
-
-\begin_layout Plain Layout
-findCars(position, range)
-\end_layout
-
-\end_inset
-
- which given as inputs a gps position and range returns a list containing
- all the cars in such area.
- A naive approach would be to search the entire Location Database and check
- if a car belongs to such area, but this is very expensive in term of time.
- 
-\end_layout
-
-\begin_layout Quotation
-\begin_inset listings
-inline false
-status open
-
-\begin_layout Plain Layout
-
-badFindCars(position, range)
-\end_layout
-
-\begin_layout Plain Layout
-
-	FOR-EACH c:cars IN locationDB
-\end_layout
-
-\begin_layout Plain Layout
-
-		<create list L>
-\end_layout
-
-\begin_layout Plain Layout
-
-		p = c.getPosition()
-\end_layout
-
-\begin_layout Plain Layout
-
-		IF p in area(position, range)
-\end_layout
-
-\begin_layout Plain Layout
-
-			<append c to L>
-\end_layout
-
-\begin_layout Plain Layout
-
-	return L
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-A better search requires more logic.
- We divide the map of the zone of interests in cells forming a grid as shown
- in the next figure.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\align center
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
-
-\begin_inset Graphics
-	filename images/algorithms/map.png
-	lyxscale 20
-	scale 55
-
-\end_inset
-
-
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
-
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-Map divided in cells
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Since the lenght of the cell is fixed, we can limit the search only in zones
- covered in the specified area.
- This requires that the Location DB keeps track of the zone in which the
- car is currently in.
- This introduces some overhead but it saves a lot of computation during
- search.
- In the next figure we show how the location entered is in section D6 and
- we only search in 6 sections in total (C5, C6,C7,D5,D6,D7) instead on the
- whole map.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\align center
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
-
-\begin_inset Graphics
-	filename images/algorithms/map2.png
-	lyxscale 20
-	scale 55
-
-\end_inset
-
-
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
-
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-Grid Search
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Quotation
-\begin_inset listings
-inline false
-status open
-
-\begin_layout Plain Layout
-
-FindCars(position, range)
-\end_layout
-
-\begin_layout Plain Layout
-
-	<create list L>
-\end_layout
-
-\begin_layout Plain Layout
-
-	zones = <findZones from position,range>
-\end_layout
-
-\begin_layout Plain Layout
-
-	FOR-EACH c:cars IN zones
-\end_layout
-
-\begin_layout Plain Layout
-
-		p = c.getPosition()
-\end_layout
-
-\begin_layout Plain Layout
-
-		IF p in area(position, range)
-\end_layout
-
-\begin_layout Plain Layout
-
-			<append c to L>
-\end_layout
-
-\begin_layout Plain Layout
-
-	return L
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Newpage pagebreak
-\end_inset
-
-
-\end_layout
-
-\begin_layout Section
-UI Design
-\end_layout
-
-\begin_layout Subsection
-Mobile Application
-\end_layout
-
-\begin_layout Standard
-The mobile application, as usual, will have a recognizable icon that can
- be added on the desktop.
- When the application is opened, the display will show the login screen.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\align center
-\begin_inset Graphics
-	filename images/mockups/mobile1.png
-	lyxscale 20
-	scale 35
-
-\end_inset
-
-
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-Mobile Home Screen 
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-E-mail and Password are required for the login.
- Insert wrong credential cause the refresh of the page with a notification
- explaining the problem, without giving information about the wrong field.
- In this screen is possible to register new Users by the button "REGISTER".
- Clicking leads to the registration screen, it is a form who must be filled
- entirely and correctly to have a successfull regstration.
- The fields must be at least "name", "Surname", "Driving Licence", "E-Mail"
- and "Payment System", add other fields could be halpfull but not strictly
- necessary.
- If some datas are not acceptable, a notification will be displayed and
- the form will be reuploaded.
- After the login, the display show the Main Screen.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\align center
-\begin_inset Graphics
-	filename images/mockups/mobile2.png
-	lyxscale 20
-	scale 35
-
-\end_inset
-
-
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-Car Selection 
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-On the screen is possible to see the map of the city, if is available the
- center will be the user position, if it is not available the center will
- be the center of the city.
- In the upper side there is a menu with the sections "Main menu˘", "Select
- Car" and "Payments".
- 
-\end_layout
-
-\begin_layout Standard
-Main menu open a list of fields.
- It contains the field "Modify Profile" that lead to a screen equal to the
- Registration Screen previously described.
- In the Main Menu list is auspicable to put all functionalities not strictly
- related to the reservation and the payment.
- 
-\end_layout
-
-\begin_layout Standard
-The Payments sections allows the user to pay pending fees.
- If there are no pending fee the message "You payed the last fee, there
- is nothing to pay more" will be shown.
- If there is a payment pending the message will be "There is a pending payment.
- Click here to pay." and a button will start the payment procedure.
- 
-\end_layout
-
-\begin_layout Standard
-Select car is the basic screen of the application.
- In this section is possible to set the center point of search and the range,
- user should be guided to choose his position as center even if is possible
- to put any position as center of the research.
- When center and range are available for the server, it starts to search
- cars.
- Cars will be shown on the map and user can click on them to see the additional
- informations.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\align center
-\begin_inset Graphics
-	filename images/mockups/mobile3.png
-	lyxscale 20
-	scale 35
-
-\end_inset
-
-
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-Car Reservation
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Informations shown must be about the battery, the location, car model and
- number of sets.
- A button "Reserve Now" will start the reservation.
- When the reservation starts the display will show a one hour countdown,
- the timer indicates the time left to the expiration of the reservation.
- An unlock button and a cancel button will be in the screen as well.
- If the unlock button is pushed not close enough to the reserved vehicle,
- an error message will be displayed.
- When the car is ignited the countdown stops and the application goes in
- standby.
- Only the application is in standby, not the entire phone.
- Application will wake up when the car is turned off.
- If the car is in an unsafe area, "You left car in an unsafe area" will
- be displayed together with an unlock button and a one hour countdown.
- At the end of the countdown the ride will end.
- If on the other hand, the car is in a safe area the ride will end immediatly.
- In any case, when a reservation ends a payment notification is shown.
- A confirmation button allows to go back to the Main Screeb.
- The payment message is not shown if the reservation is canceled.
-\end_layout
-
-\begin_layout Standard
-The application must be as simple as possible, the main idea is to make
- every marginal utilities, like the main menu options, obscured by the main
- functionality.
- This reasoning increase usability thanks to the focus on the reservation.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Newpage pagebreak
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsection
-Web Page
-\end_layout
-
-\begin_layout Standard
-Web Page is a support of the application.
- The presence of a dowload link should be as constant as possible.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\align center
-\begin_inset Graphics
-	filename images/mockups/web1.png
-	lyxscale 20
-	scale 35
-
-\end_inset
-
-
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-Home Page
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-The main purpose of the web page is to give the possibility to the user
- to have a more efficient way to manage side functions.
- The app will focus on the reservations, and the web page allow to have
- a better interface for the options of the main men˘ list.
- The main page is very similar to the access screen of the application and
- the consequences of the buttons are the very same.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\align center
-\begin_inset Graphics
-	filename images/mockups/web2.png
-	lyxscale 20
-	scale 35
-
-\end_inset
-
-
-\begin_inset Caption Standard
-
-\begin_layout Plain Layout
-User Profile
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-On the main page the is a list on the left.
- From the lists fields is easy to manage the profile, from the personal
- information to the history of payments.
- On the main page is also possible to see Power Enjoy Cars distribuited
- on the map.
- This possybility doesn't allow to reserve a car, this is possible only
- via application
-\end_layout
-
-\begin_layout Standard
-The web page should be written in XML or JSON, to allows quick and efficient
- data transfer through textual data files over HTTPS.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Newpage pagebreak
-\end_inset
-
-
-\end_layout
-
-\begin_layout Section
-Requirements Traceability
-\end_layout
-
-\begin_layout Standard
-In this section we explain where requirements defined in the RASD map to
- the design elements that we have defined above.
-\end_layout
-
-\begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-begin{adjustwidth*}{-4cm}{-4cm}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\align center
-\begin_inset Graphics
-	filename images/tractable.png
-	lyxscale 20
-	scale 44
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-end{adjustwidth*}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Newpage pagebreak
-\end_inset
-
-
-\end_layout
-
-\begin_layout Section
-Effort Spent
-\end_layout
-
-\begin_layout Standard
-The approximate number of hours of work for each member of the group is
- the following:
-\end_layout
-
-\begin_layout Itemize
-Niccolo' Raspa 30 Hours
-\end_layout
-
-\begin_layout Itemize
-Matteo Marinelli 27 Hours
-\end_layout
-
-\begin_layout Subsection
-Versions
-\end_layout
-
-\begin_layout Itemize
-v1.0 deadline 11/12/2016
 \end_layout
 
 \end_body
